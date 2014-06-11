@@ -1,0 +1,45 @@
+<style type="text/css">
+    #panel-main .x-panel-header,
+    #panel-main .x-toolbar,
+    #panel-main #panel-main-body {
+        width   : 100% !important;
+    }
+
+    .x-livesearch-match {
+        font-weight: bold;
+        background-color: yellow;
+    }
+
+    .x-tool-mytool {
+        /*background-image: url(<?php echo $this->basePath() . '/img/favicon.ico'; ?>) !important;*/
+    }  
+</style>
+<h1>This page for per store view is under construction. Sorry for the inconvinience.</h1>
+
+<br />
+
+<a href="#" onclick="logout();">Logout</a>
+
+<script type="text/javascript">
+   /*Ext.create('Checkup.Panel', {token : '<?php echo $token;?>'});*/
+   function logout()
+    {
+        msg = Ext.Msg.wait('Logging out');
+
+        Ext.Ajax.request({ 
+            url: 'application/index/logout', 
+            params: { 
+                token : '<?php echo $token;?>'
+            }, 
+            success: function (resp, opt) {
+                result = Ext.JSON.decode(resp.responseText);
+                msg = Ext.Msg.wait('Redirecting');
+                window.location = result.redirect;
+            },
+            failure : function(resp, opt)
+            {
+                result = Ext.JSON.decode(resp.responseText);
+            }
+        });
+    }
+</script>
