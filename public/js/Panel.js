@@ -4,6 +4,7 @@ Ext.application({
 
     launch : function() {
 
+        Debug.log('initial');
       Ext.widget({
             renderTo : Ext.getBody(),
             xtype    : 'grid',
