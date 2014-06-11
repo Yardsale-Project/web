@@ -10,7 +10,7 @@ Ext.application({
             xtype    : 'grid',
             title    : 'Grid',
             layout  : 'fit',
-            height  : 300,
+            height  : Ext.getBody().getViewSize().height,
             plugins  : 'rowediting',
             store    : {
                 fields : [ 'name', 'age', 'votes', 'credits' ],

@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
-        <?php echo $this->headTitle('Checkup Motor Parts Admin')->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php echo $this->headTitle('Yardsale')->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
@@ -16,33 +16,8 @@
         <!-- Le styles -->
         <?php 
             echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-                        ->prependStylesheet('http://cdn.sencha.com/ext/gpl/5.0.0/build/packages/ext-theme-crisp/build/resources/ext-theme-crisp-all.css');
+                        ->prependStylesheet($this->basePath() . '/css/ext-theme-crisp.css');
         ?>
-
-        <style type="text/css">
-            /*.default-icon {
-              background-image: url("../img/zf2-logo.png");
-              background-repeat: no-repeat;
-            }
-
-            body {
-                overflow : hidden !important;
-            }
-
-            #panel-main-body {
-                overflow: auto !important;
-                margin: 0 auto !important;
-                width : 100%;
-            }
-
-            #Administration-Users-panel-body {
-                height  : 275px !important;
-            }
-
-            #Administration-Users-panel #toolbar-1054 {
-                top  : 300px !important;
-            }*/
-        </style>
         
 
     </head>
@@ -54,7 +29,7 @@
             ->prependFile($this->basePath() . '/js/config.json')
             ->prependFile($this->basePath() . '/js/Util/Debug.js')
             ->prependFile($this->basePath() . '/js/Helper/helper.js')
-            ->prependFile('http://cdn.sencha.com/ext/gpl/5.0.0/build/ext-all.js')
+            ->prependFile($this->basePath() . '/js/ext-all.js')
             ->prependFile($this->basePath() . '/js/lib/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
             ->prependFile($this->basePath() . '/js/lib/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',)); 
         ?>
