@@ -15,7 +15,7 @@ Ext.application({
             store    : {
                 fields : [ 'name', 'age', 'votes', 'credits' ],
                 data   : [
-                    [ 'Bill', 35, 10, 427 ],
+                    [ 'Egee', 35, 10, 427 ],
                     [ 'Fred', 22, 4, 42 ]
                 ]
             },
