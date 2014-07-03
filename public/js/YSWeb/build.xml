@@ -8,7 +8,37 @@
     <import file="${basedir}/.sencha/app/build-impl.xml"/>
 
     <target name="-after-build">
- 
+        
+        <copy todir="D:/www/yardsale-mobile/config" overwrite="true">
+          <fileset dir="${workspace.dir}/../../config">
+            <include name="**/*" />
+          </fileset>
+        </copy>
+
+        <copy todir="D:/www/yardsale-mobile/module/Application/config" overwrite="true">
+          <fileset dir="${workspace.dir}/../../module/Application/config">
+            <include name="**/*" />
+          </fileset>
+        </copy>
+
+        <copy todir="D:/www/yardsale-mobile/module/Application/language" overwrite="true">
+          <fileset dir="${workspace.dir}/../../module/Application/language">
+            <include name="**/*" />
+          </fileset>
+        </copy>
+
+        <copy todir="D:/www/yardsale-mobile/module/Application/src" overwrite="true">
+          <fileset dir="${workspace.dir}/../../module/Application/src">
+            <include name="**/*" />
+          </fileset>
+        </copy>
+
+        <copy todir="D:/www/yardsale-mobile/public/YSCommon" overwrite="true">
+          <fileset dir="${workspace.dir}/YSCommon">
+            <include name="**/*" />
+          </fileset>
+        </copy>
+
         <copy todir="${workspace.dir}/../" overwrite="true">
           <fileset dir="${workspace.dir}/build/production/YSWeb">
             <include name="**/*" />

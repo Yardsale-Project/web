@@ -14,6 +14,20 @@ class IndexController extends Controller
 
     public function indexAction()
     {
+        $host = $this->getRequest()->getServer('HTTP_HOST');
+
+        if($this->MobileDetect()->isMobile())
+        {
+
+           $host = str_replace('local.', '', $host);
+
+           $url = 'http://m-' . $host;
+
+           $this->plugin('redirect')->toUrl($url);
+
+           return false;
+        }
+
         $token  = $this->NoCSRF()->generate('token');
         /*$token  = $this->NoCSRF()->generate('token');
         if(empty($this->_sessionContainer->user_id))

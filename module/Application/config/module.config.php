@@ -81,6 +81,7 @@ return array(
         'invokables' => array(
             'NoCSRF' => 'Application\Controller\Plugin\NoCSRF',
             'Report' => 'Application\Controller\Plugin\Report',
+            'MobileDetect' => 'Application\Controller\Plugin\MobileDetect',
         ),
     ),
     'view_manager' => array(

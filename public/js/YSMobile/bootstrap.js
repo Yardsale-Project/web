@@ -46,6 +46,7 @@ Ext.Loader.addClassPathMappings({
   "Ext.device.sqlite.SQLResultSetRowList": "../touch/src/device/sqlite/Sencha.js",
   "Ext.device.sqlite.SQLTransaction": "../touch/src/device/sqlite/Sencha.js",
   "Ext.draw.engine.SvgContext.Gradient": "../touch/src/draw/engine/SvgContext.js",
+  "YSCommon": "../YSCommon",
   "YSMobile": "app"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -772,6 +773,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.viewport.WindowsPhone": [
     "Ext.viewport.WP"
   ],
+  "YSCommon.store.Category": [],
+  "YSCommon.store.States": [],
   "YSMobile.view.Main": []
 });
 Ext.ClassManager.addNameAliasMappings({
@@ -1716,6 +1719,12 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
+  "YSCommon.store.Category": [
+    "store.app-categoryStore"
+  ],
+  "YSCommon.store.States": [
+    "store.states"
+  ],
   "YSMobile.view.Main": [
     "widget.main"
   ]
