@@ -1,6 +1,5 @@
-/**
- * The main application controller. This is a good place to handle things like routes.
- */
+'use strict';
+
 Ext.define('YSWeb.controller.Root', {
     extend: 'Ext.app.Controller'
 });

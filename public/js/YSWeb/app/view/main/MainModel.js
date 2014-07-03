@@ -1,6 +1,5 @@
-/**
- * This class is the view model for the Main view of the application.
- */
+'use strict';
+
 Ext.define('YSWeb.view.main.MainModel', {
     extend: 'Ext.app.ViewModel',
 

@@ -2316,6 +2316,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.Application": [],
   "YSWeb.controller.Main": [],
   "YSWeb.controller.Root": [],
+  "YSWeb.view.main.Header": [],
+  "YSWeb.view.main.HeaderModel": [],
   "YSWeb.view.main.Main": [],
   "YSWeb.view.main.MainController": [],
   "YSWeb.view.main.MainModel": []
@@ -3650,6 +3652,12 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWeb.Application": [],
   "YSWeb.controller.Main": [],
   "YSWeb.controller.Root": [],
+  "YSWeb.view.main.Header": [
+    "widget.app-header"
+  ],
+  "YSWeb.view.main.HeaderModel": [
+    "viewmodel.header"
+  ],
   "YSWeb.view.main.Main": [
     "widget.app-main"
   ],

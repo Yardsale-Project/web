@@ -712,6 +712,8 @@ $include-extthemeneptune-toolbar-toolbar: true;
 $include-ysweb-application: true;
 $include-ysweb-controller-main: true;
 $include-ysweb-controller-root: true;
+$include-ysweb-view-main-header: true;
+$include-ysweb-view-main-headermodel: true;
 $include-ysweb-view-main-main: true;
 $include-ysweb-view-main-maincontroller: true;
 $include-ysweb-view-main-mainmodel: true;
@@ -723,6 +725,8 @@ $include-ysweb-view-main-mainmodel: true;
 @import '../../../../../ext/packages/ext-theme-neptune/sass/etc/all';
 /* including package ext-theme-crisp */
 @import '../../../../../ext/packages/ext-theme-crisp/sass/etc/all';
+/* including package YSWeb */
+@import '../../../../../YSWeb/sass/var/view/main/Header';
 /* including package ext-theme-crisp */
 @import '../../../../../ext/packages/ext-theme-crisp/sass/var/Component';
 @import '../../../../../ext/packages/ext-theme-crisp/sass/var/panel/Tool';
