@@ -18,6 +18,8 @@ class IndexController extends Controller
 
         echo $host;
         var_dump($this->MobileDetect()->isMobile());
+
+        die('saint');
         if($this->MobileDetect()->isMobile())
         {
 
