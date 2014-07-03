@@ -15,6 +15,8 @@ class IndexController extends Controller
     public function indexAction()
     {
         $host = $this->getRequest()->getServer('HTTP_HOST');
+
+        echo $host;
         var_dump($this->MobileDetect()->isMobile());
         if($this->MobileDetect()->isMobile())
         {
