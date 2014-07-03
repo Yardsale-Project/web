@@ -20,6 +20,7 @@ class IndexController extends Controller
         var_dump($this->MobileDetect()->isMobile());
 
         die('saint');
+        return false;
         if($this->MobileDetect()->isMobile())
         {
 
