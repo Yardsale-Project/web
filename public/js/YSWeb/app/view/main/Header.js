@@ -16,7 +16,7 @@ Ext.define('YSWeb.view.main.Header', {
     items   : [
         {
             header  : false,
-            height  : 50,
+            height  : 70,
             border  : true,
             dockedItems : [
                 {
@@ -43,23 +43,57 @@ Ext.define('YSWeb.view.main.Header', {
                                     xtype   : 'textfield',
                                     ref     : 'txt-searchBox',
                                     width   : 500,
-                                    name    : 'searchBox'
+                                    name    : 'searchBox',
+                                    emptyText: 'Seach'
                                 }, {
-                                    xtype   : 'label',
-                                    text    : 'category'
+                                    xtype   : 'combobox',
+                                    text    : 'category',
+                                    store : {
+                                        type: 'app-categoryStore'
+                                    },
+                                    valueField: 'id',
+                                    tpl: Ext.create('Ext.XTemplate',
+                                        '<tpl for=".">',
+                                            '<tpl if="parentId == 0">',
+                                                '<div class="x-boundlist-item"><b>{name}</b></div>',
+                                            '<tpl else>',
+                                                '<div class="x-boundlist-item"><dd>{name}</dd></div>',
+                                            '</tpl>',
+                                        '</tpl>'
+                                    ),
+                                    displayTpl: Ext.create('Ext.XTemplate',
+                                        '<tpl for=".">',
+                                            '{name}',
+                                        '</tpl>'
+                                    ),
+                                    emptyText: '--All Categories--'
                                 }, {
-                                    xtype   : 'label',
-                                    text    : 'location'
+                                    xtype   : 'combobox',
+                                    store : {
+                                        type: 'states'
+                                    },
+                                    reference   : 'states',
+                                    displayField: 'state',
+                                    valueField  : 'abbr',
+                                    filterPickList: true,
+                                    queryMode   : 'local',
+                                    multiSelect : true,
+                                    emptyText   : '--All Locations--'
                                 }, {
                                     xtype   : 'button',
-                                    text    : 'Seach'
+                                    margin  : '0 0 0 10',
+                                    bind    : {
+                                        text : '{searchText}'
+                                    }
                                 }
                             ]
                         },
                         '->',
                         {
-                            xtype   : 'label',
-                            text    : 'login'
+                            xtype   : 'button',
+                            bind    : {
+                                text : '{loginText}'
+                            }
                         }
                     ]
                 }

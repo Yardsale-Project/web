@@ -1276,6 +1276,7 @@ Ext.Loader.addClassPathMappings({
   "Ext.util.StoreHolder": "../../../ext/src/util/StoreHolder.js",
   "Ext.ux.desktop.TrayClock": "../../../ext/src/ux/desktop/TaskBar.js",
   "ExtThemeNeptune": "../../../ext/packages/ext-theme-neptune/overrides",
+  "YSCommon": "../../../YSCommon",
   "YSWeb": "../../app"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -2313,6 +2314,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "ExtThemeNeptune.resizer.Splitter": [],
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
+  "YSCommon.store.Category": [],
+  "YSCommon.store.States": [],
   "YSWeb.Application": [],
   "YSWeb.controller.Main": [],
   "YSWeb.controller.Root": [],
@@ -3649,6 +3652,12 @@ Ext.ClassManager.addNameAliasMappings({
   "ExtThemeNeptune.resizer.Splitter": [],
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
+  "YSCommon.store.Category": [
+    "store.app-categoryStore"
+  ],
+  "YSCommon.store.States": [
+    "store.states"
+  ],
   "YSWeb.Application": [],
   "YSWeb.controller.Main": [],
   "YSWeb.controller.Root": [],

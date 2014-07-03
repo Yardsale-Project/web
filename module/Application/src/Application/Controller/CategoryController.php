@@ -8,15 +8,46 @@ use Zend\Crypt\Password\Bcrypt;
 
 use \Exception;
 
-class UserController extends Controller
+class CategoryController extends Controller
 {
 
     public function indexAction()
     {
-        
+        $retVal = array(
+            'succcess'  => true,
+            'children'  => array(
+                array(
+                    'text'      => 'Category 1',
+                    'children'  => array(
+                        array(
+                            'text'  => 'Subcat 1,1',
+                            'leaft' => true
+                        )
+                    )
+                ),
+                array(
+                    'text'  => 'Category 2'
+                ),
+                array(
+                    'text'  => 'Category 3',
+                    'children'  => array(
+                        array(
+                            'text'  => 'Subcat 3,1',
+                            'leaft' => true
+                        ),
+                        array(
+                            'text'  => 'Subcat 3,2',
+                            'leaft' => true
+                        )
+                    )
+                )
+            )
+        );
+
+        return new JsonModel($retVal);   
     }
 
-    public function getUsersAction()
+    /*public function getUsersAction()
     {
         $retVal = array(
             'success'       => false,
@@ -260,5 +291,5 @@ class UserController extends Controller
         }
 
         return new JsonModel($retVal);
-    }
+    }*/
 }

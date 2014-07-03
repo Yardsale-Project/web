@@ -74,22 +74,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\User' => 'Application\Controller\UserController',
-            'Application\Controller\Warehouse' => 'Application\Controller\WarehouseController',
-            'Application\Controller\BusinessPartner' => 'Application\Controller\BusinessPartnerController',
-            'Application\Controller\SalesInvoice' => 'Application\Controller\SalesInvoiceController',
-            'Application\Controller\SalesInvoiceItem' => 'Application\Controller\SalesInvoiceItemController',
-            'Application\Controller\SalesReturn' => 'Application\Controller\SalesReturnController',
-            'Application\Controller\SalesReturnItem' => 'Application\Controller\SalesReturnItemController',
-            'Application\Controller\PurchaseOrder' => 'Application\Controller\PurchaseOrderController',
-            'Application\Controller\PurchaseOrderItem' => 'Application\Controller\PurchaseOrderItemController',
-            'Application\Controller\GRPO' => 'Application\Controller\GRPOController',
-            'Application\Controller\GRPOItem' => 'Application\Controller\GRPOItemController',
-            'Application\Controller\ItemMasterData' => 'Application\Controller\ItemMasterDataController',
-            'Application\Controller\GoodsReturn' => 'Application\Controller\GoodsReturnController',
-            'Application\Controller\GoodsReturnItem' => 'Application\Controller\GoodsReturnItemController',
-            'Application\Controller\InventoryTransfer' => 'Application\Controller\InventoryTransferController',
-            'Application\Controller\InventoryTransferItem' => 'Application\Controller\InventoryTransferItemController'
+            'Application\Controller\Category' => 'Application\Controller\CategoryController',
         ),
     ),
     'controller_plugins' => array(
