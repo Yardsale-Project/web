@@ -1,6 +1,6 @@
 'use strict';
 
-Ext.define('YSWeb.view.main.HeaderModel', {
+Ext.define('YSWeb.view.main.header.HeaderModel', {
     extend: 'Ext.app.ViewModel',
 
     alias: 'viewmodel.header',

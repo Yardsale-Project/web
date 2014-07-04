@@ -2319,11 +2319,15 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.Application": [],
   "YSWeb.controller.Main": [],
   "YSWeb.controller.Root": [],
-  "YSWeb.view.main.Header": [],
-  "YSWeb.view.main.HeaderModel": [],
   "YSWeb.view.main.Main": [],
   "YSWeb.view.main.MainController": [],
-  "YSWeb.view.main.MainModel": []
+  "YSWeb.view.main.MainModel": [],
+  "YSWeb.view.main.header.AccountHeader": [],
+  "YSWeb.view.main.header.AccountHeaderModel": [],
+  "YSWeb.view.main.header.CenterHeader": [],
+  "YSWeb.view.main.header.CenterHeaderModel": [],
+  "YSWeb.view.main.header.Header": [],
+  "YSWeb.view.main.header.HeaderModel": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractManager": [],
@@ -3661,12 +3665,6 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWeb.Application": [],
   "YSWeb.controller.Main": [],
   "YSWeb.controller.Root": [],
-  "YSWeb.view.main.Header": [
-    "widget.app-header"
-  ],
-  "YSWeb.view.main.HeaderModel": [
-    "viewmodel.header"
-  ],
   "YSWeb.view.main.Main": [
     "widget.app-main"
   ],
@@ -3675,6 +3673,24 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "YSWeb.view.main.MainModel": [
     "viewmodel.main"
+  ],
+  "YSWeb.view.main.header.AccountHeader": [
+    "widget.app-accountheader"
+  ],
+  "YSWeb.view.main.header.AccountHeaderModel": [
+    "viewmodel.accountheader"
+  ],
+  "YSWeb.view.main.header.CenterHeader": [
+    "widget.app-centerheader"
+  ],
+  "YSWeb.view.main.header.CenterHeaderModel": [
+    "viewmodel.centerheader"
+  ],
+  "YSWeb.view.main.header.Header": [
+    "widget.app-header"
+  ],
+  "YSWeb.view.main.header.HeaderModel": [
+    "viewmodel.header"
   ]
 });
 Ext.setVersion("ext", "5.0.0.970");

@@ -21,7 +21,7 @@ Ext.define('YSWeb.view.main.Main', {
         }, {
             xtype   : 'panel',
             html    : 'body',
-            border  : true,
+            border  : false,
             region  : 'center'
         }, {
             xtype   : 'panel',

@@ -10,6 +10,7 @@ Ext.define('YSWeb.Application', {
 
     views: [
         // TODO: add views here
+        /*'main.header.Header'*/
     ],
 
     controllers: [

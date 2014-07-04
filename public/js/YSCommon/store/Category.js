@@ -18,6 +18,6 @@ Ext.define('YSCommon.store.Category', {
         [2, 'Category 2', 0],
         [3, 'Category 3', 0],
         [5, 'Sub Category 1 ,3', 3],
-        [6, 'Sub Category 2 ,3', 3],
+        [6, 'Sub Category 2 ,3', 3]
     ]
 });

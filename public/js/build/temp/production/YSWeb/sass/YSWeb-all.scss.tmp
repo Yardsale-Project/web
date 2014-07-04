@@ -388,12 +388,12 @@ $include-ext-layout-container-box: true;
 $include-ext-layout-container-card: false;
 $include-ext-layout-container-center: false;
 $include-ext-layout-container-checkboxgroup: false;
-$include-ext-layout-container-column: false;
+$include-ext-layout-container-column: true;
 $include-ext-layout-container-columnsplitter: false;
 $include-ext-layout-container-columnsplittertracker: false;
 $include-ext-layout-container-container: true;
 $include-ext-layout-container-editor: false;
-$include-ext-layout-container-fit: true;
+$include-ext-layout-container-fit: false;
 $include-ext-layout-container-form: false;
 $include-ext-layout-container-hbox: true;
 $include-ext-layout-container-segmentedbutton: false;
@@ -714,11 +714,15 @@ $include-yscommon-store-states: true;
 $include-ysweb-application: true;
 $include-ysweb-controller-main: false;
 $include-ysweb-controller-root: true;
-$include-ysweb-view-main-header: true;
-$include-ysweb-view-main-headermodel: true;
 $include-ysweb-view-main-main: true;
 $include-ysweb-view-main-maincontroller: true;
 $include-ysweb-view-main-mainmodel: true;
+$include-ysweb-view-main-header-accountheader: true;
+$include-ysweb-view-main-header-accountheadermodel: true;
+$include-ysweb-view-main-header-centerheader: true;
+$include-ysweb-view-main-header-centerheadermodel: true;
+$include-ysweb-view-main-header-header: true;
+$include-ysweb-view-main-header-headermodel: true;
 /* including package ext-theme-base */
 @import '../../../../../ext/packages/ext-theme-base/sass/etc/all';
 /* including package ext-theme-neutral */
@@ -728,7 +732,9 @@ $include-ysweb-view-main-mainmodel: true;
 /* including package ext-theme-crisp */
 @import '../../../../../ext/packages/ext-theme-crisp/sass/etc/all';
 /* including package YSWeb */
-@import '../../../../../YSWeb/sass/var/view/main/Header';
+@import '../../../../../YSWeb/sass/var/view/main/header/AccountHeader';
+@import '../../../../../YSWeb/sass/var/view/main/header/CenterHeader';
+@import '../../../../../YSWeb/sass/var/view/main/header/Header';
 /* including package ext-theme-crisp */
 @import '../../../../../ext/packages/ext-theme-crisp/sass/var/Component';
 @import '../../../../../ext/packages/ext-theme-crisp/sass/var/panel/Tool';
@@ -870,11 +876,11 @@ $relative-image-path-for-uis: $ext-theme-base-resource-path;
 @import '../../../../../ext/packages/ext-theme-base/sass/src/panel/Panel';
 @import '../../../../../ext/packages/ext-theme-base/sass/src/tip/Tip';
 @import '../../../../../ext/packages/ext-theme-base/sass/src/form/Labelable';
-@import '../../../../../ext/packages/ext-theme-base/sass/src/layout/container/Fit';
 @import '../../../../../ext/packages/ext-theme-base/sass/src/form/field/Text';
 @import '../../../../../ext/packages/ext-theme-base/sass/src/resizer/Splitter';
 @import '../../../../../ext/packages/ext-theme-base/sass/src/layout/container/Border';
 @import '../../../../../ext/packages/ext-theme-base/sass/src/window/Window';
+@import '../../../../../ext/packages/ext-theme-base/sass/src/layout/container/Column';
 @import '../../../../../ext/packages/ext-theme-base/sass/src/resizer/SplitterTracker';
 @import '../../../../../ext/packages/ext-theme-base/sass/src/form/field/TextArea';
 @import '../../../../../ext/packages/ext-theme-base/sass/src/window/MessageBox';

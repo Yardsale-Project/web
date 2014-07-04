@@ -714,11 +714,15 @@ $include-yscommon-store-states: true;
 $include-ysweb-application: true;
 $include-ysweb-controller-main: true;
 $include-ysweb-controller-root: true;
-$include-ysweb-view-main-header: true;
-$include-ysweb-view-main-headermodel: true;
 $include-ysweb-view-main-main: true;
 $include-ysweb-view-main-maincontroller: true;
 $include-ysweb-view-main-mainmodel: true;
+$include-ysweb-view-main-header-accountheader: true;
+$include-ysweb-view-main-header-accountheadermodel: true;
+$include-ysweb-view-main-header-centerheader: true;
+$include-ysweb-view-main-header-centerheadermodel: true;
+$include-ysweb-view-main-header-header: true;
+$include-ysweb-view-main-header-headermodel: true;
 /* including package ext-theme-base */
 @import '../../../../../ext/packages/ext-theme-base/sass/etc/all';
 /* including package ext-theme-neutral */
@@ -728,7 +732,9 @@ $include-ysweb-view-main-mainmodel: true;
 /* including package ext-theme-crisp */
 @import '../../../../../ext/packages/ext-theme-crisp/sass/etc/all';
 /* including package YSWeb */
-@import '../../../../../YSWeb/sass/var/view/main/Header';
+@import '../../../../../YSWeb/sass/var/view/main/header/AccountHeader';
+@import '../../../../../YSWeb/sass/var/view/main/header/CenterHeader';
+@import '../../../../../YSWeb/sass/var/view/main/header/Header';
 /* including package ext-theme-crisp */
 @import '../../../../../ext/packages/ext-theme-crisp/sass/var/Component';
 @import '../../../../../ext/packages/ext-theme-crisp/sass/var/panel/Tool';
