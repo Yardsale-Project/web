@@ -11,6 +11,7 @@ Ext.define('YSWeb.Application', {
     views: [
         // TODO: add views here
         /*'main.header.Header'*/
+        'main.product.thumbnail.GridView'
     ],
 
     controllers: [
@@ -21,7 +22,8 @@ Ext.define('YSWeb.Application', {
     stores: [
         // TODO: add stores here
         'YSCommon.store.Category',
-        'YSCommon.store.States'
+        'YSCommon.store.States',
+        'YSCommon.store.CategoryTree'
     ],
     
     launch: function () {

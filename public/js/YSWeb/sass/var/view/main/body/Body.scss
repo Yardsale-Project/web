@@ -1,0 +1,12 @@
+.app-body {
+	
+	.x-panel.bodyContainer {
+		margin 	: 0 auto;
+		float 	: none !important;
+		border 	: transparent !important;
+	}
+
+	.app-bodyLeft {
+		.x-tree-icon { display: none !important; }
+	}
+}

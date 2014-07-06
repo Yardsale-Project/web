@@ -709,7 +709,9 @@ $include-extthemeneptune-picker-month: true;
 $include-extthemeneptune-resizer-splitter: true;
 $include-extthemeneptune-toolbar-paging: true;
 $include-extthemeneptune-toolbar-toolbar: true;
+$include-yscommon-config-config: true;
 $include-yscommon-store-category: true;
+$include-yscommon-store-categorytree: true;
 $include-yscommon-store-states: true;
 $include-ysweb-application: true;
 $include-ysweb-controller-main: true;
@@ -717,12 +719,29 @@ $include-ysweb-controller-root: true;
 $include-ysweb-view-main-main: true;
 $include-ysweb-view-main-maincontroller: true;
 $include-ysweb-view-main-mainmodel: true;
+$include-ysweb-view-main-body-body: true;
+$include-ysweb-view-main-body-center-center: true;
+$include-ysweb-view-main-body-center-centercontroller: true;
+$include-ysweb-view-main-body-center-centermodel: true;
+$include-ysweb-view-main-body-left-left: true;
+$include-ysweb-view-main-body-left-leftcontroller: true;
+$include-ysweb-view-main-body-left-leftmodel: true;
+$include-ysweb-view-main-body-right-right: true;
+$include-ysweb-view-main-body-right-righttmodel: true;
+$include-ysweb-view-main-footer-footer: true;
+$include-ysweb-view-main-footer-footermodel: true;
 $include-ysweb-view-main-header-accountheader: true;
 $include-ysweb-view-main-header-accountheadermodel: true;
+$include-ysweb-view-main-header-adsheader: true;
+$include-ysweb-view-main-header-adsheadercontroller: true;
+$include-ysweb-view-main-header-adsheadermodel: true;
 $include-ysweb-view-main-header-centerheader: true;
 $include-ysweb-view-main-header-centerheadermodel: true;
 $include-ysweb-view-main-header-header: true;
 $include-ysweb-view-main-header-headermodel: true;
+$include-ysweb-view-main-product-thumbnail-grid: true;
+$include-ysweb-view-main-product-thumbnail-gridview: true;
+$include-ysweb-view-main-product-thumbnail-gridviewcontroller: true;
 /* including package ext-theme-base */
 @import '../../../../../ext/packages/ext-theme-base/sass/etc/all';
 /* including package ext-theme-neutral */
@@ -732,7 +751,12 @@ $include-ysweb-view-main-header-headermodel: true;
 /* including package ext-theme-crisp */
 @import '../../../../../ext/packages/ext-theme-crisp/sass/etc/all';
 /* including package YSWeb */
+@import '../../../../../YSWeb/sass/var/view/main/product/thumbnail/GridView';
+@import '../../../../../YSWeb/sass/var/view/main/body/Body';
+@import '../../../../../YSWeb/sass/var/view/main/body/center/Center';
+@import '../../../../../YSWeb/sass/var/view/main/footer/Footer';
 @import '../../../../../YSWeb/sass/var/view/main/header/AccountHeader';
+@import '../../../../../YSWeb/sass/var/view/main/header/AdsHeader';
 @import '../../../../../YSWeb/sass/var/view/main/header/CenterHeader';
 @import '../../../../../YSWeb/sass/var/view/main/header/Header';
 /* including package ext-theme-crisp */

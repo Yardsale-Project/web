@@ -1277,7 +1277,8 @@ Ext.Loader.addClassPathMappings({
   "Ext.ux.desktop.TrayClock": "../../../ext/src/ux/desktop/TaskBar.js",
   "ExtThemeNeptune": "../../../ext/packages/ext-theme-neptune/overrides",
   "YSCommon": "../../../YSCommon",
-  "YSWeb": "../../app"
+  "YSWeb": "../../app",
+  "YSWeb.view.main.body.right.RighttModel": "../../app/view/main/body/right/RightModel.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.AbstractManager": [],
@@ -2314,7 +2315,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "ExtThemeNeptune.resizer.Splitter": [],
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
+  "YSCommon.config.Config": [],
   "YSCommon.store.Category": [],
+  "YSCommon.store.CategoryTree": [],
   "YSCommon.store.States": [],
   "YSWeb.Application": [],
   "YSWeb.controller.Main": [],
@@ -2322,12 +2325,29 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.Main": [],
   "YSWeb.view.main.MainController": [],
   "YSWeb.view.main.MainModel": [],
+  "YSWeb.view.main.body.Body": [],
+  "YSWeb.view.main.body.center.Center": [],
+  "YSWeb.view.main.body.center.CenterController": [],
+  "YSWeb.view.main.body.center.CenterModel": [],
+  "YSWeb.view.main.body.left.Left": [],
+  "YSWeb.view.main.body.left.LeftController": [],
+  "YSWeb.view.main.body.left.LeftModel": [],
+  "YSWeb.view.main.body.right.Right": [],
+  "YSWeb.view.main.body.right.RighttModel": [],
+  "YSWeb.view.main.footer.Footer": [],
+  "YSWeb.view.main.footer.FooterModel": [],
   "YSWeb.view.main.header.AccountHeader": [],
   "YSWeb.view.main.header.AccountHeaderModel": [],
+  "YSWeb.view.main.header.AdsHeader": [],
+  "YSWeb.view.main.header.AdsHeaderController": [],
+  "YSWeb.view.main.header.AdsHeaderModel": [],
   "YSWeb.view.main.header.CenterHeader": [],
   "YSWeb.view.main.header.CenterHeaderModel": [],
   "YSWeb.view.main.header.Header": [],
-  "YSWeb.view.main.header.HeaderModel": []
+  "YSWeb.view.main.header.HeaderModel": [],
+  "YSWeb.view.main.product.thumbnail.Grid": [],
+  "YSWeb.view.main.product.thumbnail.GridView": [],
+  "YSWeb.view.main.product.thumbnail.GridViewController": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractManager": [],
@@ -3656,8 +3676,12 @@ Ext.ClassManager.addNameAliasMappings({
   "ExtThemeNeptune.resizer.Splitter": [],
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
+  "YSCommon.config.Config": [],
   "YSCommon.store.Category": [
     "store.app-categoryStore"
+  ],
+  "YSCommon.store.CategoryTree": [
+    "store.app-categoryTreeStore"
   ],
   "YSCommon.store.States": [
     "store.states"
@@ -3674,11 +3698,53 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWeb.view.main.MainModel": [
     "viewmodel.main"
   ],
+  "YSWeb.view.main.body.Body": [
+    "widget.app-body"
+  ],
+  "YSWeb.view.main.body.center.Center": [
+    "widget.app-bodyCenter"
+  ],
+  "YSWeb.view.main.body.center.CenterController": [
+    "controller.center"
+  ],
+  "YSWeb.view.main.body.center.CenterModel": [
+    "viewmodel.center"
+  ],
+  "YSWeb.view.main.body.left.Left": [
+    "widget.app-bodyLeft"
+  ],
+  "YSWeb.view.main.body.left.LeftController": [
+    "controller.left"
+  ],
+  "YSWeb.view.main.body.left.LeftModel": [
+    "viewmodel.left"
+  ],
+  "YSWeb.view.main.body.right.Right": [
+    "widget.app-bodyRight"
+  ],
+  "YSWeb.view.main.body.right.RighttModel": [
+    "viewmodel.right"
+  ],
+  "YSWeb.view.main.footer.Footer": [
+    "widget.app-footer"
+  ],
+  "YSWeb.view.main.footer.FooterModel": [
+    "viewmodel.footer"
+  ],
   "YSWeb.view.main.header.AccountHeader": [
     "widget.app-accountheader"
   ],
   "YSWeb.view.main.header.AccountHeaderModel": [
     "viewmodel.accountheader"
+  ],
+  "YSWeb.view.main.header.AdsHeader": [
+    "widget.app-adsheader"
+  ],
+  "YSWeb.view.main.header.AdsHeaderController": [
+    "controller.adsheader"
+  ],
+  "YSWeb.view.main.header.AdsHeaderModel": [
+    "viewmodel.adsheader"
   ],
   "YSWeb.view.main.header.CenterHeader": [
     "widget.app-centerheader"
@@ -3691,6 +3757,15 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "YSWeb.view.main.header.HeaderModel": [
     "viewmodel.header"
+  ],
+  "YSWeb.view.main.product.thumbnail.Grid": [
+    "widget.app-view-grid-panel"
+  ],
+  "YSWeb.view.main.product.thumbnail.GridView": [
+    "widget.app-view-grid"
+  ],
+  "YSWeb.view.main.product.thumbnail.GridViewController": [
+    "controller.app-gridView"
   ]
 });
 Ext.setVersion("ext", "5.0.0.970");

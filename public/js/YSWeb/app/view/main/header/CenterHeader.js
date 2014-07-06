@@ -5,6 +5,10 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
 
     xtype: 'app-centerheader',
     cls: 'app-centerheader',
+
+    requires : [
+        'YSCommon.config.Config'
+    ],
     
    /* controller: 'main',*/
     viewModel: {
@@ -24,6 +28,7 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                 {
                     xtype   : 'image',
                     src     : 'http://www.sencha.com/img/20110215-feat-html5.png',
+                    //src     : YSCommon.config.Config.url + '/img/userPic/2014_03_15_admin2.jpg',
                     cls     : 'logo'
                 }, {
                     xtype   : 'tbtext',
@@ -40,32 +45,32 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                         {
                             xtype   : 'textfield',
                             ref     : 'txt-searchBox',
-                            width   : 500,
+                            width   : 400,
                             name    : 'searchBox',
-                            emptyText: 'Seach',
+                            emptyText: 'Seach'
                         }, {
                             xtype   : 'combobox',
                             text    : 'category',
                             store : {
                                 type: 'app-categoryStore'
                             },
-                            valueField: 'id',
-                            tpl: Ext.create('Ext.XTemplate',
-                                '<tpl for=".">',
-                                    '<tpl if="parentId == 0">',
-                                        '<div class="x-boundlist-item"><b>{name}</b></div>',
-                                    '<tpl else>',
-                                        '<div class="x-boundlist-item"><dd>{name}</dd></div>',
-                                    '</tpl>',
-                                '</tpl>'
-                            ),
-                            displayTpl: Ext.create('Ext.XTemplate',
-                                '<tpl for=".">',
-                                    '{name}',
-                                '</tpl>'
-                            ),
+                            valueField  : 'id',
+                            tpl         :   Ext.create('Ext.XTemplate',
+                                                '<tpl for=".">',
+                                                    '<tpl if="parentId == 0">',
+                                                        '<div class="x-boundlist-item"><b>{name}</b></div>',
+                                                    '<tpl else>',
+                                                        '<div class="x-boundlist-item"><dd>{name}</dd></div>',
+                                                    '</tpl>',
+                                                '</tpl>'
+                                            ),
+                            displayTpl  :   Ext.create('Ext.XTemplate',
+                                                '<tpl for=".">',
+                                                    '{name}',
+                                                '</tpl>'
+                                            ),
                             emptyText: '--All Categories--',
-                            margin  : '0 0 0 10',
+                            margin  : '0 0 0 10'
                         }, {
                             xtype   : 'combobox',
                             store : {
@@ -78,7 +83,7 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             queryMode   : 'local',
                             multiSelect : true,
                             emptyText   : '--All Locations--',
-                            margin  : '0 0 0 10',
+                            margin  : '0 0 0 10'
                         }, {
                             xtype   : 'button',
                             margin  : '0 0 0 10',

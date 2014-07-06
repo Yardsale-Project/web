@@ -17,9 +17,11 @@ Ext.define('YSWeb.view.main.header.Header', {
         {
             xtype   : 'app-accountheader',
             columnWidth : 1
-        },
-        {
+        }, {
             xtype   : 'app-centerheader',
+            columnWidth : 1
+        }, {
+            xtype   : 'app-adsheader',
             columnWidth : 1
         }
     ]

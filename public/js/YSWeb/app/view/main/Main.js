@@ -19,14 +19,13 @@ Ext.define('YSWeb.view.main.Main', {
             xtype   : 'app-header',
             region  : 'north'
         }, {
-            xtype   : 'panel',
-            html    : 'body',
-            border  : false,
+            xtype   : 'app-body',
             region  : 'center'
         }, {
-            xtype   : 'panel',
-            html    : 'footer',
-            region  : 'south'
+            xtype   : 'app-footer',
+            itemId  : 'app-footer',
+            region  : 'south',
+            border  : true
         }
     ]
 });

@@ -6,11 +6,11 @@ Ext.define('YSWeb.view.main.header.AccountHeaderModel', {
     alias: 'viewmodel.accountheader',
 
     data: {
-        aboutUs 	: 'About Us',
+        aboutUs 	: '<a href="#">About Us</a>',
         hi 			: 'Hi',
-        signIn 		: 'Sign In',
+        signIn 		: '<a href="#">Sign In</a>',
         or 			: 'or',
-        register 	: 'Register'
+        register 	: '<a href="#">Register</a>'
     }
 
     //TODO - add data, formulas and/or methods to support your view
