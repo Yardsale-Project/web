@@ -90,11 +90,13 @@ Ext.define('YSWeb.view.main.body.center.Center', {
                 }, {
                     xtype   : 'panel',
                     itemId  : 'productsViewContainer',
+                    id      : 'productsViewContainer',
                     reference    : 'productsViewContainer',
                     border  : false,
                     columnWidth : 1,
                     overflowY : 'auto',
-                    overflowX : 'hidden'
+                    overflowX : 'hidden',
+                    layout  : 'column'
                 }
             ]
         }

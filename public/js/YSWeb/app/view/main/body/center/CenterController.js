@@ -6,30 +6,47 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
     alias: 'controller.center',
 
 
+
     init : function () {
         this.control({
             'app-bodyCenter #productsViewContainer' : {
                 afterlayout     : 'onProductsViewContainerAfterrender'
+            }, 
+            'app-bodyCenter #breadcrumb' : {
+                boxready        : 'onBreadCrumbBoxready'
             }
         });
 
         this.createdPanel = null;
+        this.createdPanelWidth = 0;
+
+        this.layoutCount = 0;
+    },
+
+    onBreadCrumbBoxready : function(obj, width) {
+
+        this.createdPanelWidth = width;
+        console.log('box width', width);
+
+        this.createGridView();
     },
 
     onProductsViewContainerAfterrender : function() {
 
+        
         var bodyCenter = this.view;
         var productsViewContainer = this.view.down('#productsViewContainer');
 
         bodyCenter.maxHeight = this.view.up('app-body').getHeight();
         productsViewContainer.maxHeight = this.view.up('app-body').getHeight() - 87;
 
+        
     },
 
     onGridViewBtnRender : function(btn) {
-        if(btn.pressed) {
+        /*if(btn.pressed) {
             this.createGridView();
-        }
+        }*/
     },
 
     onSegmentedBtnToggle : function(obj, btn, ispressed) {
@@ -43,17 +60,16 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
     },
 
     createGridView : function() {
-        var me = this;
-        console.log('create grid view', me.lookupReference('productsViewContainer'));
+        console.log('create grid vire');
 
         if(this.createdPanel) {
             this.createdPanel.destroy();
-            me.lookupReference('productsViewContainer').removeAll();
+            this.lookupReference('productsViewContainer').removeAll();
         }
 
-        this.createdPanel = Ext.create('YSWeb.view.main.product.thumbnail.GridView');
+        this.createdPanel = Ext.create('YSWeb.view.main.product.thumbnail.GridView', { panelWidth : this.createdPanelWidth });
 
-        me.lookupReference('productsViewContainer').add(this.createdPanel);
+        this.lookupReference('productsViewContainer').add(this.createdPanel);
     },
 
     createListView : function() {
@@ -61,7 +77,7 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
 
         if(this.createdPanel) {
             this.createdPanel.destroy();
-            me.lookupReference('productsViewContainer').removeAll();
+            this.lookupReference('productsViewContainer').removeAll();
         }
     }
 });
