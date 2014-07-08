@@ -1,19 +1,21 @@
 'use strict';
 
-Ext.define('YSCommon.store.Category', {
+Ext.define('YSCommon.store.Product', {
 	extend 	: 'Ext.data.Store',
 
-	alias	: 'store.app-categoryStore',
-	storeId	: 'app-categoryStore',
+	alias	: 'store.app-productStore',
+	storeId	: 'app-productStore',
 
-	model  : 'YSCommon.model.Category',
+	model  : 'YSCommon.model.Product',
 
     remoteSort      : true,
     remoteFilter    : true,
 
+    autoLoad    : false,
+
     proxy     : {
         type         : 'ajax',
-        url          : YSConfig.url + '/application/category',
+        url          : YSConfig.url + '/application/product',
         actionMethods: {
             create : 'POST',
             read   : 'POST',
@@ -25,12 +27,6 @@ Ext.define('YSCommon.store.Category', {
             totalProperty  : 'totalRecords',
             messageProperty: 'message',
             successProperty: 'success'
-        }
-    },
-
-    listeners   :  {
-        beforeload  : function(store) {
-            store.getProxy().setExtraParams( { isTree : false } );
         }
     }
 });

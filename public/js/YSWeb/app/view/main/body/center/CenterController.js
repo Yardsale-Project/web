@@ -79,5 +79,9 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
             this.createdPanel.destroy();
             this.lookupReference('productsViewContainer').removeAll();
         }
+
+        this.createdPanel = Ext.create('YSWeb.view.main.product.thumbnail.ListView', { panelWidth : this.createdPanelWidth });
+
+        this.lookupReference('productsViewContainer').add(this.createdPanel);
     }
 });

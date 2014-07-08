@@ -2315,9 +2315,15 @@ Ext.ClassManager.addNameAlternateMappings({
   "ExtThemeNeptune.resizer.Splitter": [],
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
-  "YSCommon.config.Config": [],
+  "YSCommon.config.Config": [
+    "YSConfig"
+  ],
+  "YSCommon.model.Category": [],
+  "YSCommon.model.CategoryTree": [],
+  "YSCommon.model.Product": [],
   "YSCommon.store.Category": [],
   "YSCommon.store.CategoryTree": [],
+  "YSCommon.store.Product": [],
   "YSCommon.store.States": [],
   "YSWeb.Application": [],
   "YSWeb.controller.Main": [],
@@ -2347,7 +2353,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.header.HeaderModel": [],
   "YSWeb.view.main.product.thumbnail.Grid": [],
   "YSWeb.view.main.product.thumbnail.GridView": [],
-  "YSWeb.view.main.product.thumbnail.GridViewController": []
+  "YSWeb.view.main.product.thumbnail.GridViewController": [],
+  "YSWeb.view.main.product.thumbnail.ListView": [],
+  "YSWeb.view.main.product.thumbnail.ListViewController": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractManager": [],
@@ -3677,11 +3685,17 @@ Ext.ClassManager.addNameAliasMappings({
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
   "YSCommon.config.Config": [],
+  "YSCommon.model.Category": [],
+  "YSCommon.model.CategoryTree": [],
+  "YSCommon.model.Product": [],
   "YSCommon.store.Category": [
     "store.app-categoryStore"
   ],
   "YSCommon.store.CategoryTree": [
     "store.app-categoryTreeStore"
+  ],
+  "YSCommon.store.Product": [
+    "store.app-productStore"
   ],
   "YSCommon.store.States": [
     "store.states"
@@ -3766,6 +3780,12 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "YSWeb.view.main.product.thumbnail.GridViewController": [
     "controller.app-gridView"
+  ],
+  "YSWeb.view.main.product.thumbnail.ListView": [
+    "widget.app-view-list"
+  ],
+  "YSWeb.view.main.product.thumbnail.ListViewController": [
+    "controller.app-listView"
   ]
 });
 Ext.setVersion("ext", "5.0.0.970");

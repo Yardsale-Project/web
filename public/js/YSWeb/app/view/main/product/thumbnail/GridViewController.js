@@ -17,58 +17,67 @@ Ext.define('YSWeb.view.main.product.thumbnail.GridViewController', {
     },
 
     onGridViewAfterRender   : function() {
-        console.log('After render');
-
-        var viewGridControllerGridWidth = this.view.panelWidth;
-        var numOfProductPanels  = parseInt(viewGridControllerGridWidth / 145);
-        var offset = (viewGridControllerGridWidth - (numOfProductPanels * 145)) / ( numOfProductPanels + 1);
-
-        console.log('offset', parseInt(offset));
         
-        var i, panel;
-
-
-        for(i = 1; i <= 20; i++) {
-            panel = {
-                xtype   : 'app-view-grid-panel',
-                layout  : 'column',
-                margin  : '0 0 0 ' + parseInt(offset) + ' !important',
-                items   : [
-                    {
-                        xtype   : 'image',
-                        src     : 'http://www.sencha.com/img/20110215-feat-html5.png',
-                        //src     : YSCommon.config.Config.url + '/img/userPic/2014_03_15_admin2.jpg',
-                        margin  : '20 0 10 4',
-                        columnWidth : 1
-                    }, {
-                        xtype   : 'tbtext',
-                        cls     : 'thumbnail-prod-name',
-                        text    : 'Canon Digital Camera ' + i,
-                        columnWidth : 1
-                    }, {
-                        xtype   : 'panel',
-                        border  : true,
-                        cls     : 'thumb-price-panel',
-                        bodyPadding : 10,
-                        items   : [
-                            {
-                                xtype   : 'tbtext',
-                                cls     : 'thumb-price',
-                                text    : 'Php 16,000.00'
-                            }
-                        ],
-                        columnWidth : 1
-                    }
-                ]
-            };
-            this.getView().add(panel);
-        }
-        console.log('grid view render');
     },
 
     onGridViewBeforeRender : function() {
 
-        
+        var store = Ext.create('YSCommon.store.Product');
+        var viewGridControllerGridWidth = this.view.panelWidth;
+        var numOfProductPanels  = parseInt(viewGridControllerGridWidth / 145);
+        var offset = (viewGridControllerGridWidth - (numOfProductPanels * 145)) / ( numOfProductPanels + 1);
+        var me  = this;
+
+        store.load(function(records) {
+            console.log('records', records);
+            Ext.each(records, function(record) {
+
+                console.log('record', record);
+
+                var id      = record.data.id,
+                    image   = record.data.image,
+                    prodName= record.data.productName,
+                    cPrice  = record.data.currentPrice,
+                    panel   = null;
+
+                panel = {
+                    xtype   : 'app-view-grid-panel',
+                    layout  : 'column',
+                    margin  : '0 0 0 ' + parseInt(offset) + ' !important',
+                    _id     : id,
+                    items   : [
+                        {
+                            xtype   : 'image',
+                            //src     : 'http://www.sencha.com/img/20110215-feat-html5.png',
+                            src     : YSCommon.config.Config.url + '/img/userPic/' + image,
+                            margin  : '20 0 10 4',
+                            columnWidth : 1
+                        }, {
+                            xtype   : 'tbtext',
+                            cls     : 'thumbnail-prod-name',
+                            text    : prodName,
+                            columnWidth : 1
+                        }, {
+                            xtype   : 'panel',
+                            border  : true,
+                            cls     : 'thumb-price-panel',
+                            bodyPadding : 10,
+                            items   : [
+                                {
+                                    xtype   : 'tbtext',
+                                    cls     : 'thumb-price',
+                                    text    : cPrice
+                                }
+                            ],
+                            columnWidth : 1
+                        }
+                    ]
+                };
+                me.getView().add(panel);
+            });
+        });
+
+        console.log('grid view render');
 
     }
 });

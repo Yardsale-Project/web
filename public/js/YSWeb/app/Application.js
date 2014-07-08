@@ -23,7 +23,8 @@ Ext.define('YSWeb.Application', {
         // TODO: add stores here
         'YSCommon.store.Category',
         'YSCommon.store.States',
-        'YSCommon.store.CategoryTree'
+        'YSCommon.store.CategoryTree',
+        'YSCommon.store.Product'
     ],
     
     launch: function () {

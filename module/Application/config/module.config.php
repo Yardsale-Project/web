@@ -75,6 +75,7 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Category' => 'Application\Controller\CategoryController',
+            'Application\Controller\Product' => 'Application\Controller\ProductController',
         ),
     ),
     'controller_plugins' => array(
