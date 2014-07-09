@@ -1276,6 +1276,7 @@ Ext.Loader.addClassPathMappings({
   "Ext.util.StoreHolder": "../../../ext/src/util/StoreHolder.js",
   "Ext.ux.desktop.TrayClock": "../../../ext/src/ux/desktop/TaskBar.js",
   "ExtThemeNeptune": "../../../ext/packages/ext-theme-neptune/overrides",
+  "Mobile": "../../app/view/main/product/thumbnail/GridView.js",
   "YSCommon": "../../../YSCommon",
   "YSWeb": "../../app",
   "YSWeb.view.main.body.right.RighttModel": "../../app/view/main/body/right/RightModel.js"
@@ -2315,6 +2316,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "ExtThemeNeptune.resizer.Splitter": [],
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
+  "Mobile": [],
   "YSCommon.config.Config": [
     "YSConfig"
   ],
@@ -3684,6 +3686,7 @@ Ext.ClassManager.addNameAliasMappings({
   "ExtThemeNeptune.resizer.Splitter": [],
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
+  "Mobile": [],
   "YSCommon.config.Config": [],
   "YSCommon.model.Category": [],
   "YSCommon.model.CategoryTree": [],

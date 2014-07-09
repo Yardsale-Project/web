@@ -1,10 +1,56 @@
 .app-view-grid {
-	.thumbnail-prod-name {
+
+	background-color: #fff;
+	text-shadow: #fff 0 1px 0;
+	position: relative;
+	display: block;
+	height: auto;
+
+	.product {
+		float: left;
+		overflow: hidden;
+		border: 1px solid transparent;
+		cursor: pointer;
 		text-align: center;
-		color: blue;
-		font-weight: bold;
-		white-space: normal;
+		width: 145px;
+		height: 230px;
+		padding-top: 20px;
+		line-height: 14px;
+
+		.thumbnail-prod-name {
+			text-align: center;
+			color: blue;
+			font-weight: bold;
+			white-space: normal;
+			margin: 10px 0 0 0 !important;
+		}
+
+		.thumbnail-prev-price {
+			text-decoration : line-through;
+			margin: -10px 0 0 0 !important;
+		}
+
+		.thumb-price-panel {
+			margin: -10px 5px 0 5px!important;
+			border: 1px solid #cecece !important;
+
+			.thumb-price {
+				text-align 	: center;
+				color 		: red;
+				font-weight : bold;
+				font-size 	: 16px;
+				padding-bottom: 10px;
+			}
+		}
+
 	}
+
+	.product:hover {
+		border 	: 1px solid #157fcc !important;
+		/*border-color: #157fcc !important;
+		border-width: 1px !important;*/
+	}
+	/*
 
 	.app-view-grid-panel {
 		.x-panel-default-outer-border-trbl {
@@ -59,7 +105,7 @@
 				border-width: 1px!important;
 			}
 		}
-	}
+	}*/
 }
 
 /*::-webkit-scrollbar {

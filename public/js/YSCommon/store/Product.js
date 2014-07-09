@@ -11,7 +11,7 @@ Ext.define('YSCommon.store.Product', {
     remoteSort      : true,
     remoteFilter    : true,
 
-    autoLoad    : false,
+    autoLoad    : true,
 
     proxy     : {
         type         : 'ajax',

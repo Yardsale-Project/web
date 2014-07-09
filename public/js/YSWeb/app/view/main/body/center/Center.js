@@ -95,7 +95,7 @@ Ext.define('YSWeb.view.main.body.center.Center', {
                     border  : false,
                     columnWidth : 1,
                     overflowY : 'auto',
-                    overflowX : 'hidden',
+                    overflowX : 'auto',
                     layout  : 'column'
                 }
             ]

@@ -6,14 +6,16 @@ Ext.define('YSWeb.view.main.product.thumbnail.GridViewController', {
     alias: 'controller.app-gridView',
 
     init : function () {
+
         this.control({
-            'app-view-grid' : {
-                beforerender    : 'onGridViewBeforeRender',
+            '#' : {
+                beforerender    : function(){
+                    console.log('before rendedin grid');
+                },
                 afterrender     : 'onGridViewAfterRender'
             }
         });
 
-        this.layoutCount = 0;
     },
 
     onGridViewAfterRender   : function() {
@@ -22,9 +24,16 @@ Ext.define('YSWeb.view.main.product.thumbnail.GridViewController', {
 
     onGridViewBeforeRender : function() {
 
-        var store = Ext.create('YSCommon.store.Product');
+       /* var store = this.view.getStore();
         var viewGridControllerGridWidth = this.view.panelWidth;
-        var numOfProductPanels  = parseInt(viewGridControllerGridWidth / 145);
+
+        this.view.setWidth(viewGridControllerGridWidth);
+
+        store.load();*/
+
+        console.log('grid view render');
+
+        /* var numOfProductPanels  = parseInt(viewGridControllerGridWidth / 145);
         var offset = (viewGridControllerGridWidth - (numOfProductPanels * 145)) / ( numOfProductPanels + 1);
         var me  = this;
 
@@ -77,7 +86,7 @@ Ext.define('YSWeb.view.main.product.thumbnail.GridViewController', {
             });
         });
 
-        console.log('grid view render');
+        console.log('grid view render');*/
 
     }
 });
