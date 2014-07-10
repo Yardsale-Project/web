@@ -6,7 +6,7 @@ Ext.define('YSWeb.view.main.header.AccountHeader', {
     xtype: 'app-accountheader',
     cls: 'app-accountheader',
     
-   /* controller: 'main',*/
+    controller: 'accountheader',
     viewModel: {
         type: 'accountheader'
     },
@@ -51,7 +51,8 @@ Ext.define('YSWeb.view.main.header.AccountHeader', {
                     cls     : 'linkBtn',
                     bind    : {
                         text    : '{register}'
-                    }
+                    },
+                    handler: 'onClickRegisterBtn'
                 }
             ]   
         }

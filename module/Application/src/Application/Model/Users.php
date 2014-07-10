@@ -5,7 +5,48 @@ namespace Application\Model;
 class Users extends Table
 {
 
-	private $_name = 'users';
+	private $_name = 'user';
+
+    public function isEmailExist($email) {
+        $whereClause = array(
+            'email' => $email
+        );
+
+        $select = $this->select()
+                        ->from('user_registration')
+                        ->where($whereClause);
+
+        return $this->fetchRowToArray($select);
+    }
+
+    public function getInfoByValidationCode($hash){
+        $whereClause = array(
+            'validationCode' => $hash
+        );
+
+        $select = $this->select()
+                        ->from('user_registration')
+                        ->columns(array('id'))
+                        ->where($whereClause);
+
+        return $this->fetchRowToArray($select);
+    }
+
+    public function addUserRegistration($data)
+    {
+        $affected_rows = $this->insert('user_registration', $data);
+
+        return $affected_rows;
+    }
+
+    public function activateAccount($id) {
+        $setClause      = array( 'validated' => 1, 'active' => 1 );
+        $whereClause    = array( 'id' => $id);
+
+        $affected_rows  = $this->update('user_registration', $setClause, $whereClause);
+
+        return $affected_rows;
+    }
 
     public function getUserAccount($username)
     {   
@@ -37,12 +78,7 @@ class Users extends Table
         return $this->fetchAllToArray($select);
     }
 
-    public function addUser($data)
-    {
-        $affected_rows = $this->insert($this->_name, $data);
-
-        return $affected_rows;
-    }
+    
 
     public function updateUser($data, $userId)
     {

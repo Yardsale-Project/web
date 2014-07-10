@@ -1278,8 +1278,10 @@ Ext.Loader.addClassPathMappings({
   "ExtThemeNeptune": "../../../ext/packages/ext-theme-neptune/overrides",
   "Mobile": "../../app/view/main/product/thumbnail/GridView.js",
   "YSCommon": "../../../YSCommon",
+  "YSCommon.validation.Validation": "../../../YSCommon/validation/Vallidation.js",
   "YSWeb": "../../app",
-  "YSWeb.view.main.body.right.RighttModel": "../../app/view/main/body/right/RightModel.js"
+  "YSWeb.view.main.body.right.RighttModel": "../../app/view/main/body/right/RightModel.js",
+  "YSWeb.view.main.login.RegisternModel": "../../app/view/main/login/RegisterModel.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.AbstractManager": [],
@@ -2327,6 +2329,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSCommon.store.CategoryTree": [],
   "YSCommon.store.Product": [],
   "YSCommon.store.States": [],
+  "YSCommon.validation.Validation": [],
   "YSWeb.Application": [],
   "YSWeb.controller.Main": [],
   "YSWeb.controller.Root": [],
@@ -2345,6 +2348,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.footer.Footer": [],
   "YSWeb.view.main.footer.FooterModel": [],
   "YSWeb.view.main.header.AccountHeader": [],
+  "YSWeb.view.main.header.AccountHeaderController": [],
   "YSWeb.view.main.header.AccountHeaderModel": [],
   "YSWeb.view.main.header.AdsHeader": [],
   "YSWeb.view.main.header.AdsHeaderController": [],
@@ -2353,6 +2357,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.header.CenterHeaderModel": [],
   "YSWeb.view.main.header.Header": [],
   "YSWeb.view.main.header.HeaderModel": [],
+  "YSWeb.view.main.login.Register": [],
+  "YSWeb.view.main.login.RegisterController": [],
+  "YSWeb.view.main.login.RegisternModel": [],
   "YSWeb.view.main.product.thumbnail.Grid": [],
   "YSWeb.view.main.product.thumbnail.GridView": [],
   "YSWeb.view.main.product.thumbnail.GridViewController": [],
@@ -3703,6 +3710,7 @@ Ext.ClassManager.addNameAliasMappings({
   "YSCommon.store.States": [
     "store.states"
   ],
+  "YSCommon.validation.Validation": [],
   "YSWeb.Application": [],
   "YSWeb.controller.Main": [],
   "YSWeb.controller.Root": [],
@@ -3751,6 +3759,9 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWeb.view.main.header.AccountHeader": [
     "widget.app-accountheader"
   ],
+  "YSWeb.view.main.header.AccountHeaderController": [
+    "controller.accountheader"
+  ],
   "YSWeb.view.main.header.AccountHeaderModel": [
     "viewmodel.accountheader"
   ],
@@ -3774,6 +3785,15 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "YSWeb.view.main.header.HeaderModel": [
     "viewmodel.header"
+  ],
+  "YSWeb.view.main.login.Register": [
+    "widget.app-register"
+  ],
+  "YSWeb.view.main.login.RegisterController": [
+    "controller.register"
+  ],
+  "YSWeb.view.main.login.RegisternModel": [
+    "viewmodel.register"
   ],
   "YSWeb.view.main.product.thumbnail.Grid": [
     "widget.app-view-grid-panel"

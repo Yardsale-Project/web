@@ -14,6 +14,8 @@ Ext.define('YSWeb.Application', {
         'main.product.thumbnail.GridView'
     ],
 
+    defaultToken : 'home',
+
     controllers: [
         'Root'
         // TODO: add controllers here

@@ -76,6 +76,7 @@ return array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Category' => 'Application\Controller\CategoryController',
             'Application\Controller\Product' => 'Application\Controller\ProductController',
+            'Application\Controller\User' => 'Application\Controller\UserController'
         ),
     ),
     'controller_plugins' => array(
