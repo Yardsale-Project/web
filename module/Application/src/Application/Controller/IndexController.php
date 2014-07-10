@@ -6,9 +6,6 @@ use Application\Controller\Controller;
 
 use Zend\View\Model\JsonModel;
 use Zend\Crypt\Password\Bcrypt;
-use Zend\Mail\Message;
-use Zend\Mail\Transport\Smtp as SmtpTransport;
-use Zend\Mail\Transport\SmtpOptions;
 
 use \Exception;
 
@@ -17,12 +14,6 @@ class IndexController extends Controller
 
     public function indexAction()
     {
-
-        try {
-            mail("egeeboygutierrez91@gmail.com",'A test mail','this email is a test mail',"From: yardsale@yardsale.com\n");
-        } catch(\Exception $e) {
-
-        }
         $host = $this->getRequest()->getServer('HTTP_HOST');
         
         if($this->MobileDetect()->isMobile())

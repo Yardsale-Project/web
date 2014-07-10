@@ -5,7 +5,6 @@ use Application\Controller\Controller;
 
 use Zend\View\Model\JsonModel;
 use Zend\Crypt\Password\Bcrypt;
-use Zend\Mail;
 
 use \Exception;
 
@@ -59,15 +58,12 @@ class UserController extends Controller {
                         $uri->setFragment('');
                         $baseUrl = $uri->getScheme() . '://' . $uri->getHost() . '/' . $uri->getPath();
 
-                        //send email
-                        $mail = new Mail\Message();
-                        $mail->setBody( $baseUrl . '/#validate/' . str_replace(array('$', '/'), '', $secureBcrypt.$hash))
-                             ->setFrom('somebody@example.com', 'Some Sender')
-                             ->addTo('egeeboygutierrez91@gmail.com', 'Some Recipient')
-                             ->setSubject('TestSubject');
+                        $to = 'egeeboygutierrez91@gmail.com';
+                        $from = "From: Yardsale <yardsale@yardsale.com>\r\n";
+                        $subject = 'do-not-reply : Yardsale Account Verification';
+                        $message = $baseUrl . '/#validate/' . str_replace(array('$', '/'), '', $secureBcrypt.$hash);
 
-                        $transport = new Mail\Transport\Sendmail();
-                        $transport->send($mail);
+                        mail($to,$subject,$message,$from);
 
                         $retVal['success'] = true;
                         $retVal['message'] = 'Email sent';
