@@ -50,6 +50,8 @@ class UserController extends Controller {
 
                     $result = $users->addUserRegistration($data);
 
+                    var_dump($result);
+
                     if($result) {
 
                         $basePath = $this->getRequest()->getBasePath();
