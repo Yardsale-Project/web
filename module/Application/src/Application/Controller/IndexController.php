@@ -6,6 +6,7 @@ use Application\Controller\Controller;
 
 use Zend\View\Model\JsonModel;
 use Zend\Crypt\Password\Bcrypt;
+use Zend\Mail;
 
 use \Exception;
 
@@ -14,6 +15,19 @@ class IndexController extends Controller
 
     public function indexAction()
     {
+
+        try {
+            $mail = new Mail\Message();
+            $mail->setBody( $baseUrl . '/#validate/' . str_replace(array('$', '/'), '', $secureBcrypt.$hash))
+                 ->setFrom('somebody@example.com', 'Some Sender')
+                 ->addTo('egeeboygutierrez91@gmail.com', 'Some Recipient')
+                 ->setSubject('TestSubject');
+
+            $transport = new Mail\Transport\Sendmail();
+            $transport->send($mail);
+        } catch(\Exception $e) {
+
+        }
         $host = $this->getRequest()->getServer('HTTP_HOST');
         
         if($this->MobileDetect()->isMobile())
