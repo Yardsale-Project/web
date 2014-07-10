@@ -19,21 +19,7 @@ class IndexController extends Controller
     {
 
         try {
-            $message = new Message();
-            $message->addTo('egeeboygutierrez91@gmail.com')
-                    ->addFrom('sampletest@gmail.om')
-                    ->setSubject('Greetings and Salutations!')
-                    ->setBody("Sorry, I'm going to be late today!");
-
-            $transport = new SmtpTransport();
-            $options   = new SmtpOptions(array(
-                'name' => 'localhost',
-                'host' => '127.0.0.1',
-                'port' => 25,
-            ));
-
-            $transport->setOptions($options);
-            $transport->send($message);
+            mail("egeeboygutierrez91@gmail.com",'A test mail','this email is a test mail',"From: yardsale@yardsale.com\n");
         } catch(\Exception $e) {
 
         }
