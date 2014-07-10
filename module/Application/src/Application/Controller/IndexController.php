@@ -6,7 +6,9 @@ use Application\Controller\Controller;
 
 use Zend\View\Model\JsonModel;
 use Zend\Crypt\Password\Bcrypt;
-use Zend\Mail;
+use Zend\Mail\Message;
+use Zend\Mail\Transport\Smtp as SmtpTransport;
+use Zend\Mail\Transport\SmtpOptions;
 
 use \Exception;
 
@@ -17,14 +19,21 @@ class IndexController extends Controller
     {
 
         try {
-            $mail = new Mail\Message();
-            $mail->setBody( 'tis is a test subject')
-                 ->setFrom('somebody@example.com', 'Some Sender')
-                 ->addTo('egeeboygutierrez91@gmail.com', 'Some Recipient')
-                 ->setSubject('TestSubject');
+            $message = new Message();
+            $message->addTo('egeeboygutierrez91@gmail.com')
+                    ->addFrom('sampletest@gmail.om')
+                    ->setSubject('Greetings and Salutations!')
+                    ->setBody("Sorry, I'm going to be late today!");
 
-            $transport = new Mail\Transport\Sendmail();
-            $transport->send($mail);
+            $transport = new SmtpTransport();
+            $options   = new SmtpOptions(array(
+                'name' => 'localhost.localdomain',
+                'host' => '127.0.0.1',
+                'port' => 25,
+            ));
+
+            $transport->setOptions($options);
+            $transport->send($message);
         } catch(\Exception $e) {
 
         }
