@@ -42,12 +42,10 @@ class UserController extends Controller {
                     //store to db 
                     $users = $this->model('Users');
 
-                    $validationCode = str_replace($specialChars, '', $secureBcrypt . $hash);
-
                     $data = array(
                         'email'     => $email,
                         'password'  => $password,
-                        'validationCode'    => $validationCode,
+                        'validationCode'    => str_replace($specialChars, '', $secureBcrypt.$hash),
                         'sent'      => 1,
                         'role_id'   => 2
                     );
@@ -66,7 +64,7 @@ class UserController extends Controller {
                         $to = 'egeeboygutierrez91@gmail.com';
                         $from = "From: Yardsale <yardsale@yardsale.com>\r\n";
                         $subject = 'do-not-reply : Yardsale Account Verification';
-                        $message = $baseUrl . '#validate/' . $validationCode;
+                        $message = $baseUrl . '#validate/' . str_replace($specialChars, '', $secureBcrypt.$hash);
 
                         mail($to,$subject,$message,$from);
 
