@@ -61,7 +61,7 @@ class UserController extends Controller {
                         $to = 'egeeboygutierrez91@gmail.com';
                         $from = "From: Yardsale <yardsale@yardsale.com>\r\n";
                         $subject = 'do-not-reply : Yardsale Account Verification';
-                        $message = $baseUrl . '/#validate/' . str_replace(array('$', '/'), '', $secureBcrypt.$hash);
+                        $message = $baseUrl . '#validate/' . str_replace(array('$', '/'), '', $secureBcrypt.$hash);
 
                         mail($to,$subject,$message,$from);
 

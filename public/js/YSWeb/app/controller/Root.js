@@ -12,7 +12,7 @@ Ext.define('YSWeb.controller.Root', {
     	console.log('home');
     },
     validateUser : function(hash) {
-    	console.log(hash);
+    	console.log('hashg', hash);
 
     	var me = this;
 
