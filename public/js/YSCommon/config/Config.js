@@ -4,5 +4,5 @@ Ext.define('YSCommon.config.Config', {
 	singleton 	: true,
 	alternateClassName     : ['YSConfig'],
 
-	url 	: 'http://local.main.yardsale:8181'
+	url 	: 'http://yardsale.druidinc.com'
 });
