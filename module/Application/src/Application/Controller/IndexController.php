@@ -18,7 +18,7 @@ class IndexController extends Controller
 
         try {
             $mail = new Mail\Message();
-            $mail->setBody( $baseUrl . '/#validate/' . str_replace(array('$', '/'), '', $secureBcrypt.$hash))
+            $mail->setBody( 'tis is a test subject')
                  ->setFrom('somebody@example.com', 'Some Sender')
                  ->addTo('egeeboygutierrez91@gmail.com', 'Some Recipient')
                  ->setSubject('TestSubject');
