@@ -66,6 +66,9 @@ class UserController extends Controller {
                              ->addTo('egeeboygutierrez91@gmail.com', 'Some Recipient')
                              ->setSubject('TestSubject');
 
+                        $transport = new Mail\Transport\Sendmail();
+                        $transport->send($mail);
+
                         $retVal['success'] = true;
                         $retVal['message'] = 'Email sent';
                     }
