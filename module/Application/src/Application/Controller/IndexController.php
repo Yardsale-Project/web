@@ -27,7 +27,7 @@ class IndexController extends Controller
 
             $transport = new SmtpTransport();
             $options   = new SmtpOptions(array(
-                'name' => 'localhost.localdomain',
+                'name' => 'localhost',
                 'host' => '127.0.0.1',
                 'port' => 25,
             ));
