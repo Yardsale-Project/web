@@ -37,6 +37,7 @@ class UserController extends Controller {
                     // generate unique validation code
                     $bcrypt = new Bcrypt();
                     $secureBcrypt = $bcrypt->create($email);
+                    $securePass = $bcrypt->create($password);
                     $hash = hash('sha1', $email);
 
                     //store to db 
@@ -44,7 +45,7 @@ class UserController extends Controller {
 
                     $data = array(
                         'email'     => $email,
-                        'password'  => $password,
+                        'password'  => $securePass,
                         'validationCode'    => str_replace($specialChars, '', $secureBcrypt.$hash),
                         'sent'      => 1,
                         'role_id'   => 2
@@ -61,10 +62,19 @@ class UserController extends Controller {
                         $uri->setFragment('');
                         $baseUrl = $uri->getScheme() . '://' . $uri->getHost() . '/' . $uri->getPath();
 
-                        $to = 'egeeboygutierrez91@gmail.com';
+                        $to = $email;
                         $from = "From: Yardsale <yardsale@yardsale.com>\r\n";
                         $subject = 'do-not-reply : Yardsale Account Verification';
-                        $message = $baseUrl . '#validate/' . str_replace($specialChars, '', $secureBcrypt.$hash);
+                        $message = "Hi,<br/>";
+                        $message .= "<br/>";
+                        $message .= "Thank you for joining Yardsale.<br/>";
+                        $message .= "<br/>";
+                        $message .= "To activate your account, please click the link: ";
+                        $message .= $baseUrl . '#validate/' . str_replace($specialChars, '', $secureBcrypt.$hash) . '<br/>';
+                        $message .= "<br/>";
+                        $message .= "Thank,<br/>";
+                        $message .= "<br/>";
+                        $message .= "Yardsale";
 
                         mail($to,$subject,$message,$from);
 
@@ -89,6 +99,252 @@ class UserController extends Controller {
 
         return new JsonModel($retVal);
 
+    }
+
+    public function loginUserAction() {
+        $retVal = array(
+            "success" => true,
+            "message" => "Logged in"
+        );
+
+        $request = $this->getRequest();
+
+        if ($request->isPost())  {
+            $postData = $request->getPost();
+
+            try {
+
+                $host = $this->getRequest()->getServer('HTTP_HOST');
+                $referer = $this->getRequest()->getServer('HTTP_REFERER');
+
+                if(stripos($referer, $host) === FALSE) {
+                    $session = $this->model('Session');
+                    $result = $session->verifyToken($referer, $postData['token']);
+
+                    if(empty($result)) {
+                        throw new \Exception('Missin token' . $referer . ' token : ' . $postData['token']);
+                    }
+                } else {
+                    $this->NoCSRF()->check( 'token', $postData, true, 60*10, false);
+                }
+
+                $email      = $postData['email'];
+                $password   = $postData['password'];
+
+                $users = $this->model('Users');
+                $result = $users->getUserAccount($email);
+
+                if(!empty($result))
+                {
+                    $securePassword = $result['password'];
+
+                    $bcrypt = new Bcrypt();
+
+                    //get password and verify if equal
+                    if ($bcrypt->verify($password, $securePassword))
+                    {
+
+                        //check if account is active
+
+                        if($result['active'] == 0)
+                        {
+                            $retVal = array(
+                                "success" => false,
+                                "errorMessage" => "Account has been deactivated"
+                            );
+                        }
+                        else
+                        {
+                            //$users->logUserLastLogin($result['user_id']);
+
+                            $user_id = $result['id'];
+                            $loginValidationCode = hash('sha1', date('Y-m-d h:i:s'));
+                            $users->storeValidation($user_id, $loginValidationCode);
+
+                            if(stripos($referer, $host) === FALSE) {
+                                $session = $this->model('Session');
+                                $session->storeToken($referer, $loginValidationCode);
+                            } else {
+                                $this->_sessionContainer->user_code = $loginValidationCode;
+                            }
+                            
+                            
+                        }
+                        
+                    } 
+                    else 
+                    {
+                        $retVal = array(
+                            "success" => false,
+                            "errorMessage" => "Invalid password"
+                        );
+                    }
+                }
+                else
+                {
+                    $retVal = array(
+                        "success" => false,
+                        "errorMessage" => "Invalid username/password",
+                        "redirect" => "/"
+                    );
+                }
+                
+
+            } catch (\Exception $e){
+                $errorMessage = 'Invalid username/password';
+                if(strpos($e->getMessage(), 'password') !== false)
+                {
+                    $errorMessage = 'Invalid username/password';
+                }
+
+                if(strpos(strtolower($e->getMessage()), 'csrf') !== false)
+                {
+                    $errorMessage = 'Invalid request source';
+                }
+
+                $retVal = array(
+                    "success" => false,
+                    "errorMessage" => $errorMessage . '. ' . $e->getMessage()
+                );
+            }
+        } else {
+
+            $retVal['success'] = false;
+            $retVal['errorMessage'] = 'Invalid request';
+
+        }
+
+        return new JsonModel($retVal);
+
+    }
+
+    public function logoutAction() {
+        $retVal = array(
+            "success" => true,
+            "message" => "Logged out"
+        );
+
+        $request = $this->getRequest();
+        $validationCode = '';
+
+        if ($request->isPost())  {
+            $postData = $request->getPost();
+
+            try {
+                $host = $this->getRequest()->getServer('HTTP_HOST');
+                $referer = $this->getRequest()->getServer('HTTP_REFERER');
+
+                if(stripos($referer, $host) === FALSE) {
+                    $session = $this->model('Session');
+                    $result = $session->verifyToken($referer, $postData['token']);
+
+                    if(empty($result)) {
+                        throw new \Exception('Missin token' . $referer . ' token : ' . $postData['token']);
+                    }
+                } else {
+                    $this->NoCSRF()->check( 'token', $postData, true, 60*10, false);
+                }
+
+                $session = $this->model('Session');
+                if(stripos($referer, $host) === FALSE) {
+                    
+                    $result = $session->getValidationCode($referer);
+
+                    if(!empty($result)) {
+                        $validationCode = $result['validationCode'];
+                    }
+                } else {
+                    $validationCode = $this->_sessionContainer->user_code;
+                    $this->_sessionContainer->getManager()->destroy();
+                }
+
+                $result = $session->destroyValidationCodeSession($validationCode);
+
+                if(empty($result)) {
+                    $retVal = array(
+                        "success" => false,
+                        "errorMessage" => "Problem logging out"
+                    );
+                }
+
+            } catch (\Exception $e){
+                $errorMessage = '';
+
+                if(strpos(strtolower($e->getMessage()), 'csrf') !== false)
+                {
+                    $errorMessage = 'Invalid request source';
+                }
+
+                $retVal = array(
+                    "success" => false,
+                    "errorMessage" => $errorMessage . '. ' . $e->getMessage()
+                );
+            }
+        } else {
+
+            $retVal['success'] = false;
+            $retVal['errorMessage'] = 'Invalid request';
+
+        }
+
+        return new JsonModel($retVal);
+    }
+
+    public function getUserSessionCodeAction() {
+        $retVal = array(
+            "success" => true,
+            "email" => "email@emai.com"
+        );
+
+        $request = $this->getRequest();
+        $validationCode = '';
+
+        if ($request->isPost())  {
+            $postData = $request->getPost();
+
+            try {
+                $host = $this->getRequest()->getServer('HTTP_HOST');
+                $referer = $this->getRequest()->getServer('HTTP_REFERER');
+
+                if(stripos($referer, $host) === FALSE) {
+                    $session = $this->model('Session');
+                    $result = $session->getValidationCode($referer);
+
+                    if(!empty($result)) {
+                        $validationCode = $result['validationCode'];
+                    }
+                } else {
+                    $validationCode = $this->_sessionContainer->user_code;
+                }
+
+                if( empty($validationCode)) {
+                    $retVal['email'] = '';
+                } else {
+                    $user = $this->model('Users');
+                    $result = $user->getAccoutInfoBySessionCode($validationCode);
+
+                    if(!empty($result)) {
+                        $retVal['email'] = $result['email'];
+                    } else {
+                        $retVal['errorMessage'] = 'Problem getting info';
+                    }
+                }
+
+            } catch (\Exception $e){
+
+                $retVal = array(
+                    "success" => false,
+                    "errorMessage" => $e->getMessage()
+                );
+            }
+        } else {
+
+            $retVal['success'] = false;
+            $retVal['errorMessage'] = 'Invalid request';
+
+        }
+
+        return new JsonModel($retVal);
     }
 
     private function _isEmailExist($email) {
@@ -131,7 +387,7 @@ class UserController extends Controller {
                         $retVal['message'] = 'Account activated';
                     } else {
                         $retVal['success'] = false;
-                        $retVal['errorMessage'] = 'Error activating account';
+                        $retVal['errorMessage'] = 'Account is already activated or there is an error activating the account';
                     }
                 } else {
 
@@ -150,5 +406,24 @@ class UserController extends Controller {
         }
 
         return new JsonModel($retVal);
+    }
+
+    public function generateTokenAction() {
+        $token  = $this->NoCSRF()->generate('token');
+
+        $host = $this->getRequest()->getServer('HTTP_HOST');
+        $referer = $this->getRequest()->getServer('HTTP_REFERER');
+
+        if(stripos($referer, $host) === FALSE) {
+            $session = $this->model('Session');
+            $session->storeToken($referer, $token);
+        }
+
+        return new JsonModel(array(
+            'success'   => true,
+            'token'     => $token,
+            'referer'   => $this->getRequest()->getServer('HTTP_REFERER'),
+            'host'      => $this->getRequest()->getServer('HTTP_HOST')
+        ));
     }
 }

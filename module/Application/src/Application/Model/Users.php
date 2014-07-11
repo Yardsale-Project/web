@@ -48,18 +48,46 @@ class Users extends Table
         return $affected_rows;
     }
 
-    public function getUserAccount($username)
+    public function getUserAccount($email)
     {   
         $whereClause = array(
-        	'username' => $username
+        	'email' => $email
         );
 
         $select = $this->select()
-                        ->from($this->_name)
+                        ->from('user_registration')
                         ->where($whereClause);
 
         return $this->fetchRowToArray($select);
     }
+
+    public function storeValidation($user_id, $loginValidationCode) {
+        $data = array(
+            'user_id'   => $user_id,
+            'validationCode'     => $loginValidationCode
+        );
+
+        $affected_rows = $this->insert('user_login', $data);
+
+        return $affected_rows;
+    }
+
+    public function getAccoutInfoBySessionCode($validationCode) {
+        $whereClause = array(
+            'user_login.validationCode'  => $validationCode
+        );
+
+        $select = $this->select()
+                        ->from('user_registration')
+                        ->columns( array( 'id', 'email') )
+                        ->join('user_login', 'user_login.user_id = user_registration.id', array())
+                        ->where($whereClause);
+
+        return $this->fetchRowToArray($select);
+    }
+
+
+
 
     public function logUserLastLogin($user_id)
     {

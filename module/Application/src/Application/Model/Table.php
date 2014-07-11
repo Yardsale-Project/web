@@ -49,7 +49,7 @@ class Table
         {
             $statement = $select;
         }
-
+        //var_dump($statement);
         $result = $statement->execute()->current();
         return $result;
     }

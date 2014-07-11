@@ -11,6 +11,11 @@ namespace Application;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\Session\Config\SessionConfig;
+use Zend\Session\Container;
+use Zend\Session\SessionManager;
+use Zend\Session\Validator\HttpUserAgent;
+use Zend\Session\Validator\RemoteAddr;
 
 use Application\Model\Users;
 use Application\Model\Model;
@@ -22,6 +27,12 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+
+        $this->initSession(array(
+          'remember_me_seconds' => 180,
+          'use_cookies' => true,
+          'cookie_httponly' => true
+        ));
     }
 
     public function getConfig()
@@ -59,5 +70,17 @@ class Module
                 },
             ),
         );
+    }
+
+    public function initSession($config)
+    {
+        $sessionConfig = new SessionConfig();
+          $sessionConfig->setOptions($config);
+          $sessionManager = new SessionManager($sessionConfig);
+          $sessionManager->getValidatorChain()->attach('session.validate', array(new HttpUserAgent(), 'isValid'));
+          $sessionManager->getValidatorChain()->attach( 'session.validate', array(new RemoteAddr(), 'isValid') );
+                 /* ->attach( 'session.validate', array(new RemoteAddr(), 'isValid') );*/
+          $sessionManager->start();
+          Container::setDefaultManager($sessionManager);
     }
 }

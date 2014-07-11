@@ -1,17 +1,17 @@
 'use strict';
 
-Ext.define('YSWeb.view.main.login.Register', {
+Ext.define('YSWeb.view.main.login.Signin', {
 	extend : 'Ext.form.Panel',
-	xtype : 'app-register',
+	xtype : 'app-signin',
 
 	requires : [
 		'YSCommon.validation.Validation'
 	],
 
-	controller : 'register',
+	controller : 'signin',
 
 	viewModel: {
-        type: 'register'
+        type: 'signin'
     },
 
     bodyPadding : 10,
@@ -26,10 +26,12 @@ Ext.define('YSWeb.view.main.login.Register', {
     			fieldLabel : '{email}'
     		},
     		name 	: 'email',
+            reference:'email',
     		vtype	: 'email',
     		allowBlank:false,
     		width 	: 380,
-    		msgTarget : 'side'
+    		msgTarget : 'side',
+            //value   : 'egeeboygutierrez91@gmail.com'
     	}, {
     		xtype 	: 'textfield',
     		inputType : 'password',
@@ -41,21 +43,15 @@ Ext.define('YSWeb.view.main.login.Register', {
     		vtype 	: 'password',
     		width 	: 380,
     		margin 	: '8 0 0 0',
-    		msgTarget : 'side'
-    	}, {
-    		xtype 	: 'textfield',
-    		inputType : 'password',
-    		bind 	: {
-    			fieldLabel : '{confirmPassword}'
-    		},
-    		allowBlank:false,
-    		width 	: 380,
     		msgTarget : 'side',
-    		validator: function(value) {
-	            var password1 = this.previousSibling('[name=password]');
-
-	            return (value === password1.getValue()) ? true : 'Passwords do not match.'
-	        }
+            //value   : '!l0v3A!za143'
+    	}, {
+    		xtype 	: 'hiddenfield',
+    		allowBlank:false,
+            itemId  : 'token',
+            name    : 'token',
+            reference:'token',
+    		value 	: ''
     	}
     ],
 

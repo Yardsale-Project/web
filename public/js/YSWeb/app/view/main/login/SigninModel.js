@@ -1,15 +1,14 @@
 'use strict';
 
-Ext.define('YSWeb.view.main.login.RegisterModel', {
+Ext.define('YSWeb.view.main.login.SigninModel', {
     extend: 'Ext.app.ViewModel',
 
-    alias: 'viewmodel.register',
+    alias: 'viewmodel.signin',
 
     data: {
         email	: 'Email',
         password: 'Password',
-        confirmPassword:'Confirm Password',
-        submit 	: 'Submit',
+        submit 	: 'Login',
         cancel	: 'Cancel'
     }
 

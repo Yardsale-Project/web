@@ -13,7 +13,7 @@ class Controller extends AbstractActionController
 
 	public function __construct()
 	{
-		$this->_sessionContainer = new Container('Checkup');
+		$this->_sessionContainer = new Container('Yardsale');
 		$this->_view = new ViewModel();
 	}
 

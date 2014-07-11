@@ -18,7 +18,7 @@ Ext.define('YSWeb.view.main.footer.FooterModel', {
         fb              : 'Facebook',
         tw              : 'Twitter',
         download        : '&nbsp;',
-        copyright       : 'Copyright &copy; 2014 www.yardsale.com. All Rights Reserved.',
+        copyright       : 'Copyright &copy; 2014 ' + YSConfig.url + '. All Rights Reserved.',
         powered         : 'Powerded By : <a href="http://www.druidinc.com" target="new">Druid Solutions, Inc.</a>'
     }
 

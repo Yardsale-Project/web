@@ -1280,8 +1280,7 @@ Ext.Loader.addClassPathMappings({
   "YSCommon": "../../../YSCommon",
   "YSCommon.validation.Validation": "../../../YSCommon/validation/Vallidation.js",
   "YSWeb": "../../app",
-  "YSWeb.view.main.body.right.RighttModel": "../../app/view/main/body/right/RightModel.js",
-  "YSWeb.view.main.login.RegisternModel": "../../app/view/main/login/RegisterModel.js"
+  "YSWeb.view.main.body.right.RighttModel": "../../app/view/main/body/right/RightModel.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.AbstractManager": [],
@@ -2362,7 +2361,10 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.header.HeaderModel": [],
   "YSWeb.view.main.login.Register": [],
   "YSWeb.view.main.login.RegisterController": [],
-  "YSWeb.view.main.login.RegisternModel": [],
+  "YSWeb.view.main.login.RegisterModel": [],
+  "YSWeb.view.main.login.Signin": [],
+  "YSWeb.view.main.login.SigninController": [],
+  "YSWeb.view.main.login.SigninModel": [],
   "YSWeb.view.main.product.thumbnail.GridView": [],
   "YSWeb.view.main.product.thumbnail.GridViewController": [],
   "YSWeb.view.main.product.thumbnail.ListView": [],
@@ -3795,8 +3797,17 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWeb.view.main.login.RegisterController": [
     "controller.register"
   ],
-  "YSWeb.view.main.login.RegisternModel": [
+  "YSWeb.view.main.login.RegisterModel": [
     "viewmodel.register"
+  ],
+  "YSWeb.view.main.login.Signin": [
+    "widget.app-signin"
+  ],
+  "YSWeb.view.main.login.SigninController": [
+    "controller.signin"
+  ],
+  "YSWeb.view.main.login.SigninModel": [
+    "viewmodel.signin"
   ],
   "YSWeb.view.main.product.thumbnail.GridView": [
     "widget.app-view-grid"
