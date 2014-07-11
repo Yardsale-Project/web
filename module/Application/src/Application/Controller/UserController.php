@@ -65,15 +65,15 @@ class UserController extends Controller {
                         $to = $email;
                         $from = "From: Yardsale <yardsale@yardsale.com>\r\n";
                         $subject = 'do-not-reply : Yardsale Account Verification';
-                        $message = "Hi,<br/>";
-                        $message .= "<br/>";
-                        $message .= "Thank you for joining Yardsale.<br/>";
-                        $message .= "<br/>";
+                        $message = "Hi,\r\n";
+                        $message .= "\r\n";
+                        $message .= "Thank you for joining Yardsale.\r\n";
+                        $message .= "\r\n";
                         $message .= "To activate your account, please click the link: ";
                         $message .= $baseUrl . '#validate/' . str_replace($specialChars, '', $secureBcrypt.$hash) . '<br/>';
-                        $message .= "<br/>";
-                        $message .= "Thank,<br/>";
-                        $message .= "<br/>";
+                        $message .= "\r\n";
+                        $message .= "Thank,\r\n";
+                        $message .= "\r\n";
                         $message .= "Yardsale";
 
                         mail($to,$subject,$message,$from);

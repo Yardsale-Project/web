@@ -83,6 +83,22 @@ Ext.define('YSWeb.controller.Root', {
     	if(rsp.success)
     	{
     		YSDebug.log('success', rsp);
+
+            Ext.create('Ext.window.Window', {
+                modal       : true,
+                resizable   : false,
+                layout      : 'fit',
+                closeAction : 'destroy',
+                width       : 400,
+
+                title       : 'Account activated. Please log in to continue',
+
+                items       : [
+                    {
+                        xtype   : 'app-signin'
+                    }
+                ]
+            }).show();
     	} else {
     		YSDebug.log('failed', rsp.success);
 
