@@ -69,7 +69,7 @@ Ext.define('YSWeb.view.main.product.thumbnail.GridView', {
         var offset = (viewGridControllerGridWidth - (numOfProductPanels * 145)) / ( numOfProductPanels + 1);
         var me  = this;
 
-        console.log('init grid view controller offset', offset);
+        YSDebug.log('init grid view controller offset', offset);
 
         this.tpl  = Ext.create('Ext.XTemplate',
             '<tpl for=".">',
@@ -100,7 +100,7 @@ Ext.define('YSWeb.view.main.product.thumbnail.GridView', {
 
     listeners : {
         beforerender : function() {
-            console.log('grid before view render');
+            YSDebug.log('grid before view render');
         }
     }
 });

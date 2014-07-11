@@ -2329,6 +2329,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSCommon.store.CategoryTree": [],
   "YSCommon.store.Product": [],
   "YSCommon.store.States": [],
+  "YSCommon.util.Debug": [
+    "YSDebug"
+  ],
   "YSCommon.validation.Validation": [],
   "YSWeb.Application": [],
   "YSWeb.controller.Main": [],
@@ -2360,7 +2363,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.login.Register": [],
   "YSWeb.view.main.login.RegisterController": [],
   "YSWeb.view.main.login.RegisternModel": [],
-  "YSWeb.view.main.product.thumbnail.Grid": [],
   "YSWeb.view.main.product.thumbnail.GridView": [],
   "YSWeb.view.main.product.thumbnail.GridViewController": [],
   "YSWeb.view.main.product.thumbnail.ListView": [],
@@ -3710,6 +3712,7 @@ Ext.ClassManager.addNameAliasMappings({
   "YSCommon.store.States": [
     "store.states"
   ],
+  "YSCommon.util.Debug": [],
   "YSCommon.validation.Validation": [],
   "YSWeb.Application": [],
   "YSWeb.controller.Main": [],
@@ -3794,9 +3797,6 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "YSWeb.view.main.login.RegisternModel": [
     "viewmodel.register"
-  ],
-  "YSWeb.view.main.product.thumbnail.Grid": [
-    "widget.app-view-grid-panel"
   ],
   "YSWeb.view.main.product.thumbnail.GridView": [
     "widget.app-view-grid"

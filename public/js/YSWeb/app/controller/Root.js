@@ -9,10 +9,10 @@ Ext.define('YSWeb.controller.Root', {
     },
 
     home 	: function() {
-    	console.log('home');
+    	YSDebug.log('home');
     },
     validateUser : function(hash) {
-    	console.log('hashg', hash);
+    	YSDebug.log('hashg', hash);
 
     	var me = this;
 
@@ -30,12 +30,12 @@ Ext.define('YSWeb.controller.Root', {
     onSuccess : function(response) {
 
     	var rsp = Ext.JSON.decode(response.responseText);
-    	console.log(rsp);
+    	YSDebug.log(rsp);
     	if(rsp.success)
     	{
-    		console.log('success', rsp);
+    		YSDebug.log('success', rsp);
     	} else {
-    		console.log('failed', rsp.success);
+    		YSDebug.log('failed', rsp.success);
 
     		Ext.Msg.show({
 				title      	: 'User Account Activation',
@@ -47,6 +47,6 @@ Ext.define('YSWeb.controller.Root', {
     },
 
     onFailure : function(response) {
-    	console.log('failure', response.responseText);
+    	YSDebug.log('failure', response.responseText);
     }
 });

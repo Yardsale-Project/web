@@ -26,7 +26,7 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
     onBreadCrumbBoxready : function(obj, width) {
 
         this.createdPanelWidth = width;
-        console.log('box width', width);
+        YSDebug.log('box width', width);
 
         this.createGridView();
     },
@@ -60,7 +60,7 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
     },
 
     createGridView : function() {
-        console.log('create grid vire');
+        YSDebug.log('create grid vire');
 
         if(this.createdPanel) {
             this.createdPanel.destroy();
@@ -73,7 +73,7 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
     },
 
     createListView : function() {
-        console.log('create list view');
+        YSDebug.log('create list view');
 
         if(this.createdPanel) {
             this.createdPanel.destroy();

@@ -5,10 +5,6 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
 
     xtype: 'app-centerheader',
     cls: 'app-centerheader',
-
-    requires : [
-        'YSCommon.config.Config'
-    ],
     
    /* controller: 'main',*/
     viewModel: {

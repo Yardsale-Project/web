@@ -8,6 +8,11 @@ Ext.define('YSWeb.Application', {
     
     name: 'YSWeb',
 
+    requires : [
+        'YSCommon.config.Config',
+        'YSCommon.util.Debug'
+    ],
+
     views: [
         // TODO: add views here
         /*'main.header.Header'*/

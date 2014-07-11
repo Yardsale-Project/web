@@ -29,7 +29,7 @@ Ext.define('YSWeb.view.main.product.thumbnail.ListViewController', {
 
         store.load();
 
-        console.log('list view render');
+        YSDebug.log('list view render');
 
     }
 });

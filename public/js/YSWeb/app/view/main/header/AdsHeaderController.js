@@ -23,6 +23,6 @@ Ext.define('YSWeb.view.main.header.AdsHeaderController', {
     onTextAdsRender : function(el) {
 
         var element = this.view.down('#adsHeader');
-        console.log('Text ads render', element);
+        YSDebug.log('Text ads render', element);
     }
 });
