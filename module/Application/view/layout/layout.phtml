@@ -9,6 +9,10 @@
 
         <title>Yardsale</title>
 
+        <?php 
+            echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon2.ico'));
+        ?>
+
         <?php if( !empty($mobile) ):?>
         	<style type="text/css">
 	         /**

@@ -88,15 +88,39 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                     columnWidth : .25,
                     items   : [
                         {
-                            xtype   : 'tbtext',
-                            bind    : {
-                                text    : '{fb}'
-                            }
+                            xtype   : 'panel',
+                            border  : false,
+                            frame   : false,
+                            layout  : 'hbox',
+                            items   : [
+                                {
+                                    xtype   : 'image',
+                                    src     : YSConfig.url + '/img/admin/icons/facebook-icon_20x20.png',
+                                    margin   : '0 5 0 0'
+                                }, {
+                                    xtype   : 'tbtext',
+                                    bind    : {
+                                        text    : '{fb}'
+                                    }
+                                }
+                            ]
                         }, {
-                            xtype   : 'tbtext',
-                            bind    : {
-                                text    : '{tw}'
-                            }
+                            xtype   : 'panel',
+                            border  : false,
+                            frame   : false,
+                            layout  : 'hbox',
+                            items   : [
+                                {
+                                    xtype   : 'image',
+                                    src     : YSConfig.url + '/img/admin/icons/twitter-icon_20x20.png',
+                                    margin   : '0 5 0 0'
+                                }, {
+                                    xtype   : 'tbtext',
+                                    bind    : {
+                                        text    : '{tw}'
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }, {

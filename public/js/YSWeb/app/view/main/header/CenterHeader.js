@@ -23,15 +23,9 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
             items   : [,
                 {
                     xtype   : 'image',
-                    src     : 'http://www.sencha.com/img/20110215-feat-html5.png',
-                    //src     : YSCommon.config.Config.url + '/img/userPic/2014_03_15_admin2.jpg',
+                    //src     : 'http://www.sencha.com/img/20110215-feat-html5.png',
+                    src     : YSConfig.url + '/img/admin/logo/logo_1.png',
                     cls     : 'logo'
-                }, {
-                    xtype   : 'tbtext',
-                    bind    : {
-                        text    : '{title}'
-                    },
-                    cls     : 'title'
                 }, 
                 '->',
                 {
