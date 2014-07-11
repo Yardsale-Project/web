@@ -67,7 +67,6 @@ Ext.define('YSWeb.view.main.login.SigninController', {
 			           	buttons    	: Ext.MessageBox.OK,
 			           	fn 			: function(btn) {
 			           		if(btn === 'ok') {
-			           			form.reset();
 
 			           			accountBtn 	= Ext.ComponentQuery.query('#accountBtn')[0];
 			           			signInBtn 	= Ext.ComponentQuery.query('#signInBtn')[0];
@@ -84,7 +83,7 @@ Ext.define('YSWeb.view.main.login.SigninController', {
 
 			           			me.requestCSRFToken(this, logoutToken);
 			           			
-
+			           			form.reset();
 			    				me.view.up('window').close();
 			           		}
 			           	},
