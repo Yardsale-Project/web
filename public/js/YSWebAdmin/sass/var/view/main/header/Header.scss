@@ -1,0 +1,52 @@
+.app-header {
+	
+	.logo {
+		width : 150px;
+		height: 50px;
+	}
+
+	.title {
+		font 	: {
+			size 	: 22px;
+			weight 	: bold;
+		}
+	}
+
+}
+
+.app-centerheader {
+
+	.x-toolbar {
+		margin 	: 0 auto;
+		float 	: none !important;
+		border 	: transparent !important;
+	}
+
+	.logo {
+		width : 150px;
+		height: 50px;
+	}
+
+	.title {
+		font 	: {
+			size 	: 22px;
+			weight 	: bold;
+		}
+	}
+
+}
+
+.app-accountheader {
+
+	.linkBtn {
+		background 	: transparent;
+		border 		: transparent;
+	}
+
+	.x-toolbar {
+		margin 	: 0 auto;
+		float 	: none !important;
+		border 	: transparent !important;
+	}
+
+}

@@ -1,10 +1,15 @@
 'use strict';
 
+
 Ext.define('YSWeb.view.main.header.CenterHeader', {
     extend: 'Ext.panel.Panel',
 
     xtype: 'app-centerheader',
     cls: 'app-centerheader',
+
+    requires : [
+        'YSCommon.ux.TreePicker'
+    ],
     
    /* controller: 'main',*/
     viewModel: {
@@ -39,12 +44,13 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             name    : 'searchBox',
                             emptyText: 'Seach'
                         }, {
-                            xtype   : 'combobox',
+                            xtype   : 'app-treepicker',
+                            cls     : 'app-treepicker',
                             text    : 'category',
-                            store : {
-                                type: 'app-categoryStore'
-                            },
-                            valueField  : 'id',
+                            store   : Ext.create('YSCommon.store.CategoryTree'),
+                            displayField: 'text',
+                            rootVisible : false,
+                            /*valueField  : 'id',
                             tpl         :   Ext.create('Ext.XTemplate',
                                                 '<tpl for=".">',
                                                     '<tpl if="parentId == 0">',
@@ -58,7 +64,7 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                                                 '<tpl for=".">',
                                                     '{text}',
                                                 '</tpl>'
-                                            ),
+                                            ),*/
                             emptyText: '--All Categories--',
                             margin  : '0 0 0 10'
                         }, {

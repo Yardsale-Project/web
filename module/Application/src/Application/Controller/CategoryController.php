@@ -21,12 +21,16 @@ class CategoryController extends Controller
         $retVal     = array();
         $request    = $this->getRequest();
 
+
         if( $request->isPost() ) {
             $postData = $request->getPost();
 
             $isTree = ( !empty($postData['isTree']) )? $postData['isTree'] : false;
 
-            $result = array(
+            $model = $this->model('Category');
+            $result = $model->getCategories();
+
+            /*$result = array(
                 array(
                     'id'        => '1',
                     'text'      => 'Category 1',
@@ -57,7 +61,7 @@ class CategoryController extends Controller
                     'text'      => 'Sub Category 2, 3',
                     'parentId'  => '3'
                 )
-            );
+            );*/
             if( $isTree === 'true' ) {
 
                 $retVal = array(
@@ -79,7 +83,7 @@ class CategoryController extends Controller
         return new JsonModel($retVal);   
     }
 
-    private function _createTree($list, $parentId = 0) {
+    /*private function _createTree($list, $parentId = 0) {
         $tree = array();
 
         $treeCtr = 0;
@@ -93,5 +97,46 @@ class CategoryController extends Controller
         }
 
         return $tree;
+    }*/
+
+    private function _createTree(&$list) {
+        $shiftedVal = array_shift($list);
+
+        $retVal = array();
+        $nodeVal = array();
+
+        foreach ($list as $key => $node) {
+            $nodeVal = array();
+
+            if( 
+                $node['lft'] < $node['rgt'] &&
+                $node['lft'] > $shiftedVal['lft'] &&
+                $node['rgt'] < $shiftedVal['rgt']
+            ) {
+                $nodeVal['text'] = $node['name'];
+                $nodeVal['id'] = $node['id'];
+
+                if( $node['lft'] + 1 == $node['rgt']) {
+                    $nodeVal['leaf'] = 'true';
+
+                    unset($list[$key]);
+                }else if( $node['lft'] + 1 < $node['rgt'] ) {
+
+                    //$list = array_slice($list, $key);
+                    $nodeVal['leaf'] = 'false';
+                    $nodeVal['children'] = $this->_createTree( $list );
+
+                    prev($list);
+                }
+
+                $retVal[] = $nodeVal;
+
+            } else {
+                break;
+            }
+
+        }
+
+        return $retVal;
     }
 }

@@ -2331,7 +2331,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSCommon.util.Debug": [
     "YSDebug"
   ],
+  "YSCommon.ux.TreePicker": [],
   "YSCommon.validation.Validation": [],
+  "YSCommon.view.main.login.Signin": [],
+  "YSCommon.view.main.login.SigninController": [],
+  "YSCommon.view.main.login.SigninModel": [],
   "YSWeb.Application": [],
   "YSWeb.controller.Main": [],
   "YSWeb.controller.Root": [],
@@ -2363,8 +2367,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.login.RegisterController": [],
   "YSWeb.view.main.login.RegisterModel": [],
   "YSWeb.view.main.login.Signin": [],
-  "YSWeb.view.main.login.SigninController": [],
-  "YSWeb.view.main.login.SigninModel": [],
   "YSWeb.view.main.product.thumbnail.GridView": [],
   "YSWeb.view.main.product.thumbnail.GridViewController": [],
   "YSWeb.view.main.product.thumbnail.ListView": [],
@@ -3715,7 +3717,19 @@ Ext.ClassManager.addNameAliasMappings({
     "store.states"
   ],
   "YSCommon.util.Debug": [],
+  "YSCommon.ux.TreePicker": [
+    "widget.app-treepicker"
+  ],
   "YSCommon.validation.Validation": [],
+  "YSCommon.view.main.login.Signin": [
+    "widget.app-signin"
+  ],
+  "YSCommon.view.main.login.SigninController": [
+    "controller.signin"
+  ],
+  "YSCommon.view.main.login.SigninModel": [
+    "viewmodel.signin"
+  ],
   "YSWeb.Application": [],
   "YSWeb.controller.Main": [],
   "YSWeb.controller.Root": [],
@@ -3800,15 +3814,7 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWeb.view.main.login.RegisterModel": [
     "viewmodel.register"
   ],
-  "YSWeb.view.main.login.Signin": [
-    "widget.app-signin"
-  ],
-  "YSWeb.view.main.login.SigninController": [
-    "controller.signin"
-  ],
-  "YSWeb.view.main.login.SigninModel": [
-    "viewmodel.signin"
-  ],
+  "YSWeb.view.main.login.Signin": [],
   "YSWeb.view.main.product.thumbnail.GridView": [
     "widget.app-view-grid"
   ],

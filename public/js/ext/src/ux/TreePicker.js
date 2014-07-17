@@ -235,7 +235,13 @@ Ext.define('Ext.ux.TreePicker', {
         record = value ? me.store.getNodeById(value) : me.store.getRoot();
         if (value === undefined) {
             record = me.store.getRoot();
-            me.value = record.getId();
+            console.log('record', record);
+
+            if(record)
+            {
+                me.value = record.getId();  
+            }
+            
         } else {
             record = me.store.getNodeById(value);
         }
@@ -264,7 +270,7 @@ Ext.define('Ext.ux.TreePicker', {
      */
     onLoad: function() {
         var value = this.value;
-
+        console.log('alue', setValue);
         if (value) {
             this.setValue(value);
         }
