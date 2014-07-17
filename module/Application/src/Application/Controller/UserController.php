@@ -28,7 +28,7 @@ class UserController extends Controller {
             $postData = $request->getPost();
 
             try {
-                $email      = $postData['email'];
+                $email      = $postData['email']; //$_POST['email'];
                 $password   = $postData['password'];
 
                 // check for existing email

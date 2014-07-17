@@ -29,11 +29,11 @@ Ext.define('YSWeb.view.main.body.right.Right', {
             items       : [
                 {
                     xtype   : 'image',
-                    src     : YSConfig.url + '/img/admin/icons/facebook-icon_20x20.png',
+                    src     : YSConfig.url + '/img/admin/icons/facebook-icon_50x50.png',
                     margin   : '0 5 0 0'
                 }, {
                     xtype   : 'image',
-                    src     : YSConfig.url + '/img/admin/icons/twitter-icon_20x20.png',
+                    src     : YSConfig.url + '/img/admin/icons/twitter-icon_50x50.png',
                     margin   : '0 5 0 0'
                 }
             ]
