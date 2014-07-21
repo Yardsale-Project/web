@@ -21,12 +21,14 @@ Ext.define('YSWebAdmin.Application', {
 
     controllers: [
         'Root',
-        'Main'
+        'Main',
+        'Categories'
         // TODO: add controllers here
     ],
 
     stores: [
         // TODO: add stores here
+        'YSCommon.store.CategoryTree'
     ],
     
     launch: function () {

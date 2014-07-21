@@ -2328,11 +2328,13 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSCommon.util.Debug": [
     "YSDebug"
   ],
+  "YSCommon.ux.TreePicker": [],
   "YSCommon.validation.Validation": [],
   "YSCommon.view.main.login.Signin": [],
   "YSCommon.view.main.login.SigninController": [],
   "YSCommon.view.main.login.SigninModel": [],
   "YSWebAdmin.Application": [],
+  "YSWebAdmin.controller.Categories": [],
   "YSWebAdmin.controller.Main": [],
   "YSWebAdmin.controller.Root": [],
   "YSWebAdmin.view.main.Main": [],
@@ -2340,7 +2342,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWebAdmin.view.main.MainModel": [],
   "YSWebAdmin.view.main.body.Body": [],
   "YSWebAdmin.view.main.body.Categories": [],
+  "YSWebAdmin.view.main.body.CategoriesController": [],
   "YSWebAdmin.view.main.body.CategoriesModel": [],
+  "YSWebAdmin.view.main.body.Category": [],
+  "YSWebAdmin.view.main.body.CategoryController": [],
+  "YSWebAdmin.view.main.body.CategoryModel": [],
   "YSWebAdmin.view.main.footer.Footer": [],
   "YSWebAdmin.view.main.header.Header": [],
   "YSWebAdmin.view.main.header.HeaderController": [],
@@ -3693,6 +3699,9 @@ Ext.ClassManager.addNameAliasMappings({
     "store.states"
   ],
   "YSCommon.util.Debug": [],
+  "YSCommon.ux.TreePicker": [
+    "widget.app-treepicker"
+  ],
   "YSCommon.validation.Validation": [],
   "YSCommon.view.main.login.Signin": [
     "widget.app-signin"
@@ -3704,6 +3713,7 @@ Ext.ClassManager.addNameAliasMappings({
     "viewmodel.signin"
   ],
   "YSWebAdmin.Application": [],
+  "YSWebAdmin.controller.Categories": [],
   "YSWebAdmin.controller.Main": [],
   "YSWebAdmin.controller.Root": [],
   "YSWebAdmin.view.main.Main": [
@@ -3721,8 +3731,20 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWebAdmin.view.main.body.Categories": [
     "widget.app-categories"
   ],
+  "YSWebAdmin.view.main.body.CategoriesController": [
+    "controller.categories"
+  ],
   "YSWebAdmin.view.main.body.CategoriesModel": [
     "viewmodel.categories"
+  ],
+  "YSWebAdmin.view.main.body.Category": [
+    "widget.app-category"
+  ],
+  "YSWebAdmin.view.main.body.CategoryController": [
+    "controller.category"
+  ],
+  "YSWebAdmin.view.main.body.CategoryModel": [
+    "viewmodel.category"
   ],
   "YSWebAdmin.view.main.footer.Footer": [
     "widget.app-footer"

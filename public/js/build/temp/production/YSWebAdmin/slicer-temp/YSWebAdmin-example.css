@@ -96,6 +96,11 @@
   border-bottom: 1px solid #cecece !important;
 }
 
+/* line 1, ../../../../../YSWebAdmin/sass/var/view/main/body/Categories.scss */
+.app-categories {
+  margin-top: 10px !important;
+}
+
 /* line 1, ../../../../../YSWebAdmin/sass/var/view/main/body/Body.scss */
 .app-body {
   margin: 0 auto !important;

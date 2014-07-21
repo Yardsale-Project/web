@@ -50,21 +50,6 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             store   : Ext.create('YSCommon.store.CategoryTree'),
                             displayField: 'text',
                             rootVisible : false,
-                            /*valueField  : 'id',
-                            tpl         :   Ext.create('Ext.XTemplate',
-                                                '<tpl for=".">',
-                                                    '<tpl if="parentId == 0">',
-                                                        '<div class="x-boundlist-item"><b>{text}</b></div>',
-                                                    '<tpl else>',
-                                                        '<div class="x-boundlist-item"><dd>{text}</dd></div>',
-                                                    '</tpl>',
-                                                '</tpl>'
-                                            ),
-                            displayTpl  :   Ext.create('Ext.XTemplate',
-                                                '<tpl for=".">',
-                                                    '{text}',
-                                                '</tpl>'
-                                            ),*/
                             emptyText: '--All Categories--',
                             margin  : '0 0 0 10'
                         }, {

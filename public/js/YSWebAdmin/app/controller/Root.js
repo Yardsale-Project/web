@@ -13,6 +13,7 @@ Ext.define('YSWebAdmin.controller.Root', {
 
         var me = this,
         	header = Ext.ComponentQuery.query('#app-header')[0];
+            body = Ext.ComponentQuery.query('#app-body')[0];
 
         YSDebug.log('header', header);
 
@@ -34,6 +35,7 @@ Ext.define('YSWebAdmin.controller.Root', {
                         me.requestCSRFToken(me, logoutToken);
                     } else {
                     	header.destroy();
+                        body.destroy();
 
                     	Ext.create('Ext.window.Window', {
 				            modal       : true,

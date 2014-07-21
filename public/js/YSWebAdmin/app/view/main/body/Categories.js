@@ -7,19 +7,20 @@ Ext.define('YSWebAdmin.view.main.body.Categories', {
     itemId:'app-categories',
     cls     : 'app-categories',
     
-   /* controller: 'header',*/
+    controller: 'categories',
     viewModel: {
         type: 'categories'
     },
 
     columnWidth : .95,
     layout: 'hbox',
-    border  : true,
+    border  : false,
 
     items   : [
         {
             xtype       : 'treepanel',
             itemId      : 'categoryPanel',
+            reference   : 'categoryPanel',
             bind        : {
                 title   : '{categories}'
             },
@@ -27,11 +28,30 @@ Ext.define('YSWebAdmin.view.main.body.Categories', {
             rootVisible : false,
             store       : Ext.create('YSCommon.store.CategoryTree'),
             lines       : false,
-            width       : 210
+            width       : 300,
+
+            tbar        : [
+                {
+                    xtype   : 'button',
+                    itemId  : 'addRootCategory',
+                    bind    : {
+                        text    : '{addRootCategory}'
+                    }
+                }, {
+                    xtype   : 'button',
+                    itemId  : 'addSubCategory',
+                    reference:'addSubCategoryBtn',
+                    disabled: true,
+                    bind    : {
+                        text    : '{addSubCategory}'
+                    }
+                }
+            ]
         }, {
-            xtype       : 'panel',
-            html        : 'add',
-            flex        : 1
+            xtype       : 'app-category',
+            flex        : 1,
+            reference   : 'categoryInfo',
+            padding     : 5
         }
     ]
 });

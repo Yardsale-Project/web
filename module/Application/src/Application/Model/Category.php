@@ -2,6 +2,8 @@
 
 namespace Application\Model;
 
+use Zend\Db\Sql\Expression;
+
 class Category extends Table
 {
 
@@ -15,7 +17,8 @@ class Category extends Table
 
         $category_fields = array(
         	'id',
-        	'name'
+        	'name',
+            'description'
         );
 
         $node_fields = array(
@@ -72,4 +75,72 @@ class Category extends Table
 
         return $affected_rows;
 	}
+
+    public function addCategory($data) {
+        $affected_rows = $this->insert('category', $data);
+
+        $lastInsertId = $this->_dbAdapter->getDriver()->getLastGeneratedValue();
+
+        return $lastInsertId;
+    }
+
+    public function updateCategory($data, $where) {
+        $affected_rows  = $this->update('category', $data, $where);
+
+        return $affected_rows;
+    }
+
+    public function getLftRgt($catId) {
+        $whereClause = array(
+            'category_id'   => $catId
+        );
+
+        $select = $this->select()
+                        ->from($this->_name)
+                        ->columns(array('lft' ,'rgt', 'id'))
+                        ->where($whereClause);
+
+        return $this->fetchRowToArray($select);
+    }
+
+    public function updateLftRgt( $offset , $expr) {
+        $setClause      = array( 'rgt' => new Expression('rgt' . $expr));
+        $whereClause    = array( 'rgt > ' . $offset);
+
+        $affected_rows  = $this->update($this->_name, $setClause, $whereClause);
+
+        $setClause      = array( 'lft' => new Expression('lft' . $expr));
+        $whereClause    = array( 'lft > ' . $offset);
+
+        $affected_rows  = $this->update($this->_name, $setClause, $whereClause);
+
+        return $affected_rows;
+    }
+
+    public function insertNode($data) {
+        $affected_rows = $this->insert($this->_name, $data);
+
+        return $affected_rows;
+    }
+
+    public function deleteCategoryById($id) {
+        $whereClause = array(
+            'id'    => $id
+        );
+
+        $affected_rows = $this->delete('category', $whereClause);
+
+        return $affected_rows;
+    }
+
+    public function deleteFromCatTree($lft, $rgt) {
+        $whereClause = array(
+            'lft >= ' . $lft,
+            'rgt <= ' . $rgt
+        );
+
+        $affected_rows = $this->delete($this->_name, $whereClause);
+
+        return $affected_rows;
+    }
 }

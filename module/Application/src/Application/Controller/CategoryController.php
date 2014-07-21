@@ -30,38 +30,6 @@ class CategoryController extends Controller
             $model = $this->model('Category');
             $result = $model->getCategories();
 
-            /*$result = array(
-                array(
-                    'id'        => '1',
-                    'text'      => 'Category 1',
-                    'parentId'  => '0'
-                ),
-                array(
-                    'id'        => '4',
-                    'text'      => 'Sub Category 1, 1',
-                    'parentId'  => '1'
-                ),
-                array(
-                    'id'        => '2',
-                    'text'      => 'Category 2',
-                    'parentId'  => '0'
-                ),
-                array(
-                    'id'        => '3',
-                    'text'      => 'Category 3',
-                    'parentId'  => '0'
-                ),
-                array(
-                    'id'        => '5',
-                    'text'      => 'Sub Category 1, 3',
-                    'parentId'  => 3
-                ),
-                array(
-                    'id'        => '6',
-                    'text'      => 'Sub Category 2, 3',
-                    'parentId'  => '3'
-                )
-            );*/
             if( $isTree === 'true' ) {
 
                 $retVal = array(
@@ -80,24 +48,8 @@ class CategoryController extends Controller
             
         }
 
-        return new JsonModel($retVal);   
+        return new JsonModel($retVal);
     }
-
-    /*private function _createTree($list, $parentId = 0) {
-        $tree = array();
-
-        $treeCtr = 0;
-
-        foreach ($list as $key => &$value) {
-
-            if( $value['parentId'] == $parentId) {
-                $value['children'] = $this->_createTree($list, $value['id']);
-                $tree[] = $value;
-            }
-        }
-
-        return $tree;
-    }*/
 
     private function _createTree(&$list) {
         $shiftedVal = array_shift($list);
@@ -115,6 +67,7 @@ class CategoryController extends Controller
             ) {
                 $nodeVal['text'] = $node['name'];
                 $nodeVal['id'] = $node['id'];
+                $nodeVal['description'] = $node['description'];
 
                 if( $node['lft'] + 1 == $node['rgt']) {
                     $nodeVal['leaf'] = 'true';
@@ -138,5 +91,105 @@ class CategoryController extends Controller
         }
 
         return $retVal;
+    }
+
+    public function addCategoryAction() {
+        $retVal     = array();
+        $request    = $this->getRequest();
+
+
+        if( $request->isPost() ) {
+            $postData = $request->getPost();
+
+            $name           = ( !empty($postData['name']) )? $postData['name'] : '';
+            $description    = ( !empty($postData['description']) )? $postData['description'] : '';
+            $catId          = ( !empty($postData['cat_id']) )? $postData['cat_id'] : 0;
+            $parentId       = ( !empty($postData['parent_id']) )? $postData['parent_id'] : 0;
+
+            $model = $this->model('Category');
+            if(empty($catId)) {
+                //add
+                $data = array(
+                    'name' => $name,
+                    'description' => $description
+                );
+                $lastInsertId = $model->addCategory($data);
+
+                $catId = $lastInsertId;
+
+                $result = $model->getLftRgt($parentId);
+                $rgt = $result['rgt'];
+
+                $model->updateLftRgt( $rgt-1 , ' + 2');
+
+                $data = array(
+                    'category_id' => $catId,
+                    'lft' => $rgt,
+                    'rgt' => $rgt + 1
+                );
+                $model->insertNode($data);
+
+                $retVal['success'] = true;
+                $retVal['message'] = 'Category Added';
+            } else {
+                //update
+                $data = array(
+                    'name' => $name,
+                    'description' => $description
+                );
+
+                $where = array( 'id' => $catId);
+                $model->updateCategory($data, $where);
+
+                $retVal['success'] = true;
+                $retVal['message'] = 'Category Updated';
+            }
+
+        } else {
+            $retVal['success'] = false;
+            $retVal['errorMessage'] = 'Invalid request';
+        }
+
+        return new JsonModel($retVal);
+    }
+
+    public function deleteCategoryAction() {
+        $retVal     = array();
+        $request    = $this->getRequest();
+
+
+        if( $request->isPost() ) {
+            $postData = $request->getPost();
+
+            $catId = ( !empty($postData['cat_id']) )? $postData['cat_id'] : 0;
+
+            $model = $this->model('Category');
+
+            if(!empty($catId)) {
+                $model->deleteCategoryById($catId);
+
+                $result = $model->getLftRgt($catId);
+
+                $lft = $result['lft'];
+                $rgt = $result['rgt'];
+                $id  = $result['id'];
+
+                $diff = $rgt - $lft + 1;
+
+                $model->deleteFromCatTree($lft, $rgt);
+                $model->updateLftRgt( $rgt , ' - ' . $diff);
+
+                $retVal['success'] = true;
+                $retVal['message'] = 'Category deleted';
+            } else {
+                $retVal['success'] = false;
+                $retVal['errorMessage'] = 'No category selected';
+            }
+        } else {
+            $retVal['success'] = false;
+            $retVal['errorMessage'] = 'Invalid request';
+        }
+
+        return new JsonModel($retVal);
     }
 }

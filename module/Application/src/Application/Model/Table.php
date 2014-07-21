@@ -8,6 +8,7 @@ use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Update;
 use Zend\Db\Sql\Insert;
 use Zend\Db\Sql\Delete;
+use Zend\Db\Expr;
 
 class Table
 {

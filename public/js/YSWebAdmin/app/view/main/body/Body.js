@@ -13,12 +13,12 @@ Ext.define('YSWebAdmin.view.main.body.Body', {
     },*/
 
     layout: 'column',
+    border : false,
 
     items   : [
         {
-            xtype       : 'panel',
-            columnWidth : .95,
-            html        : 'body'
+            xtype       : 'app-categories',
+            columnWidth : .95
         }
     ]
 });

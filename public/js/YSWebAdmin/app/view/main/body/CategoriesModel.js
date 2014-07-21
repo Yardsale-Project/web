@@ -6,7 +6,9 @@ Ext.define('YSWebAdmin.view.main.body.CategoriesModel', {
     alias: 'viewmodel.categories',
 
     data: {
-        categories          : 'Categories'
+        categories          	: 'Categories',
+        addRootCategory 		: 'Add Root Category',
+        addSubCategory 			: 'Add Sub Category'
     }
 
     //TODO - add data, formulas and/or methods to support your view
