@@ -146,7 +146,7 @@ class FacebookController extends Controller
             die();
         }
 
-        $friendsList = $facebook->getApiUrl('friends.getlists');
+        $friendsList = $facebook->api(array( 'method' => 'friends.getlists'));
 
         print_r($friendsList);
 
