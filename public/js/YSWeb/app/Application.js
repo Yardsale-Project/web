@@ -22,7 +22,8 @@ Ext.define('YSWeb.Application', {
     defaultToken : 'home',
 
     controllers: [
-        'Root'
+        'Root',
+        'Facebook'
         // TODO: add controllers here
     ],
 

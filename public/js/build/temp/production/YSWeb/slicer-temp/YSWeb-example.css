@@ -83,6 +83,34 @@
 /* including package ext-theme-neptune */
 /* including package ext-theme-crisp */
 /* including package YSWeb */
+/* line 4, ../../../../../YSWeb/sass/var/view/main/footer/Footer.scss */
+.app-footer .x-panel#app-footer-container {
+  margin: 0 auto;
+  float: none !important;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #cecece;
+}
+/* line 11, ../../../../../YSWeb/sass/var/view/main/footer/Footer.scss */
+.app-footer #app-footer-container-copyright {
+  margin: 0 auto;
+  float: none !important;
+  border: transparent !important;
+}
+/* line 17, ../../../../../YSWeb/sass/var/view/main/footer/Footer.scss */
+.app-footer .shareBtn {
+  background: transparent;
+  border: transparent;
+}
+/* line 21, ../../../../../YSWeb/sass/var/view/main/footer/Footer.scss */
+.app-footer .shareBtn .x-btn-inner-default-small {
+  color: black !important;
+}
+/* line 26, ../../../../../YSWeb/sass/var/view/main/footer/Footer.scss */
+.app-footer .shareBtn.x-btn-over {
+  background: transparent;
+  border: transparent;
+}
+
 /* line 1, ../../../../../YSWeb/sass/var/view/main/product/thumbnail/GridView.scss */
 .app-view-grid {
   background-color: #fff;
@@ -241,20 +269,6 @@
 
 /* line 3, ../../../../../YSWeb/sass/var/view/main/body/center/Center.scss */
 .app-bodyCenter .breadcrumb {
-  border: transparent !important;
-}
-
-/* line 4, ../../../../../YSWeb/sass/var/view/main/footer/Footer.scss */
-.app-footer .x-panel#app-footer-container {
-  margin: 0 auto;
-  float: none !important;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #cecece;
-}
-/* line 11, ../../../../../YSWeb/sass/var/view/main/footer/Footer.scss */
-.app-footer #app-footer-container-copyright {
-  margin: 0 auto;
-  float: none !important;
   border: transparent !important;
 }
 

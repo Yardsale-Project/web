@@ -104,7 +104,8 @@ return array(
             'Application\Controller\Category' => 'Application\Controller\CategoryController',
             'Application\Controller\Product' => 'Application\Controller\ProductController',
             'Application\Controller\User' => 'Application\Controller\UserController',
-            'Application\Controller\Admin' => 'Application\Controller\AdminController'
+            'Application\Controller\Admin' => 'Application\Controller\AdminController',
+            'Application\Controller\Facebook' => 'Application\Controller\FacebookController'
         ),
     ),
     'controller_plugins' => array(

@@ -14,4 +14,18 @@
 		border 	: transparent !important;
 	}
 
+	.shareBtn {
+		background 	: transparent;
+		border 		: transparent;
+
+		.x-btn-inner-default-small {
+			color 	: black !important;
+		}
+	}
+
+	.shareBtn.x-btn-over {
+		background 	: transparent;
+		border 		: transparent;
+	}
+
 }

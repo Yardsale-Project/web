@@ -88,22 +88,15 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                     columnWidth : .25,
                     items   : [
                         {
-                            xtype   : 'panel',
-                            border  : false,
-                            frame   : false,
-                            layout  : 'hbox',
-                            items   : [
-                                {
-                                    xtype   : 'image',
-                                    src     : YSConfig.url + '/img/admin/icons/facebook-icon_20x20.png',
-                                    margin   : '0 5 0 0'
-                                }, {
-                                    xtype   : 'tbtext',
-                                    bind    : {
-                                        text    : '{fb}'
-                                    }
-                                }
-                            ]
+                            xtype   : 'button',
+                            itemId  : 'fbPost',
+                            bind    : {
+                                text    : '{fb}'
+                            },
+                            icon    : YSConfig.url + '/img/admin/icons/facebook-icon_20x20.png',
+                            href    : YSConfig.url,
+                            hrefTarget: '_parent',
+                            cls     : 'shareBtn'
                         }, {
                             xtype   : 'panel',
                             border  : false,

@@ -2337,6 +2337,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSCommon.view.main.login.SigninController": [],
   "YSCommon.view.main.login.SigninModel": [],
   "YSWeb.Application": [],
+  "YSWeb.controller.Facebook": [],
   "YSWeb.controller.Main": [],
   "YSWeb.controller.Root": [],
   "YSWeb.view.main.Main": [],
@@ -3731,6 +3732,7 @@ Ext.ClassManager.addNameAliasMappings({
     "viewmodel.signin"
   ],
   "YSWeb.Application": [],
+  "YSWeb.controller.Facebook": [],
   "YSWeb.controller.Main": [],
   "YSWeb.controller.Root": [],
   "YSWeb.view.main.Main": [

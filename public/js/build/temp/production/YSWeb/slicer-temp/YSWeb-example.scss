@@ -725,6 +725,7 @@ $include-yscommon-view-main-login-signin: true;
 $include-yscommon-view-main-login-signincontroller: true;
 $include-yscommon-view-main-login-signinmodel: true;
 $include-ysweb-application: true;
+$include-ysweb-controller-facebook: true;
 $include-ysweb-controller-main: true;
 $include-ysweb-controller-root: true;
 $include-ysweb-view-main-main: true;
@@ -768,10 +769,10 @@ $include-ysweb-view-main-product-thumbnail-listviewcontroller: true;
 /* including package ext-theme-crisp */
 @import '../../../../../ext/packages/ext-theme-crisp/sass/etc/all';
 /* including package YSWeb */
+@import '../../../../../YSWeb/sass/var/view/main/footer/Footer';
 @import '../../../../../YSWeb/sass/var/view/main/product/thumbnail/GridView';
 @import '../../../../../YSWeb/sass/var/view/main/body/Body';
 @import '../../../../../YSWeb/sass/var/view/main/body/center/Center';
-@import '../../../../../YSWeb/sass/var/view/main/footer/Footer';
 @import '../../../../../YSWeb/sass/var/view/main/header/AccountHeader';
 @import '../../../../../YSWeb/sass/var/view/main/header/AdsHeader';
 @import '../../../../../YSWeb/sass/var/view/main/header/CenterHeader';
