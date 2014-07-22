@@ -125,7 +125,7 @@ class FacebookController extends Controller
       return new JsonModel($retVal);
     }
 
-    public function facebookChatAction() {
+    public function fbchatAction() {
 
         $config = array(
             'appId' => $this->_appID ,
