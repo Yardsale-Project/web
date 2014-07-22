@@ -14,6 +14,9 @@ require_once 'autoload.php';
 use Facebook\FacebookSession;
 use Facebook\FacebookRedirectLoginHelper;
 
+use Application\Controller\FacebookChat\SendMessage;
+use Application\Controller\FacebookChat\Facebook;
+
 class FacebookController extends Controller
 {
     private $_appID = '266620273529963';
@@ -120,5 +123,33 @@ class FacebookController extends Controller
       );
 
       return new JsonModel($retVal);
+    }
+
+    public function facebookChatAction() {
+
+        $config = array(
+            'appId' => $this->_appID ,
+            'secret'=> $this->_appSecret 
+        );
+
+        $facebook = new Facebook($config);
+
+        if(!$facebook->getUser()) {
+            $params = array(
+                'scope'         => 'xmpp_login',
+                'redirect_uri'  => 'http://yardsale.druidinc.com/application/facebook/facebookChat'
+            );
+        
+            $url = $facebook->getLoginUrl($params);
+            
+            header("location:".$url);
+            die();
+        }
+
+        $friendsList = $facebook->getApiUrl('friends.getlists');
+
+        print_r($friendsList);
+
+        return $this->_view;
     }
 }
