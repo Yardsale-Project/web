@@ -805,6 +805,8 @@ abstract class BaseFacebook
    * @throws FacebookApiException
    */
   protected function _restserver($params) {
+
+    echo 'rest server';
     // generic application level parameters
     $params['api_key'] = $this->getAppId();
     $params['format'] = 'json-strings';
