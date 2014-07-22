@@ -16,8 +16,8 @@ use Facebook\FacebookRedirectLoginHelper;
 
 class FacebookController extends Controller
 {
-    private $_appID = '266633476861976';
-    private $_appSecret = '7d63ce67585ea3799135d0ac6bb85d4a';
+    private $_appID = '266620273529963';
+    private $_appSecret = '4e5a568421a2fc1cd9d1c914b4234871';
     private $_fbSession = null;
     private $_redirectUri = 'http://yardsale.druidinc.com';
 
