@@ -104,7 +104,7 @@ class FacebookController extends Controller
 
       $urlArr = array(
         'app_id=' . $this->_appID,
-        'display=popup',
+        'display=page',
         'action_type=share',
         'action_properties=' . urlencode($actionProp),
         'redirect_uri='. $this->_redirectUri

@@ -98,22 +98,15 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                             hrefTarget: '_parent',
                             cls     : 'shareBtn'
                         }, {
-                            xtype   : 'panel',
-                            border  : false,
-                            frame   : false,
-                            layout  : 'hbox',
-                            items   : [
-                                {
-                                    xtype   : 'image',
-                                    src     : YSConfig.url + '/img/admin/icons/twitter-icon_20x20.png',
-                                    margin   : '0 5 0 0'
-                                }, {
-                                    xtype   : 'tbtext',
-                                    bind    : {
-                                        text    : '{tw}'
-                                    }
-                                }
-                            ]
+                            xtype   : 'button',
+                            itemId  : 'twPost',
+                            bind    : {
+                                text    : '{tw}'
+                            },
+                            icon    : YSConfig.url + '/img/admin/icons/twitter-icon_20x20.png',
+                            href    : YSConfig.url,
+                            hrefTarget: '_parent',
+                            cls     : 'shareBtn'
                         }
                     ]
                 }, {

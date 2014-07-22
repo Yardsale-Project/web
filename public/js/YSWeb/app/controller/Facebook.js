@@ -17,7 +17,7 @@ Ext.define('YSWeb.controller.Facebook', {
     init 	: function(){
     	this.control({
             '#fbPost' : {
-                render : 'onFbPostBtnRender'
+                render 	: 'onFbPostBtnRender'
             }
     	});
     },
@@ -27,6 +27,7 @@ Ext.define('YSWeb.controller.Facebook', {
     	console.log('check');
 
     	var fbSharBtn = this.getFbShareBtn();
+    	var me = this;
 
     	Ext.Ajax.request({
             url     : YSConfig.url + '/application/facebook/getShareLink',
