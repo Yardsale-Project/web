@@ -14,7 +14,7 @@ Ext.define('YSWeb.view.main.footer.FooterModel', {
         paymentMethod   : 'Payment Methods',
         paypal          : 'Paypal',
         cod             : 'Cash on Delivery',
-        mediaConnection : 'Stay Connected',
+        mediaConnection : 'Share',
         fb              : 'Facebook',
         tw              : 'Twitter',
         download        : '&nbsp;',
