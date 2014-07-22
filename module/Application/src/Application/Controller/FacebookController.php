@@ -96,8 +96,10 @@ class FacebookController extends Controller
       $_url = 'https://www.facebook.com/dialog/share_open_graph?';
 
       $actionProp = array(
-        'object' => $this->_redirectUri,
-        'message' => 'this is a message'
+        'object' => 'http://yardsale.druidinc.com',
+        'message' => 'this is a message',
+        'scrape'  => 'true',
+        'image' =>    'http://yardsale.druidinc.com/img/admin/logo/logo_1.png'
       );
 
       $actionProp = json_encode($actionProp);
