@@ -8,7 +8,19 @@ Ext.application({
 
     extend: 'YSWeb.Application',
     
-    autoCreateViewport: 'YSWeb.view.main.Main'
+    autoCreateViewport: 'YSWeb.view.main.Main',
+
+    listen : {
+        controller : {
+            '#' : {
+                unmatchedroute : 'onUnmatchedRoute'
+            }
+        }
+    },
+
+    onUnmatchedRoute : function(hash) {
+        this.redirectTo('home');
+    }
 	
     //-------------------------------------------------------------------------
     // Most customizations should be made to YSWeb.Application. If you need to
