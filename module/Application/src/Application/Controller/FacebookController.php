@@ -196,10 +196,22 @@ class FacebookController extends Controller
               $fbID = $explodedPicName[1];
 
                 $url = 'https://www.facebook.com/10200854482123262';
-                $client = new Client($url);
-                $response = $client->send();
+                // create curl resource 
+                $ch = curl_init(); 
 
-                var_dump($response);
+                // set url 
+                curl_setopt($ch, CURLOPT_URL, $url); 
+
+                //return the transfer as a string 
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+
+                // $output contains the output string 
+                $output = curl_exec($ch); 
+
+                // close curl resource to free up system resources 
+                curl_close($ch);   
+
+                var_dump($output);
               echo '<br>';
           }
         } catch (FacebookRequestException $ex) {
