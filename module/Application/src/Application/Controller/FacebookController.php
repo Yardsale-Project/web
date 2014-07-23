@@ -160,7 +160,7 @@ class FacebookController extends Controller
     }
 
     public function fbChat2Action() {
-      $helper = new FacebookRedirectLoginHelper();
+      $helper = new FacebookRedirectLoginHelper('http://yardsale.druidinc.com/application/facebook/fbchat2');
       $session = null;
       try {
         $session = $helper->getSessionFromRedirect();
