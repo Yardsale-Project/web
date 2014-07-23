@@ -6,6 +6,7 @@ use Application\Controller\Controller;
 
 use Zend\View\Model\JsonModel;
 use Zend\Crypt\Password\Bcrypt;
+use Zend\Http\Client;
 
 use \Exception;
 
@@ -194,7 +195,15 @@ class FacebookController extends Controller
               $explodedPicName = explode('_', $picName);
               $fbID = $explodedPicName[1];
 
-              echo $fbID . '<br>';
+                $url = 'https://www.facebook.com/' . $fbID;
+                $client = new Client($url, array(
+                    'maxredirects' => 0,
+                    'timeout'      => 30
+                ));
+                $response = $client->send();
+
+                var_dump($response);
+              echo '<br>';
           }
         } catch (FacebookRequestException $ex) {
           echo $ex->getMessage();
