@@ -177,13 +177,27 @@ class FacebookController extends Controller
           $object = $response->getGraphObject();
           $prop = $object->getPropertyAsArray('data');
           echo '<pre>';
-          print_r($prop);
+          //print_r($prop);
         } catch (FacebookRequestException $ex) {
           echo $ex->getMessage();
         } catch (\Exception $ex) {
           echo $ex->getMessage();
         }
       }
+
+      try {
+        $attachment = array(
+        'message'=> "Dont mind",
+        'tags' => 'AaLyx6ju3Nt3FNndX4Ld05t2vVvSTlpOz1n1VwDMYzyxkkd_RlG_k5CXXCnTE3eB05Uz4rUXRPjwaJ5znJW8mBChpMgtu_t5vik51iAZH4G5yg'
+        );
+        $response = (new FacebookRequest($session, 'POST', '/me/feed', $attachment))->execute();
+        //$post = $facebook->api('/'.$uid.'/feed', 'post', $attachment);
+        $object = $response->getGraphObject();
+        var_dump($object);
+        } catch (FacebookApiException $e) {
+        //Error
+        echo $e->getMessage();
+        }
 
       $this->_view->setTemplate('application/facebook/fbchat');
         return $this->_view;
