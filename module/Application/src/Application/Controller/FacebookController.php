@@ -13,6 +13,8 @@ require_once 'autoload.php';
 
 use Facebook\FacebookSession;
 use Facebook\FacebookRedirectLoginHelper;
+use Facebook\FacebookRequest;
+use Facebook\FacebookRequestException;
 
 use Application\Controller\FacebookChat\SendMessage;
 use Application\Controller\FacebookChat\Facebook;
