@@ -960,7 +960,7 @@ abstract class BaseFacebook
 
     curl_setopt_array($ch, $opts);
     $result = curl_exec($ch);
-    var_dump($ch);
+    var_dump($opts);
     $errno = curl_errno($ch);
     // CURLE_SSL_CACERT || CURLE_SSL_CACERT_BADFILE
     if ($errno == 60 || $errno == 77) {
