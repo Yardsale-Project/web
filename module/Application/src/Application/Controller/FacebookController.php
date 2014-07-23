@@ -133,6 +133,8 @@ class FacebookController extends Controller
         );
 
         $facebook = new Facebook($config);
+        $helper = new FacebookRedirectLoginHelper('http://yardsale.druidinc.com/application/facebook/fbchat');
+        $fbsession = $helper->getSessionFromRedirect();
 
         if(!$facebook->getUser()) {
             $params = array(
@@ -146,11 +148,21 @@ class FacebookController extends Controller
             die();
         }
 
+        try {
+          $response = (new FacebookRequest($session, 'GET', '/me'))->execute();
+          $object = $response->getGraphObject();
+          echo $object->getProperty('name');
+        } catch (FacebookRequestException $ex) {
+          echo $ex->getMessage();
+        } catch (\Exception $ex) {
+          echo $ex->getMessage();
+        }
 
-        $friendsList = $facebook->api('/me/friends');
 
-        echo '<pre>';
-        print_r($friendsList);
+        //$friendsList = $facebook->api('/me/friends');
+
+        /*echo '<pre>';
+        print_r($friendsList);*/
 
         return $this->_view;
     }
