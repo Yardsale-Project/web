@@ -868,7 +868,6 @@ abstract class BaseFacebook
       $domainKey = 'graph';
     }
 
-    echo 'url' . $this->getUrl($domainKey, $path);
     $result = json_decode($this->_oauthRequest(
       $this->getUrl($domainKey, $path),
       $params
@@ -894,8 +893,6 @@ abstract class BaseFacebook
    * @throws FacebookApiException
    */
   protected function _oauthRequest($url, $params) {
-
-    echo 'Aess toke; ' . $this->getAccessToken();
     if (!isset($params['access_token'])) {
       $params['access_token'] = $this->getAccessToken();
     }
