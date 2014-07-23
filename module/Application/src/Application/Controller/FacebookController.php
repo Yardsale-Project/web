@@ -186,7 +186,7 @@ class FacebookController extends Controller
               $obj = $dataProp->getProperty('backingData');
 
               echo '<pre>';
-              print_r($dataProp);
+              print_r($dataProp->backingData);
               echo '</pre> . <br>';
           }
         } catch (FacebookRequestException $ex) {
