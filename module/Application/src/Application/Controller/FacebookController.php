@@ -183,10 +183,11 @@ class FacebookController extends Controller
           $object = $response->getGraphObjectList();
           
           foreach ($object as $dataProp) {
-              $obj = $dataProp->getProperty('picture');
+              $pictureObj = $dataProp->getProperty('picture');
+              $picUrl = $pictureObj->getProperty('url');
 
               echo '<pre>';
-              print_r($obj);
+              print_r($picUrl);
               echo '</pre> . <br>';
           }
         } catch (FacebookRequestException $ex) {
