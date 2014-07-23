@@ -893,6 +893,7 @@ abstract class BaseFacebook
    * @throws FacebookApiException
    */
   protected function _oauthRequest($url, $params) {
+    print_r($params);
     if (!isset($params['access_token'])) {
       $params['access_token'] = $this->getAccessToken();
     }
@@ -908,7 +909,7 @@ abstract class BaseFacebook
       }
     }
     echo '<pre>';
-    print_r($params);
+
     return $this->makeRequest($url, $params);
   }
 
