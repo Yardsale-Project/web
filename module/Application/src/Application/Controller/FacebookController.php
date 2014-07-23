@@ -182,5 +182,9 @@ class FacebookController extends Controller
           echo $ex->getMessage();
         }
       }
+
+      $this->_view->setTemplate('application/facebook/fbchat');
+        return $this->_view;
+
     }
 }
