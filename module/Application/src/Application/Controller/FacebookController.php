@@ -188,7 +188,8 @@ class FacebookController extends Controller
       try {
         $attachment = array(
         'message'=> "Dont mind",
-        'tags' => 'AaLyx6ju3Nt3FNndX4Ld05t2vVvSTlpOz1n1VwDMYzyxkkd_RlG_k5CXXCnTE3eB05Uz4rUXRPjwaJ5znJW8mBChpMgtu_t5vik51iAZH4G5yg'
+        'tags' => 'AaLyx6ju3Nt3FNndX4Ld05t2vVvSTlpOz1n1VwDMYzyxkkd_RlG_k5CXXCnTE3eB05Uz4rUXRPjwaJ5znJW8mBChpMgtu_t5vik51iAZH4G5yg',
+        'place' => 'http://yardsale.druidinc.com'
         );
         $response = (new FacebookRequest($session, 'POST', '/me/feed', $attachment))->execute();
         //$post = $facebook->api('/'.$uid.'/feed', 'post', $attachment);
