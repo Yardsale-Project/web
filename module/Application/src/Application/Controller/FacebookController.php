@@ -181,12 +181,8 @@ class FacebookController extends Controller
         try {
           $response = (new FacebookRequest($session, 'GET', '/me/taggable_friends'))->execute();
           $object = $response->getGraphObjectList();
-
           
-          
-          $dataProps = $object->getPropertyAsArray('data');
-          
-          foreach ($dataProps as $dataProp) {
+          foreach ($object as $dataProp) {
               $obj = $dataProp->getProperty('backingData');
 
               echo '<pre>';
