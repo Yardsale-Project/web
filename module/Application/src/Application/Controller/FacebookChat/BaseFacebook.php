@@ -893,15 +893,12 @@ abstract class BaseFacebook
    * @throws FacebookApiException
    */
   protected function _oauthRequest($url, $params) {
-
-    if (empty($params['access_token'])) {
+    if (!isset($params['access_token'])) {
       $params['access_token'] = $this->getAccessToken();
     }
 
-    
-
     if (isset($params['access_token'])) {
-      //$params['appsecret_proof'] = $this->getAppSecretProof($params['access_token']);
+      $params['appsecret_proof'] = $this->getAppSecretProof($params['access_token']);
     }
 
     // json_encode all params values that are not strings
@@ -910,7 +907,6 @@ abstract class BaseFacebook
         $params[$key] = json_encode($value);
       }
     }
-    echo '<pre>';
 
     return $this->makeRequest($url, $params);
   }
