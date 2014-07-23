@@ -147,7 +147,7 @@ class FacebookController extends Controller
         }
 
 
-        $friendsList = $facebook->api('/me/friends?limit=5000&offset=0'));
+        $friendsList = $facebook->api('/me/friends');
 
         echo '<pre>';
         print_r($friendsList);
