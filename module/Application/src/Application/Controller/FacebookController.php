@@ -146,10 +146,10 @@ class FacebookController extends Controller
             die();
         }
 
-        $friendsList = $facebook->api(array('method' => 'friends.get'));
+        $friendsList = $facebook->api('/me/permissions');
 
         echo '<pre>';
-        var_dump($friendsList);
+        print_r($friendsList);
 
         return $this->_view;
     }
