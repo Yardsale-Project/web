@@ -856,6 +856,7 @@ abstract class BaseFacebook
    * @throws FacebookApiException
    */
   protected function _graph($path, $method = 'GET', $params = array()) {
+    print_r($params);
     if (is_array($method) && empty($params)) {
       $params = $method;
       $method = 'GET';
