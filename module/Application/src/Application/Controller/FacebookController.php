@@ -182,9 +182,7 @@ class FacebookController extends Controller
           $response = (new FacebookRequest($session, 'GET', '/me/taggable_friends'))->execute();
           $object = $response->getGraphObjectList();
 
-          echo '<pre>';
-              print_r($object);
-              echo '</pre> . <br>';
+          
           
           $dataProps = $object->getPropertyAsArray('data');
           
@@ -192,7 +190,7 @@ class FacebookController extends Controller
               $obj = $dataProp->getProperty('backingData');
 
               echo '<pre>';
-              print_r($obj);
+              print_r($dataProp);
               echo '</pre> . <br>';
           }
         } catch (FacebookRequestException $ex) {
