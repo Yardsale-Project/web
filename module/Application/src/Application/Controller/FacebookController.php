@@ -184,7 +184,7 @@ class FacebookController extends Controller
           
           foreach ($object as $dataProp) {
               $pictureObj = $dataProp->getProperty('picture');
-              $picUrl = $pictureObj->getProperty('url');
+              $picUrl = $pictureObj->url;
 
               echo '<pre>';
               print_r($picUrl);
