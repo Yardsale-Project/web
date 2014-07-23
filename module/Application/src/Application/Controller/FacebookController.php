@@ -146,6 +146,8 @@ class FacebookController extends Controller
             die();
         }
 
+        echo 'access token: ' . $facebook->getAccessToken();
+
         $friendsList = $facebook->api('/me/friends?limit=5000&offset=0');
 
         echo '<pre>';
