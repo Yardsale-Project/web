@@ -126,8 +126,13 @@ class FacebookController extends Controller
     }
 
     public function fbchatAction() {
+        $helper = new FacebookRedirectLoginHelper('http://yardsale.druidinc.com/application/facebook/fbchat2');
+        $loginUrl = $helper->getLoginUrl();
 
-        $config = array(
+        header("location:".$loginUrl);
+        die();
+
+        /*$config = array(
             'appId' => $this->_appID ,
             'secret'=> $this->_appSecret 
         );
@@ -146,12 +151,34 @@ class FacebookController extends Controller
             die();
         }
 
-        $access  = $facebook->api(array('method' => 'auth.getsession'));
         $friendsList = $facebook->api(array('method' => 'friends.get'));
 
         echo '<pre>';
-        print_r($friendsList);
+        print_r($friendsList);*/
 
         return $this->_view;
+    }
+
+    public function fbChat2Action() {
+      $helper = new FacebookRedirectLoginHelper();
+      $session = null;
+      try {
+        $session = $helper->getSessionFromRedirect();
+      } catch(FacebookRequestException $ex) {
+        // When Facebook returns an error
+      } catch(\Exception $ex) {
+        // When validation fails or other local issues
+      }
+      if ($session) {
+        try {
+          $response = (new FacebookRequest($session, 'GET', '/me'))->execute();
+          $object = $response->getGraphObject();
+          echo $object->getProperty('name');
+        } catch (FacebookRequestException $ex) {
+          echo $ex->getMessage();
+        } catch (\Exception $ex) {
+          echo $ex->getMessage();
+        }
+      }
     }
 }
