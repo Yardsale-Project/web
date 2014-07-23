@@ -187,9 +187,14 @@ class FacebookController extends Controller
               $picData = $pictureObj->asArray();
               $picUrl = $picData->url;
 
-              echo '<pre>';
-              print_r($picUrl);
-              echo '</pre> . <br>';
+              echo $picUrl . '<br>';
+
+              $explodedPicUrl = explode('/', $picUrl);
+              $picName = $explodedPicUrl[ count($explodedPicUrl) - 1];
+              $explodedPicName = explode('_', $picName);
+              $fbID = $explodedPicName[1];
+
+              echo $fbID . '<br>';
           }
         } catch (FacebookRequestException $ex) {
           echo $ex->getMessage();
