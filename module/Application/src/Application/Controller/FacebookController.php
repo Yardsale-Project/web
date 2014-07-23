@@ -173,7 +173,7 @@ class FacebookController extends Controller
       }
       if ($session) {
         try {
-          $response = (new FacebookRequest($session, 'GET', '/me/invitable_friends'))->execute();
+          $response = (new FacebookRequest($session, 'GET', '/me/taggable_friends'))->execute();
           $object = $response->getGraphObject();
           var_dump($object);
         } catch (FacebookRequestException $ex) {
