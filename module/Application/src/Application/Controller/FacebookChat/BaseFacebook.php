@@ -856,7 +856,7 @@ abstract class BaseFacebook
    * @throws FacebookApiException
    */
   protected function _graph($path, $method = 'GET', $params = array()) {
-    
+
     if (is_array($method) && empty($params)) {
       $params = $method;
       $method = 'GET';
@@ -868,7 +868,7 @@ abstract class BaseFacebook
     } else {
       $domainKey = 'graph';
     }
-    print_r($params);
+
     $result = json_decode($this->_oauthRequest(
       $this->getUrl($domainKey, $path),
       $params
@@ -940,6 +940,8 @@ abstract class BaseFacebook
     if (!$ch) {
       $ch = curl_init();
     }
+
+    print_r($params);
 
     $opts = self::$CURL_OPTS;
     if ($this->getFileUploadSupport()) {
