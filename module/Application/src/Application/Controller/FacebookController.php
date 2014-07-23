@@ -187,7 +187,7 @@ class FacebookController extends Controller
               $picUrl = $pictureObj->url;
 
               echo '<pre>';
-              print_r($picUrl);
+              print_r($pictureObj);
               echo '</pre> . <br>';
           }
         } catch (FacebookRequestException $ex) {
