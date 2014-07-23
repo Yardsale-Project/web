@@ -146,6 +146,7 @@ class FacebookController extends Controller
             die();
         }
 
+        $access  = $facebook->api(array('method' => 'auth.getsession'));
         $friendsList = $facebook->api(array('method' => 'friends.get'));
 
         echo '<pre>';
