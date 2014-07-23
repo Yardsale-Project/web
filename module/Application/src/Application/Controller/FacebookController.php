@@ -175,7 +175,9 @@ class FacebookController extends Controller
         try {
           $response = (new FacebookRequest($session, 'GET', '/me/taggable_friends'))->execute();
           $object = $response->getGraphObject();
-          var_dump($object->getProperty('data'));
+          $prop = $object->getPropertyAsArray();
+          echo '<pre>';
+          print_r($prop);
         } catch (FacebookRequestException $ex) {
           echo $ex->getMessage();
         } catch (\Exception $ex) {
