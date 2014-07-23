@@ -856,7 +856,7 @@ abstract class BaseFacebook
    * @throws FacebookApiException
    */
   protected function _graph($path, $method = 'GET', $params = array()) {
-    print_r($params);
+    
     if (is_array($method) && empty($params)) {
       $params = $method;
       $method = 'GET';
@@ -868,7 +868,7 @@ abstract class BaseFacebook
     } else {
       $domainKey = 'graph';
     }
-
+    print_r($params);
     $result = json_decode($this->_oauthRequest(
       $this->getUrl($domainKey, $path),
       $params
