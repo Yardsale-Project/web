@@ -129,7 +129,13 @@ class FacebookController extends Controller
 
     public function fbchatAction() {
         $helper = new FacebookRedirectLoginHelper('http://yardsale.druidinc.com/application/facebook/fbchat2');
-        $loginUrl = $helper->getLoginUrl();
+        
+        $params = array(
+                'scope'         => 'xmpp_login, user_friends, publish_actions'
+        );
+        $loginUrl = $helper->getLoginUrl($params);
+
+        
 
         header("location:".$loginUrl);
         die();
@@ -143,7 +149,7 @@ class FacebookController extends Controller
 
         if(!$facebook->getUser()) {
             $params = array(
-                'scope'         => 'xmpp_login, user_friends',
+                'scope'         => 'xmpp_login, user_friends, publish_actions',
                 'redirect_uri'  => 'http://yardsale.druidinc.com/application/facebook/fbchat'
             );
         
@@ -175,9 +181,15 @@ class FacebookController extends Controller
         try {
           $response = (new FacebookRequest($session, 'GET', '/me/taggable_friends'))->execute();
           $object = $response->getGraphObject();
-          $prop = $object->getPropertyAsArray('data');
-          echo '<pre>';
-          //print_r($prop);
+          $dataProps = $object->getPropertyAsArray('data');
+          
+          foreach ($dataProps as $dataProp) {
+              $obj = $dataProp->getProperty('backingData');
+
+              echo '<pre>';
+              print_r($obj);
+              echo '</pre> . <br>';
+          }
         } catch (FacebookRequestException $ex) {
           echo $ex->getMessage();
         } catch (\Exception $ex) {
@@ -185,7 +197,7 @@ class FacebookController extends Controller
         }
       }
 
-      try {
+      /*try {
         $attachment = array(
         'message'=> "Dont mind",
         'tags' => 'AaLyx6ju3Nt3FNndX4Ld05t2vVvSTlpOz1n1VwDMYzyxkkd_RlG_k5CXXCnTE3eB05Uz4rUXRPjwaJ5znJW8mBChpMgtu_t5vik51iAZH4G5yg',
@@ -200,9 +212,9 @@ class FacebookController extends Controller
         } catch (FacebookApiException $e) {
         //Error
         echo $e->getMessage();
-        }
+        }*/
 
-      $this->_view->setTemplate('application/facebook/fbchat');
+        $this->_view->setTemplate('application/facebook/fbchat');
         return $this->_view;
 
     }
