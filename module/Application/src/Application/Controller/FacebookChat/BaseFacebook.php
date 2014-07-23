@@ -856,7 +856,6 @@ abstract class BaseFacebook
    * @throws FacebookApiException
    */
   protected function _graph($path, $method = 'GET', $params = array()) {
-
     if (is_array($method) && empty($params)) {
       $params = $method;
       $method = 'GET';
@@ -941,8 +940,6 @@ abstract class BaseFacebook
       $ch = curl_init();
     }
 
-    print_r($params);
-
     $opts = self::$CURL_OPTS;
     if ($this->getFileUploadSupport()) {
       $opts[CURLOPT_POSTFIELDS] = $params;
@@ -963,7 +960,7 @@ abstract class BaseFacebook
 
     curl_setopt_array($ch, $opts);
     $result = curl_exec($ch);
-    
+    var_dump($result);
     $errno = curl_errno($ch);
     // CURLE_SSL_CACERT || CURLE_SSL_CACERT_BADFILE
     if ($errno == 60 || $errno == 77) {

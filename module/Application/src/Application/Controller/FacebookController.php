@@ -146,7 +146,6 @@ class FacebookController extends Controller
             die();
         }
 
-        echo 'access token: ' . $facebook->getAccessToken();
 
         $friendsList = $facebook->api('/me/friends?limit=5000&offset=0', 'GET', array('acces_token' => 'CAACEdEose0cBAPulI8YRTMditsaWmKbiiNARDB9PWVz1Rm8uS7AZATqXDZBvcgSWC2sVjDK5Pav5ZCSYJ9vlUgHtkUuhDQ887zIWZAWNgRvkhASDDAfsMHR0hdUFbByk7mWPVpWyQYNVDLjVqPZBPQjXEqvk2iA6MtaWuGCXT2MzZBbPZBVt07qYUJB5IPpiOHZCt3ThGgwRsqLFKv9DMzIxcM4OAIPVmkgZD'));
 
