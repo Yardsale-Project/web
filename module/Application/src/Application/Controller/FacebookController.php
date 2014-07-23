@@ -13,8 +13,6 @@ require_once 'autoload.php';
 
 use Facebook\FacebookSession;
 use Facebook\FacebookRedirectLoginHelper;
-use Facebook\FacebookRequest;
-use Facebook\FacebookRequestException;
 
 use Application\Controller\FacebookChat\SendMessage;
 use Application\Controller\FacebookChat\Facebook;
@@ -135,8 +133,6 @@ class FacebookController extends Controller
         );
 
         $facebook = new Facebook($config);
-        $helper = new FacebookRedirectLoginHelper('http://yardsale.druidinc.com/application/facebook/fbchat');
-        $fbsession = $helper->getSessionFromRedirect();
 
         if(!$facebook->getUser()) {
             $params = array(
@@ -150,21 +146,10 @@ class FacebookController extends Controller
             die();
         }
 
-        try {
-          $response = (new FacebookRequest($fbsession, 'GET', '/me'))->execute();
-          $object = $response->getGraphObject();
-          echo $object->getProperty('name');
-        } catch (FacebookRequestException $ex) {
-          echo $ex->getMessage();
-        } catch (\Exception $ex) {
-          echo $ex->getMessage();
-        }
+        $friendsList = $facebook->api(array('method' => 'friends.get'));
 
-
-        //$friendsList = $facebook->api('/me/friends');
-
-        /*echo '<pre>';
-        print_r($friendsList);*/
+        echo '<pre>';
+        print_r($friendsList);
 
         return $this->_view;
     }
