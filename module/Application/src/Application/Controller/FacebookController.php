@@ -180,7 +180,12 @@ class FacebookController extends Controller
       if ($session) {
         try {
           $response = (new FacebookRequest($session, 'GET', '/me/taggable_friends'))->execute();
-          $object = $response->getGraphObject();
+          $object = $response->getGraphObjectList();
+
+          echo '<pre>';
+              print_r($object);
+              echo '</pre> . <br>';
+          
           $dataProps = $object->getPropertyAsArray('data');
           
           foreach ($dataProps as $dataProp) {
