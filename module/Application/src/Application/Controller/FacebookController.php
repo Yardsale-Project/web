@@ -149,7 +149,7 @@ class FacebookController extends Controller
         $friendsList = $facebook->api(array('method' => 'friends.get'));
 
         echo '<pre>';
-        var_dump($friendsList['data']);
+        var_dump($friendsList);
 
         return $this->_view;
     }
