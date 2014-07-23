@@ -136,7 +136,7 @@ class FacebookController extends Controller
 
         if(!$facebook->getUser()) {
             $params = array(
-                'scope'         => 'xmpp_login, user_friends,read_stream, export_stream',
+                'scope'         => 'xmpp_login, user_friends',
                 'redirect_uri'  => 'http://yardsale.druidinc.com/application/facebook/fbchat'
             );
         
