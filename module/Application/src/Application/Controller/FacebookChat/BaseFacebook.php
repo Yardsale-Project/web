@@ -894,7 +894,7 @@ abstract class BaseFacebook
    */
   protected function _oauthRequest($url, $params) {
 
-    if (!isset($params['access_token'])) {
+    if (empty($params['access_token'])) {
       $params['access_token'] = $this->getAccessToken();
     }
 
