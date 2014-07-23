@@ -868,6 +868,7 @@ abstract class BaseFacebook
       $domainKey = 'graph';
     }
 
+    echo 'url' . $this->getUrl($domainKey, $path);
     $result = json_decode($this->_oauthRequest(
       $this->getUrl($domainKey, $path),
       $params
