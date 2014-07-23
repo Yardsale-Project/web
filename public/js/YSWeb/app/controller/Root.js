@@ -18,7 +18,9 @@ Ext.define('YSWeb.controller.Root', {
             logoutToken,
             me = this;
 
-        Ext.Ajax.request({
+        UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutCallback);
+
+        /*Ext.Ajax.request({
             url     : YSConfig.url + '/application/user/getUserSessionCode',
             method  : 'POST',
             success : function(response) {
@@ -58,8 +60,32 @@ Ext.define('YSWeb.controller.Root', {
                 }
             },
             failure : me.onFailure
-        });
+        });*/
     },
+
+    loggedInCallback : function(object,rsp) {
+        var accountBtn  = Ext.ComponentQuery.query('#accountBtn')[0];
+        var signInBtn   = Ext.ComponentQuery.query('#signInBtn')[0];
+        var orTbText    = Ext.ComponentQuery.query('#orTbText')[0];
+        var registerBtn = Ext.ComponentQuery.query('#registerBtn')[0];
+        var logoutToken = Ext.ComponentQuery.query('#logoutToken')[0];
+
+
+        accountBtn.setText(rsp.email);
+
+        accountBtn.show();
+
+        signInBtn.hide();
+        orTbText.hide();
+        registerBtn.hide();
+
+        object.requestCSRFToken(object, logoutToken);
+    },
+
+    loggedOutCallback : function(object,rsp) {
+        YSDebug.log('not logged in');
+    },
+
     validateUser : function(hash) {
     	YSDebug.log('hashg', hash);
 

@@ -10,7 +10,8 @@ Ext.define('YSWeb.Application', {
 
     requires : [
         'YSCommon.config.Config',
-        'YSCommon.util.Debug'
+        'YSCommon.util.Debug',
+        'YSCommon.helper.User'
     ],
 
     views: [
