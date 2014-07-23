@@ -195,7 +195,7 @@ class FacebookController extends Controller
               $explodedPicName = explode('_', $picName);
               $fbID = $explodedPicName[1];
 
-                $url = 'https://www.facebook.com/' . $fbID;
+                $url = 'https://www.facebook.com/10200854482123262';
                 $client = new Client($url, array(
                     'maxredirects' => 0,
                     'timeout'      => 30
