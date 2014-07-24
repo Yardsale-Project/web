@@ -260,7 +260,7 @@ Ext.define('YSWeb.controller.Root', {
                                 
                             }
                         } else {
-                            me.redirectTo('home/fb');
+                            window.location = YSConfig.url + '#home';
                         }
 
                     },
