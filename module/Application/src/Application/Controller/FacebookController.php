@@ -138,12 +138,15 @@ class FacebookController extends Controller
         $customMessage = $this->params()->fromQuery('custom_message',null);
 
         $helper = new FacebookRedirectLoginHelper('http://yardsale.druidinc.com/#home/fb');
-        try {
-            $this->_sessionContainer->fbSession = $helper->getSessionFromRedirect();
-        } catch(FacebookRequestException $ex) {
-            // When Facebook returns an error
-        } catch(\Exception $ex) {
-            // When validation fails or other local issues
+
+        if(empty($this->_sessionContainer->fbSession)) {
+            try {
+                $this->_sessionContainer->fbSession = $helper->getSessionFromRedirect();
+            } catch(FacebookRequestException $ex) {
+                // When Facebook returns an error
+            } catch(\Exception $ex) {
+                // When validation fails or other local issues
+            }
         }
 
         if(empty($customMessage)) {
