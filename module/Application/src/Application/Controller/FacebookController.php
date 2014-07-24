@@ -157,8 +157,6 @@ class FacebookController extends Controller
                     'loggedIn' => true,
                     'session' => $fbSession
                 );
-
-                var_dump($fbSession);
             }
         } else {
             try {
