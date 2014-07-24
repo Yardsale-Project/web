@@ -15,6 +15,7 @@ class Controller extends AbstractActionController
 
 	public function __construct()
 	{
+		echo ROOTH_PATH . '/sessions';
 		$config = new StandardConfig();
 		$config->setOptions(array(
 		    'save_path' => ROOTH_PATH . '/sessions'
