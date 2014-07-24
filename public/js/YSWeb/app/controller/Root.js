@@ -137,28 +137,34 @@ Ext.define('YSWeb.controller.Root', {
         this.action = action;
         YSDebug.log('before sms');
         // separating the GET parameters from the current URL
-        var getParams = document.URL.split("?");
-        // transforming the GET parameters into a dictionnary
-        var params = Ext.urlDecode(getParams[getParams.length - 1]);
-        var state = params.state;
-        state = state.split('#');
-        params.state = state[0];
-        YSDebug.log('params', params);
+
+        if(document.URL.indexOf("?") >= 0){
+            var getParams = document.URL.split("?");
+            // transforming the GET parameters into a dictionnary
+            var params = Ext.urlDecode(getParams[getParams.length - 1]);
+            var state = params.state;
+            state = state.split('#');
+            params.state = state[0];
+            YSDebug.log('params', params);
+        }
+        
         UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutSmsCallback);
     },
 
     onSmsInvite : function(sms) {
         YSDebug.log('on sms');
+        var params = {};
 
         // separating the GET parameters from the current URL
-        var getParams = document.URL.split("?");
-        // transforming the GET parameters into a dictionnary
-        var params = Ext.urlDecode(getParams[getParams.length - 1]);
-        var state = params.state;
-        state = state.split('#');
-        params.state = state[0];
-
-        YSDebug.log('params', params);
+        if(document.URL.indexOf("?") >= 0){
+            var getParams = document.URL.split("?");
+            // transforming the GET parameters into a dictionnary
+            params = Ext.urlDecode(getParams[getParams.length - 1]);
+            var state = params.state;
+            state = state.split('#');
+            params.state = state[0];
+            YSDebug.log('params', params);
+        }
 
         if(sms == 'fb') {
             Ext.Ajax.request({
