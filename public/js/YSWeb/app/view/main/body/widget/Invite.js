@@ -31,7 +31,7 @@ Ext.define('YSWeb.view.main.body.widget.Invite', {
             iconCls     : 'twButton',
             margin      : '0 5 0 0',
             autoWidth   : true,
-            autoHeight  : true,
+            autoHeight  : true
         }
     ]
 });

@@ -135,115 +135,108 @@ class FacebookController extends Controller
 
         $request = $this->getRequest();
 
-        if ($request->isPost())  {
-            $postData = $request->getPost();
+        $customMessage = $this->params()->fromQuery('custom_message',null);
 
-            $customMessage = (!empty($postData['custom_message']))? $postData['custom_message'] : '';
+        $helper = new FacebookRedirectLoginHelper('http://yardsale.druidinc.com/#home/fb');
+        try {
+            $this->_sessionContainer->fbSession = $helper->getSessionFromRedirect();
+        } catch(FacebookRequestException $ex) {
+            // When Facebook returns an error
+        } catch(\Exception $ex) {
+            // When validation fails or other local issues
+        }
 
-            $helper = new FacebookRedirectLoginHelper('http://yardsale.druidinc.com/#home/fb');
-            try {
-                $this->_sessionContainer->fbSession = $helper->getSessionFromRedirect();
-            } catch(FacebookRequestException $ex) {
-                // When Facebook returns an error
-            } catch(\Exception $ex) {
-                // When validation fails or other local issues
-            }
+        if(empty($customMessage)) {
+            if(empty($this->_sessionContainer->fbSession)) {
+                $params = array(
+                    'scope'         => 'xmpp_login, user_friends, publish_actions'
+                );
+                $loginUrl = $helper->getLoginUrl($params);
 
-            if(empty($customMessage)) {
-                if(empty($this->_sessionContainer->fbSession)) {
-                    $params = array(
-                        'scope'         => 'xmpp_login, user_friends, publish_actions'
-                    );
-                    $loginUrl = $helper->getLoginUrl($params);
-
-                    $retVal = array(
-                        'success' => true,
-                        'loginUrl' => $loginUrl,
-                        'session'   => $this->_sessionContainer->fbSession
-                    );
-                } else {
-                    $retVal = array(
-                        'success' => true,
-                        'loggedIn' => true
-                    );
-                }
+                $retVal = array(
+                    'success' => true,
+                    'loginUrl' => $loginUrl,
+                    'session'   => $this->_sessionContainer->fbSession
+                );
             } else {
-                try {
-                    $response = (new FacebookRequest($session, 'GET', '/me/taggable_friends'))->execute();
-                    $object = $response->getGraphObjectList();
-                    $id = 0;
-
-                    $host = $this->getRequest()->getServer('HTTP_HOST');
-                    $referer = $this->getRequest()->getServer('HTTP_REFERER');
-
-                    if(stripos($referer, $host) === FALSE) {
-                        $session = $this->model('Session');
-                        $result = $session->getValidationCode($referer);
-
-                        if(!empty($result)) {
-                            $validationCode = $result['validationCode'];
-                        }
-                    } else {
-                        $validationCode = $this->_sessionContainer->user_code;
-                    }
-
-                    if( empty($validationCode)) {
-                        $id = 0;
-                    } else {
-                        $user = $this->model('Users');
-                        $result = $user->getAccoutInfoBySessionCode($validationCode);
-
-                        if(!empty($result)) {
-                            $id = $result['id'];
-                        } else {
-                            $retVal['success'] = false;
-                            $retVal['errorMessage'] = 'Problem getting info';
-                        }
-                    }
-                    
-                    if(!empty($id)) {
-
-                        $smsModel = $this->model('SocialMedia');
-                        foreach ($object as $dataProp) {
-                            $name       = $dataProp->getProperty('name');
-                            $pictureObj = $dataProp->getProperty('picture');
-                            $picData    = $pictureObj->asArray();
-                            $picUrl     = $picData->url;
-
-                            $explodedPicUrl = explode('/', $picUrl);
-                            $picName        = $explodedPicUrl[ count($explodedPicUrl) - 1];
-                            $explodedPicName = explode('_', $picName);
-                            $fbID           = $explodedPicName[1];
-
-                            $data = array(
-                                'user_id'       => $id,
-                                'fbid'          => $fbID,
-                                'fb_username'   => $name,
-                                'custom_message'=> $customMessage
-                            );
-
-                            $smsModel->addInvite($data);
-                            $retVal['success'] = true;
-                            $retVal['message'] = 'Invites sent';
-
-                            //$url = 'https://www.facebook.com/10200854482123262';
-                        }
-                    } else {
-                        $retVal['success'] = false;
-                        $retVal['errorMessage'] = 'Invite sending failed';
-                    }
-                    
-                } catch (FacebookRequestException $ex) {
-                    $retVal['success'] = false;
-                    $retVal['errorMessage'] = $ex->getMessage();
-                } catch (\Exception $ex) {
-                    $retVal['success'] = false;
-                    $retVal['errorMessage'] = $ex->getMessage();
-                }
+                $retVal = array(
+                    'success' => true,
+                    'loggedIn' => true
+                );
             }
         } else {
-            $retVal['success'] = false;
-            $retVal['errorMessage'] = 'Invalid request';
+            try {
+                $response = (new FacebookRequest($session, 'GET', '/me/taggable_friends'))->execute();
+                $object = $response->getGraphObjectList();
+                $id = 0;
+
+                $host = $this->getRequest()->getServer('HTTP_HOST');
+                $referer = $this->getRequest()->getServer('HTTP_REFERER');
+
+                if(stripos($referer, $host) === FALSE) {
+                    $session = $this->model('Session');
+                    $result = $session->getValidationCode($referer);
+
+                    if(!empty($result)) {
+                        $validationCode = $result['validationCode'];
+                    }
+                } else {
+                    $validationCode = $this->_sessionContainer->user_code;
+                }
+
+                if( empty($validationCode)) {
+                    $id = 0;
+                } else {
+                    $user = $this->model('Users');
+                    $result = $user->getAccoutInfoBySessionCode($validationCode);
+
+                    if(!empty($result)) {
+                        $id = $result['id'];
+                    } else {
+                        $retVal['success'] = false;
+                        $retVal['errorMessage'] = 'Problem getting info';
+                    }
+                }
+                
+                if(!empty($id)) {
+
+                    $smsModel = $this->model('SocialMedia');
+                    foreach ($object as $dataProp) {
+                        $name       = $dataProp->getProperty('name');
+                        $pictureObj = $dataProp->getProperty('picture');
+                        $picData    = $pictureObj->asArray();
+                        $picUrl     = $picData->url;
+
+                        $explodedPicUrl = explode('/', $picUrl);
+                        $picName        = $explodedPicUrl[ count($explodedPicUrl) - 1];
+                        $explodedPicName = explode('_', $picName);
+                        $fbID           = $explodedPicName[1];
+
+                        $data = array(
+                            'user_id'       => $id,
+                            'fbid'          => $fbID,
+                            'fb_username'   => $name,
+                            'custom_message'=> $customMessage
+                        );
+
+                        $smsModel->addInvite($data);
+                        $retVal['success'] = true;
+                        $retVal['message'] = 'Invites sent';
+
+                        //$url = 'https://www.facebook.com/10200854482123262';
+                    }
+                } else {
+                    $retVal['success'] = false;
+                    $retVal['errorMessage'] = 'Invite sending failed';
+                }
+                
+            } catch (FacebookRequestException $ex) {
+                $retVal['success'] = false;
+                $retVal['errorMessage'] = $ex->getMessage();
+            } catch (\Exception $ex) {
+                $retVal['success'] = false;
+                $retVal['errorMessage'] = $ex->getMessage();
+            }
         }
 
         return new JsonModel($retVal);

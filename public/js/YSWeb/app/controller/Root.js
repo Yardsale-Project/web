@@ -136,18 +136,30 @@ Ext.define('YSWeb.controller.Root', {
     onBeforeSmsInvite : function(sms, action) {
         this.action = action;
         YSDebug.log('before sms');
+        // separating the GET parameters from the current URL
+        var getParams = document.URL.split("?");
+        // transforming the GET parameters into a dictionnary
+        var params = Ext.urlDecode(getParams[getParams.length - 1]);
+
+        YSDebug.log('params', params);
         UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutSmsCallback);
     },
 
     onSmsInvite : function(sms) {
         YSDebug.log('on sms');
 
+        // separating the GET parameters from the current URL
+        var getParams = document.URL.split("?");
+        // transforming the GET parameters into a dictionnary
+        var params = Ext.urlDecode(getParams[getParams.length - 1]);
+
+        YSDebug.log('params', params);
+
         if(sms == 'fb') {
             Ext.Ajax.request({
                 url     : YSConfig.url + '/application/facebook/fbInvite',
-                params  : {
-                    requestSession : true
-                },
+                method  : 'GET',
+                params  : params,
                 success : function(response) {
                     var rsp = Ext.JSON.decode(response.responseText);
                     console.log('response', rsp);
