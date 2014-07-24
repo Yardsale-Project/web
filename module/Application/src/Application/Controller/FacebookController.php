@@ -145,12 +145,12 @@ class FacebookController extends Controller
             $retVal['success'] = false;
             $retVal['errorMessage'] = $ex->getMessage();
 
-            return new JsonModel($retVal);
+            $fbSession = null;
         } catch(\Exception $ex) {
             $retVal['success'] = false;
             $retVal['errorMessage'] = $ex->getMessage();
 
-            return new JsonModel($retVal);
+            $fbSession = null;
         }
         
 
