@@ -150,7 +150,8 @@ class FacebookController extends Controller
 
                     $retVal = array(
                         'success' => true,
-                        'loginUrl' => $loginUrl
+                        'loginUrl' => $loginUrl,
+                        'session'   => $this->_sessionContainer->fbSession
                     );
                 } else {
                     try {
