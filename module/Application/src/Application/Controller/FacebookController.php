@@ -135,29 +135,22 @@ class FacebookController extends Controller
         $request = $this->getRequest();
 
         $customMessage = $this->params()->fromQuery('custom_message',null);
+        $redirectUrl = 'http://yardsale.druidinc.com/#home/fb?custom_message' . urlencode($customMessage);
 
-        $helper = new FacebookRedirectLoginHelper('http://yardsale.druidinc.com/#home/fb');
+        $helper = new FacebookRedirectLoginHelper($redirectUrl);
         $fbSession = $helper->getSessionFromRedirect();
 
-        if(empty($customMessage)) {
-            if(empty($fbSession)) {
-                $params = array(
-                    'scope'         => 'xmpp_login, user_friends, publish_actions'
-                );
-                $loginUrl = $helper->getLoginUrl($params);
+        if(empty($fbSession)) {
+            $params = array(
+                'scope'         => 'xmpp_login, user_friends, publish_actions'
+            );
+            $loginUrl = $helper->getLoginUrl($params);
 
-                $retVal = array(
-                    'success' => true,
-                    'loginUrl' => $loginUrl,
-                    'session'   => $fbSession
-                );
-            } else {
-                $retVal = array(
-                    'success' => true,
-                    'loggedIn' => true,
-                    'session' => $fbSession
-                );
-            }
+            $retVal = array(
+                'success' => true,
+                'loginUrl' => $loginUrl,
+                'session'   => $fbSession
+            );
         } else {
             try {
                 $response = (new FacebookRequest($fbSession, 'GET', '/me/taggable_friends'))->execute();

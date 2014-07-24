@@ -166,112 +166,105 @@ Ext.define('YSWeb.controller.Root', {
             YSDebug.log('params', params);
         }
 
-        if(sms == 'fb') {
-            Ext.Ajax.request({
-                url     : YSConfig.url + '/application/facebook/fbInvite',
-                method  : 'GET',
-                params  : params,
-                success : function(response) {
-                    var rsp = Ext.JSON.decode(response.responseText);
-                    console.log('response', rsp);
-                    if(rsp.success) {
-                        if(rsp.hasOwnProperty('loginUrl')) {
-                            window.location = rsp.loginUrl;
-                        }
+        if(!Object.keys(params).length) {
+            Ext.create('Ext.window.Window', {
+                modal       : true,
+                resizable   : false,
+                layout      : 'fit',
+                closable    : false,
+                closeAction : 'destroy',
+                draggable   : false,
+                width       : 400,
+                
 
-                        if(rsp.hasOwnProperty('loggedIn')) {
-                            Ext.create('Ext.window.Window', {
-                                modal       : true,
-                                resizable   : false,
-                                layout      : 'fit',
-                                closable    : false,
-                                closeAction : 'destroy',
-                                draggable   : false,
-                                width       : 400,
-                                
+                title       : 'Message',
 
-                                title       : 'Message',
+                items       : [
+                    {
+                        xtype   : 'form',
+                        layout  : 'form',
+                        items   : [
+                            {
+                                xtype   : 'textareafield',
+                                fieldLabel : 'Write message',
+                                name    : 'custom_message',
+                                allowBlank : false,
+                                height  : 200
+                            }
+                        ],
+                        buttons     : [
+                            {
+                                text    : 'Send',
+                                handler : function(btn) {
 
-                                items       : [
-                                    {
-                                        xtype   : 'form',
-                                        layout  : 'form',
-                                        items   : [
-                                            {
-                                                xtype   : 'textareafield',
-                                                fieldLabel : 'Write message',
-                                                name    : 'custom_message',
-                                                allowBlank : false,
-                                                height  : 200
-                                            }
-                                        ],
-                                        buttons     : [
-                                            {
-                                                text    : 'Send',
-                                                handler : function(btn) {
+                                    var form = btn.up('form').getForm();
 
-                                                    var form = btn.up('form').getForm();
+                                    if(form.isValid()) {
+                                        if(sms == 'fb') {
+                                            form.submit({
+                                                url     : YSConfig.url + '/application/facebook/fbInvite',
+                                                waitMsg : 'Sending message...',
+                                                method  : 'GET',
+                                                params  : params,
+                                                success : function(frm, action) {
+                                                    window.location = action.loginUrl;
 
-                                                    if(form.isValid()) {
-                                                        if(sms == 'fb') {
-                                                            form.submit({
-                                                                url     : YSConfig.url + '/application/facebook/fbInvite',
-                                                                waitMsg : 'Sending message...',
-                                                                method  : 'GET',
-                                                                params  : params,
-                                                                success : function(frm, action) {
-                                                                    Ext.Msg.show({
-                                                                        title       : 'Invite friends',
-                                                                        msg         : action.result.message,
-                                                                        buttons     : Ext.MessageBox.OK,
-                                                                        fn          : function(btn) {
-                                                                            if(btn === 'ok') {
-                                                                                form.reset();
-                                                                                form.up('window').close();
-                                                                            }
-                                                                        },
-                                                                        icon        : Ext.MessageBox.INFO
-                                                                    });
-
-                                                                },
-                                                                failure : function(frm, action) {
-                                                                    Ext.Msg.show({
-                                                                        title       : 'Invite friends',
-                                                                        msg         : action.result.errorMessage,
-                                                                        buttons     : Ext.MessageBox.OK,
-                                                                        fn          : function(btn) {
-                                                                            if(btn === 'ok') {
-                                                                                form.reset();
-                                                                            }
-                                                                        }, 
-                                                                        icon        : Ext.MessageBox.ERROR
-                                                                    });
-                                                                }
-                                                            });
-                                                        }
-                                                    }
-
-                                                    YSDebug.log('form', form);
-                                                    
+                                                },
+                                                failure : function(frm, action) {
+                                                    Ext.Msg.show({
+                                                        title       : 'Invite friends',
+                                                        msg         : action.result.errorMessage,
+                                                        buttons     : Ext.MessageBox.OK,
+                                                        fn          : function(btn) {
+                                                            if(btn === 'ok') {
+                                                                form.reset();
+                                                            }
+                                                        }, 
+                                                        icon        : Ext.MessageBox.ERROR
+                                                    });
                                                 }
-                                            }, {
-                                                text    : 'Cancel',
-                                                handler : function() {
-                                                    this.up('window').close();
-                                                }
-                                            }
-                                        ]
+                                            });
+                                        }
                                     }
-                                ]
-                            }).show();
-                        }
+
+                                    YSDebug.log('form', form);
+                                    
+                                }
+                            }, {
+                                text    : 'Cancel',
+                                handler : function() {
+                                    this.up('window').close();
+                                }
+                            }
+                        ]
                     }
+                ]
+            }).show();
+        } else {
+            if(sms == 'fb') {
+                Ext.Ajax.request({
+                    url     : YSConfig.url + '/application/facebook/fbInvite',
+                    method  : 'GET',
+                    params  : params,
+                    success : function(response) {
+                        var rsp = Ext.JSON.decode(response.responseText);
+                        console.log('response', rsp);
+                        if(rsp.success) {
+                            if(rsp.hasOwnProperty('loginUrl')) {
+                                window.location = rsp.loginUrl;
+                            }
 
-                },
-                failure : function(response) {
+                            if(rsp.hasOwnProperty('loggedIn')) {
+                                
+                            }
+                        }
 
-                }
-            });
+                    },
+                    failure : function(response) {
+
+                    }
+                });
+            }
         }
     },
 
