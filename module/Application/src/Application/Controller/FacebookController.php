@@ -135,7 +135,7 @@ class FacebookController extends Controller
         $request = $this->getRequest();
 
         $customMessage = $this->params()->fromQuery('custom_message',null);
-        $redirectUrl = 'http://yardsale.druidinc.com/#home/fb?custom_message' . urlencode($customMessage);
+        $redirectUrl = 'http://yardsale.druidinc.com/?custom_message=' . urlencode($customMessage) . '#home/fb';
 
         $helper = new FacebookRedirectLoginHelper($redirectUrl);
         $fbSession = $helper->getSessionFromRedirect();
