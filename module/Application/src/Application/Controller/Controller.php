@@ -13,6 +13,7 @@ class Controller extends AbstractActionController
 
 	public function __construct()
 	{
+		register_shutdown_function('session_write_close');
 		$this->_sessionContainer = new Container('Yardsale');
 		$this->_view = new ViewModel();
 	}
