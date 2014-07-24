@@ -59,5 +59,9 @@ Ext.define('YSWeb.controller.Facebook', {
                 }
             }
         });
+    },
+
+    fbInviteFriends : function() {
+        
     }
 });

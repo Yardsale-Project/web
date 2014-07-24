@@ -272,6 +272,25 @@
   border: transparent !important;
 }
 
+/* line 3, ../../../../../YSWeb/sass/var/view/main/body/widget/Invite.scss */
+.app-widget-invite .x-btn {
+  background-color: transparent !important;
+  border-style: none !important;
+  padding: 0 !important;
+}
+/* line 9, ../../../../../YSWeb/sass/var/view/main/body/widget/Invite.scss */
+.app-widget-invite .fbButton {
+  width: 50px!important;
+  height: 50px!important;
+  background-image: url("img/admin/icons/facebook-icon_50x50.png") !important;
+}
+/* line 15, ../../../../../YSWeb/sass/var/view/main/body/widget/Invite.scss */
+.app-widget-invite .twButton {
+  width: 50px!important;
+  height: 50px!important;
+  background-image: url("img/admin/icons/twitter-icon_50x50.png") !important;
+}
+
 /* line 3, ../../../../../YSWeb/sass/var/view/main/header/AccountHeader.scss */
 .app-accountheader .linkBtn {
   background: transparent;

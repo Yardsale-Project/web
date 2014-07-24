@@ -4,6 +4,9 @@ Ext.define('YSWeb.view.main.body.widget.Invite', {
     extend: 'Ext.panel.Panel',
 
     xtype: 'app-widget-invite',
+    cls     : 'app-widget-invite',
+
+    controller : 'invite',
 
     viewModel: {
         type: 'invite'
@@ -17,16 +20,18 @@ Ext.define('YSWeb.view.main.body.widget.Invite', {
     bodyPadding : 10,
     items       : [
         {
-            xtype   : 'button',
-            icon     : YSConfig.url + '/img/admin/icons/facebook-icon_50x50.png',
-            margin   : '0 5 0 0',
-            scale   : 'large',
-            autoWidth : true,
-            autoHeight : true,
+            xtype       : 'button',
+            iconCls     : 'fbButton',
+            margin      : '0 5 0 0',
+            autoWidth   : true,
+            autoHeight  : true,
+            handler     : 'onFbBtnClck'
         }, {
-            xtype   : 'image',
-            src     : YSConfig.url + '/img/admin/icons/twitter-icon_50x50.png',
-            margin   : '0 5 0 0'
+            xtype       : 'button',
+            iconCls     : 'twButton',
+            margin      : '0 5 0 0',
+            autoWidth   : true,
+            autoHeight  : true,
         }
     ]
 });

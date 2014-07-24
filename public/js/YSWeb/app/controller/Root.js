@@ -5,7 +5,15 @@ Ext.define('YSWeb.controller.Root', {
 
     routes : {
     	'validate/:hash' : 	'validateUser',
-    	'home'			: 'home'
+    	'home'			: 'home',
+        'home/:sms'     : {
+            before  : 'onBeforeSmsInvite',
+            action  : 'onSmsInvite'
+        }
+    },
+
+    init    : function() {
+        this.action = null;
     },
 
     home 	: function() {
@@ -19,48 +27,6 @@ Ext.define('YSWeb.controller.Root', {
             me = this;
 
         UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutCallback);
-
-        /*Ext.Ajax.request({
-            url     : YSConfig.url + '/application/user/getUserSessionCode',
-            method  : 'POST',
-            success : function(response) {
-
-                var rsp = Ext.JSON.decode(response.responseText);
-                
-
-                accountBtn  = Ext.ComponentQuery.query('#accountBtn')[0];
-                signInBtn   = Ext.ComponentQuery.query('#signInBtn')[0];
-                orTbText    = Ext.ComponentQuery.query('#orTbText')[0];
-                registerBtn = Ext.ComponentQuery.query('#registerBtn')[0];
-                logoutToken = Ext.ComponentQuery.query('#logoutToken')[0];
-
-                if(rsp.success)
-                {
-                    if( rsp.email != '') {
-                        YSDebug.log('account btn', accountBtn);
-                        accountBtn.setText(rsp.email);
-
-                        accountBtn.show();
-
-                        signInBtn.hide();
-                        orTbText.hide();
-                        registerBtn.hide();
-
-                        me.requestCSRFToken(me, logoutToken);
-                    }
-                } else {
-                    YSDebug.log('failed', rsp.success);
-
-                    Ext.Msg.show({
-                        title       : 'User Account Info',
-                        msg         : rsp.errorMessage,
-                        buttons     : Ext.MessageBox.OK,
-                        icon        : Ext.MessageBox.ERROR
-                    });
-                }
-            },
-            failure : me.onFailure
-        });*/
     },
 
     loggedInCallback : function(object,rsp) {
@@ -80,6 +46,10 @@ Ext.define('YSWeb.controller.Root', {
         registerBtn.hide();
 
         object.requestCSRFToken(object, logoutToken);
+
+        if(object.action) {
+            object.action.resume();
+        }
     },
 
     loggedOutCallback : function(object,rsp) {
@@ -161,5 +131,127 @@ Ext.define('YSWeb.controller.Root', {
 
             }
         });
+    },
+
+    onBeforeSmsInvite : function(sms, action) {
+        this.action = action;
+        YSDebug.log('before sms');
+        UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutSmsCallback);
+    },
+
+    onSmsInvite : function(sms) {
+        YSDebug.log('on sms');
+
+        if(sms == 'fb') {
+            Ext.Ajax.request({
+                url     : YSConfig.url + '/application/facebook/fbInvite',
+                params  : {
+                    requestSession : true
+                },
+                success : function(response) {
+                    var rsp = Ext.JSON.decode(response.responseText);
+
+                    if(rsp.success) {
+                        if(rsp.hasOwnProperty('loginUrl')) {
+                            window.location = rsp.loginUrl;
+                        }
+
+                        if(rsp.hasOwnProperty('loggedIn')) {
+                            Ext.create('Ext.window.Window', {
+                                modal       : true,
+                                resizable   : false,
+                                layout      : 'fit',
+                                closable    : false,
+                                closeAction : 'destroy',
+                                draggable   : false,
+                                width       : 400,
+                                
+
+                                title       : 'Message',
+
+                                items       : [
+                                    {
+                                        xtype   : 'form',
+                                        layout  : 'form',
+                                        items   : [
+                                            {
+                                                xtype   : 'textareafield',
+                                                fieldLabel : 'Write message',
+                                                name    : 'custom_message',
+                                                allowBlank : false,
+                                                height  : 200
+                                            }
+                                        ],
+                                        buttons     : [
+                                            {
+                                                text    : 'Send',
+                                                handler : function(btn) {
+
+                                                    var form = btn.up('form').getForm();
+
+                                                    if(form.isValid()) {
+                                                        if(sms == 'fb') {
+                                                            form.submit({
+                                                                url     : YSConfig.url + '/application/facebook/fbInvite',
+                                                                waitMsg : 'Sending message...',
+                                                                success : function(frm, action) {
+                                                                    Ext.Msg.show({
+                                                                        title       : 'Invite friends',
+                                                                        msg         : action.result.message,
+                                                                        buttons     : Ext.MessageBox.OK,
+                                                                        fn          : function(btn) {
+                                                                            if(btn === 'ok') {
+                                                                                form.reset();
+                                                                                form.up('window').close();
+                                                                            }
+                                                                        },
+                                                                        icon        : Ext.MessageBox.INFO
+                                                                    });
+
+                                                                },
+                                                                failure : function(frm, action) {
+                                                                    Ext.Msg.show({
+                                                                        title       : 'Invite friends',
+                                                                        msg         : action.result.errorMessage,
+                                                                        buttons     : Ext.MessageBox.OK,
+                                                                        fn          : function(btn) {
+                                                                            if(btn === 'ok') {
+                                                                                form.reset();
+                                                                            }
+                                                                        }, 
+                                                                        icon        : Ext.MessageBox.ERROR
+                                                                    });
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+
+                                                    YSDebug.log('form', form);
+                                                    
+                                                }
+                                            }, {
+                                                text    : 'Cancel',
+                                                handler : function() {
+                                                    this.up('window').close();
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }).show();
+                        }
+                    }
+
+                },
+                failure : function(response) {
+
+                }
+            });
+        }
+    },
+
+    loggedOutSmsCallback : function() {
+        this.redirectTo('home');
     }
+
 });

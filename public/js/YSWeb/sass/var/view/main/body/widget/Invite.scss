@@ -1,0 +1,20 @@
+.app-widget-invite {
+	
+	.x-btn {
+		background-color: transparent !important;
+		border-style: none !important;
+		padding: 0 !important;
+	}
+
+	.fbButton {
+		width:50px!important; 
+		height:50px!important;
+		background-image: url('img/admin/icons/facebook-icon_50x50.png') !important;
+	}
+
+	.twButton {
+		width:50px!important; 
+		height:50px!important;
+		background-image: url('img/admin/icons/twitter-icon_50x50.png') !important;
+	}
+}

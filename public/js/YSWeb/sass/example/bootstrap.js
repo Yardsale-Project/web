@@ -1279,8 +1279,7 @@ Ext.Loader.addClassPathMappings({
   "Mobile": "../../app/view/main/product/thumbnail/GridView.js",
   "YSCommon": "../../../YSCommon",
   "YSCommon.validation.Validation": "../../../YSCommon/validation/Vallidation.js",
-  "YSWeb": "../../app",
-  "YSWeb.view.main.body.right.RighttModel": "../../app/view/main/body/right/RightModel.js"
+  "YSWeb": "../../app"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.AbstractManager": [],
@@ -2321,6 +2320,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSCommon.config.Config": [
     "YSConfig"
   ],
+  "YSCommon.helper.User": [
+    "UserHelper"
+  ],
   "YSCommon.model.Category": [],
   "YSCommon.model.CategoryTree": [],
   "YSCommon.model.Product": [],
@@ -2351,7 +2353,10 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.body.left.LeftController": [],
   "YSWeb.view.main.body.left.LeftModel": [],
   "YSWeb.view.main.body.right.Right": [],
-  "YSWeb.view.main.body.right.RighttModel": [],
+  "YSWeb.view.main.body.right.RightModel": [],
+  "YSWeb.view.main.body.widget.Invite": [],
+  "YSWeb.view.main.body.widget.InviteController": [],
+  "YSWeb.view.main.body.widget.InviteModel": [],
   "YSWeb.view.main.footer.Footer": [],
   "YSWeb.view.main.footer.FooterModel": [],
   "YSWeb.view.main.header.AccountHeader": [],
@@ -3702,6 +3707,7 @@ Ext.ClassManager.addNameAliasMappings({
   "ExtThemeNeptune.toolbar.Toolbar": [],
   "Mobile": [],
   "YSCommon.config.Config": [],
+  "YSCommon.helper.User": [],
   "YSCommon.model.Category": [],
   "YSCommon.model.CategoryTree": [],
   "YSCommon.model.Product": [],
@@ -3768,8 +3774,17 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWeb.view.main.body.right.Right": [
     "widget.app-bodyRight"
   ],
-  "YSWeb.view.main.body.right.RighttModel": [
+  "YSWeb.view.main.body.right.RightModel": [
     "viewmodel.right"
+  ],
+  "YSWeb.view.main.body.widget.Invite": [
+    "widget.app-widget-invite"
+  ],
+  "YSWeb.view.main.body.widget.InviteController": [
+    "controller.invite"
+  ],
+  "YSWeb.view.main.body.widget.InviteModel": [
+    "viewmodel.invite"
   ],
   "YSWeb.view.main.footer.Footer": [
     "widget.app-footer"
@@ -3816,7 +3831,9 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWeb.view.main.login.RegisterModel": [
     "viewmodel.register"
   ],
-  "YSWeb.view.main.login.Signin": [],
+  "YSWeb.view.main.login.Signin": [
+    "widget.app-signin"
+  ],
   "YSWeb.view.main.product.thumbnail.GridView": [
     "widget.app-view-grid"
   ],
