@@ -131,22 +131,18 @@ class FacebookController extends Controller
 
     public function fbInviteAction() {
         $retVal = array();
-        $this->_sessionContainer->fbSession = null;
 
         $request = $this->getRequest();
 
         $customMessage = $this->params()->fromQuery('custom_message',null);
 
         $helper = new FacebookRedirectLoginHelper('http://yardsale.druidinc.com/#home/fb');
-        var_dump($this->_sessionContainer->fbSession);
-        if(empty($this->_sessionContainer->fbSession)) {
-            try {
-                $this->_sessionContainer->fbSession = $helper->getSessionFromRedirect();
-            } catch(FacebookRequestException $ex) {
-                // When Facebook returns an error
-            } catch(\Exception $ex) {
-                // When validation fails or other local issues
-            }
+        try {
+            $this->_sessionContainer->fbSession = $helper->getSessionFromRedirect();
+        } catch(FacebookRequestException $ex) {
+            // When Facebook returns an error
+        } catch(\Exception $ex) {
+            // When validation fails or other local issues
         }
 
         if(empty($customMessage)) {
@@ -164,7 +160,8 @@ class FacebookController extends Controller
             } else {
                 $retVal = array(
                     'success' => true,
-                    'loggedIn' => true
+                    'loggedIn' => true,
+                    'session' => $this->_sessionContainer->fbSession
                 );
             }
         } else {
