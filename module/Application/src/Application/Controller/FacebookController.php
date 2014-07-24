@@ -140,7 +140,7 @@ class FacebookController extends Controller
 
             $customMessage = (!empty($postData['custom_message']))? $postData['custom_message'] : '';
 
-            $helper = new FacebookRedirectLoginHelper('http://yardsale.druidinc.com/application/facebook/fbInvite/#home/fb');
+            $helper = new FacebookRedirectLoginHelper('http://yardsale.druidinc.com/#home/fb');
             try {
                 $this->_sessionContainer->fbSession = $helper->getSessionFromRedirect();
             } catch(FacebookRequestException $ex) {
