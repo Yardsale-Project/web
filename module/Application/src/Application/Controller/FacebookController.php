@@ -225,7 +225,7 @@ class FacebookController extends Controller
 
                     $retVal['success'] = true;
                     $retVal['message'] = 'Invites sent';
-                    $retVal['fb'] = $fb
+                    $retVal['fb'] = $fb;
                 } else {
                     $retVal['success'] = false;
                     $retVal['errorMessage'] = 'Invite sending failed';
