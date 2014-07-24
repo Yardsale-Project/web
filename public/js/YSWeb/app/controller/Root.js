@@ -207,8 +207,8 @@ Ext.define('YSWeb.controller.Root', {
                                                 method  : 'GET',
                                                 params  : params,
                                                 success : function(frm, action) {
-                                                    
-                                                    //window.location = action.loginUrl;
+
+                                                    window.location = action.result.loginUrl;
 
                                                 },
                                                 failure : function(frm, action) {

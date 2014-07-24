@@ -188,6 +188,10 @@ class FacebookController extends Controller
                 if(!empty($id)) {
 
                     $smsModel = $this->model('SocialMedia');
+
+                    $accessToken = $fbSession->getToken();
+
+                    $smsModel->saveAccessToken($id, 'fb', $accessToken);
                     foreach ($object as $dataProp) {
                         $name       = $dataProp->getProperty('name');
                         $pictureObj = $dataProp->getProperty('picture');
