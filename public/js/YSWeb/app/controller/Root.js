@@ -140,7 +140,9 @@ Ext.define('YSWeb.controller.Root', {
         var getParams = document.URL.split("?");
         // transforming the GET parameters into a dictionnary
         var params = Ext.urlDecode(getParams[getParams.length - 1]);
-
+        var state = params.state;
+        state = state.split('#');
+        params.state = state[0];
         YSDebug.log('params', params);
         UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutSmsCallback);
     },
@@ -152,6 +154,9 @@ Ext.define('YSWeb.controller.Root', {
         var getParams = document.URL.split("?");
         // transforming the GET parameters into a dictionnary
         var params = Ext.urlDecode(getParams[getParams.length - 1]);
+        var state = params.state;
+        state = state.split('#');
+        params.state = state[0];
 
         YSDebug.log('params', params);
 
