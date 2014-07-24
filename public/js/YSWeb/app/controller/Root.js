@@ -150,7 +150,7 @@ Ext.define('YSWeb.controller.Root', {
                 },
                 success : function(response) {
                     var rsp = Ext.JSON.decode(response.responseText);
-
+                    console.log('response', rsp);
                     if(rsp.success) {
                         if(rsp.hasOwnProperty('loginUrl')) {
                             window.location = rsp.loginUrl;
