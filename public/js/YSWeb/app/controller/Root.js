@@ -154,6 +154,7 @@ Ext.define('YSWeb.controller.Root', {
     onSmsInvite : function(sms) {
         YSDebug.log('on sms');
         var params = {};
+        var me = this;
 
         // separating the GET parameters from the current URL
         if(document.URL.indexOf("?") >= 0){
@@ -258,6 +259,8 @@ Ext.define('YSWeb.controller.Root', {
                             if(rsp.hasOwnProperty('loggedIn')) {
                                 
                             }
+                        } else {
+                            me.redirectTo('home/fb');
                         }
 
                     },

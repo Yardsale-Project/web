@@ -138,7 +138,21 @@ class FacebookController extends Controller
         $redirectUrl = 'http://yardsale.druidinc.com/?custom_message=' . urlencode($customMessage) . '#home/fb';
 
         $helper = new FacebookRedirectLoginHelper($redirectUrl);
-        $fbSession = $helper->getSessionFromRedirect();
+
+        try {
+            $fbSession = $helper->getSessionFromRedirect();
+        } catch(FacebookRequestException $ex) {
+            $retVal['success'] = false;
+            $retVal['errorMessage'] = $ex->getMessage();
+
+            return new JsonModel($retVal);
+        } catch(\Exception $ex) {
+            $retVal['success'] = false;
+            $retVal['errorMessage'] = $ex->getMessage();
+
+            return new JsonModel($retVal);
+        }
+        
 
         if(empty($fbSession)) {
             $params = array(
