@@ -131,6 +131,7 @@ class FacebookController extends Controller
 
     public function fbInviteAction() {
         $retVal = array();
+        $this->_sessionContainer->fbSession = null;
 
         $request = $this->getRequest();
 
@@ -139,7 +140,14 @@ class FacebookController extends Controller
 
             $customMessage = (!empty($postData['custom_message']))? $postData['custom_message'] : '';
 
-            $helper = new FacebookRedirectLoginHelper('http://yardsale.druidinc.com/#home/fb');
+            $helper = new FacebookRedirectLoginHelper('http://yardsale.druidinc.com/application/facebook/fbInvite/#home/fb');
+            try {
+                $this->_sessionContainer->fbSession = $helper->getSessionFromRedirect();
+            } catch(FacebookRequestException $ex) {
+                // When Facebook returns an error
+            } catch(\Exception $ex) {
+                // When validation fails or other local issues
+            }
 
             if(empty($customMessage)) {
                 if(empty($this->_sessionContainer->fbSession)) {
@@ -154,21 +162,10 @@ class FacebookController extends Controller
                         'session'   => $this->_sessionContainer->fbSession
                     );
                 } else {
-                    try {
-                        $this->_sessionContainer->fbSession = $helper->getSessionFromRedirect();
-                    } catch(FacebookRequestException $ex) {
-                        // When Facebook returns an error
-                    } catch(\Exception $ex) {
-                        // When validation fails or other local issues
-                    }
-
-                    if ($session) {
-
-                        $retVal = array(
-                            'success' => true,
-                            'loggedIn' => true
-                        );
-                    }
+                    $retVal = array(
+                        'success' => true,
+                        'loggedIn' => true
+                    );
                 }
             } else {
                 try {
