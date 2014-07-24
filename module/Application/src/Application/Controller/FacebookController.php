@@ -166,7 +166,7 @@ class FacebookController extends Controller
             }
         } else {
             try {
-                $response = (new FacebookRequest($session, 'GET', '/me/taggable_friends'))->execute();
+                $response = (new FacebookRequest($this->_sessionContainer->fbSession, 'GET', '/me/taggable_friends'))->execute();
                 $object = $response->getGraphObjectList();
                 $id = 0;
 

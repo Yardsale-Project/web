@@ -211,6 +211,8 @@ Ext.define('YSWeb.controller.Root', {
                                                             form.submit({
                                                                 url     : YSConfig.url + '/application/facebook/fbInvite',
                                                                 waitMsg : 'Sending message...',
+                                                                method  : 'GET',
+                                                                params  : params,
                                                                 success : function(frm, action) {
                                                                     Ext.Msg.show({
                                                                         title       : 'Invite friends',
