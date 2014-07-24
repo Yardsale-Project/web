@@ -138,7 +138,7 @@ class FacebookController extends Controller
 
         $helper = new FacebookRedirectLoginHelper('http://yardsale.druidinc.com/#home/fb');
         try {
-            $this->_sessionContainer->fbSession = $helper->getSessionFromRedirect();
+            $fbSession = $helper->getSessionFromRedirect();
         } catch(FacebookRequestException $ex) {
             // When Facebook returns an error
         } catch(\Exception $ex) {
@@ -146,7 +146,7 @@ class FacebookController extends Controller
         }
 
         if(empty($customMessage)) {
-            if(empty($this->_sessionContainer->fbSession)) {
+            if(empty($fbSession)) {
                 $params = array(
                     'scope'         => 'xmpp_login, user_friends, publish_actions'
                 );
@@ -155,20 +155,20 @@ class FacebookController extends Controller
                 $retVal = array(
                     'success' => true,
                     'loginUrl' => $loginUrl,
-                    'session'   => $this->_sessionContainer->fbSession
+                    'session'   => $fbSession
                 );
             } else {
                 $retVal = array(
                     'success' => true,
                     'loggedIn' => true,
-                    'session' => $this->_sessionContainer->fbSession
+                    'session' => $fbSession
                 );
 
-                var_dump($this->_sessionContainer->fbSession);
+                var_dump($fbSession);
             }
         } else {
             try {
-                $response = (new FacebookRequest($this->_sessionContainer->fbSession, 'GET', '/me/taggable_friends'))->execute();
+                $response = (new FacebookRequest($fbSession, 'GET', '/me/taggable_friends'))->execute();
                 $object = $response->getGraphObjectList();
                 $id = 0;
 
