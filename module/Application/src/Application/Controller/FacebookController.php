@@ -192,6 +192,8 @@ class FacebookController extends Controller
                     $accessToken = $fbSession->getToken();
 
                     $smsModel->saveAccessToken($id, 'fb', $accessToken);
+
+                    $fb = array();
                     foreach ($object as $dataProp) {
                         $name       = $dataProp->getProperty('name');
                         $pictureObj = $dataProp->getProperty('picture');
@@ -211,11 +213,19 @@ class FacebookController extends Controller
                         );
 
                         $smsModel->addInvite($data);
-                        $retVal['success'] = true;
-                        $retVal['message'] = 'Invites sent';
+
+                        $fb[] = array(
+                            'name' => $name,
+                            'id'    => $fbID
+                        );
+                        
 
                         //$url = 'https://www.facebook.com/10200854482123262';
                     }
+
+                    $retVal['success'] = true;
+                    $retVal['message'] = 'Invites sent';
+                    $retVal['fb'] = $fb
                 } else {
                     $retVal['success'] = false;
                     $retVal['errorMessage'] = 'Invite sending failed';
