@@ -250,8 +250,8 @@ Ext.define('YSWeb.controller.Root', {
         }
     },
 
-    loggedOutSmsCallback : function() {
-        this.redirectTo('home');
+    loggedOutSmsCallback : function(obj) {
+        obj.redirectTo('home');
     }
 
 });
