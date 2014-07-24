@@ -1,5 +1,6 @@
 <?php
 
+
 /**
   * Display all errors when APPLICATION_ENV is development.
   */
@@ -14,6 +15,10 @@
  */
 chdir(dirname(__DIR__));
 define('ROOTH_PATH', dirname(__DIR__)) ;
+
+session_save_path(ROOTH_PATH . '/sessions');
+session_start();
+
 set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__DIR__));
 //echo get_include_path();
 // Decline static file requests back to the PHP built-in webserver

@@ -2,6 +2,8 @@ Header add Access-Control-Allow-Origin "*"
 Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
 Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE"
 
+php_flag session.auto_start 0
+
 SetEnv ZF2_PATH "vendor/zendframework/zendframework/library"
 SetEnv APPLICATION_ENV "development"
 
