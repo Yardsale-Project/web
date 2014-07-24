@@ -164,7 +164,7 @@ class FacebookController extends Controller
                     'session' => $this->_sessionContainer->fbSession
                 );
 
-                //var_dump($this->_sessionContainer->fbSession);
+                var_dump($this->_sessionContainer->fbSession);
             }
         } else {
             try {
