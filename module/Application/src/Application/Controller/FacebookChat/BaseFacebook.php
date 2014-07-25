@@ -159,7 +159,7 @@ abstract class BaseFacebook
     'api'         => 'https://api.facebook.com/',
     'api_video'   => 'https://api-video.facebook.com/',
     'api_read'    => 'https://api-read.facebook.com/',
-    'graph'       => 'https://graph.facebook.com/',
+    'graph'       => 'https://graph.facebook.com/v1.0/',
     'graph_video' => 'https://graph-video.facebook.com/',
     'www'         => 'https://www.facebook.com/',
   );

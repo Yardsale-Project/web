@@ -100,12 +100,13 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Category' => 'Application\Controller\CategoryController',
-            'Application\Controller\Product' => 'Application\Controller\ProductController',
-            'Application\Controller\User' => 'Application\Controller\UserController',
-            'Application\Controller\Admin' => 'Application\Controller\AdminController',
-            'Application\Controller\Facebook' => 'Application\Controller\FacebookController'
+            'Application\Controller\Index'      => 'Application\Controller\IndexController',
+            'Application\Controller\Category'   => 'Application\Controller\CategoryController',
+            'Application\Controller\Product'    => 'Application\Controller\ProductController',
+            'Application\Controller\User'       => 'Application\Controller\UserController',
+            'Application\Controller\Admin'      => 'Application\Controller\AdminController',
+            'Application\Controller\Facebook'   => 'Application\Controller\FacebookController',
+            'Application\Controller\SocialMediaConsole'   => 'Application\Controller\SocialMediaConsoleController'
         ),
     ),
     'controller_plugins' => array(
@@ -137,7 +138,16 @@ return array(
     'console' => array(
         'router' => array(
             'routes' => array(
-            ),
-        ),
-    ),
+                'social_media' => array(
+                    'options' => array(
+                        'route'    => 'social_media sendInvite [--verbose|-v] <smsSetting>',
+                        'defaults' => array(
+                            'controller' => 'Application\Controller\SocialMediaConsole',
+                            'action'     => 'sendInvite'
+                        )
+                    )
+                ),
+            )
+        )
+    )
 );

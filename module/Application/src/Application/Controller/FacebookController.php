@@ -10,8 +10,6 @@ use Zend\Http\Client;
 
 use \Exception;
 
-require_once 'autoload.php';
-
 use Facebook\FacebookSession;
 use Facebook\FacebookRedirectLoginHelper;
 use Facebook\FacebookRequest;

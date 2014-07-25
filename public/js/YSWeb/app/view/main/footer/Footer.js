@@ -94,9 +94,46 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                                 text    : '{fb}'
                             },
                             icon    : YSConfig.url + '/img/admin/icons/facebook-icon_20x20.png',
-                            href    : YSConfig.url,
-                            hrefTarget: '_parent',
-                            cls     : 'shareBtn'
+                            /*href    : YSConfig.url,
+                            hrefTarget: '_parent',*/
+                            cls     : 'shareBtn',
+                            handler : function() {
+                                window.fbAsyncInit = function() {
+                                    FB.init(
+                                        {
+                                            appId      : '266620273529963',
+                                            xfbml      : false,
+                                            version    : 'v2.0',
+                                            redirect_uri    : 'http://yardsale.druidinc.com/' 
+                                        }
+                                    );
+
+                                    FB.ui({
+                                        method        : 'share_open_graph',
+                                        action_type   : 'og.likes',
+                                        action_properties: JSON.stringify({
+                                          object:'http://yardsale.druidinc.com/',
+                                        }),
+                                        redirect_uri    : 'http://yardsale.druidinc.com/'
+                                    }, function(response){});
+                                };
+
+                                (   
+                                    function(d, s, id) {
+                                        var js, 
+                                            fjs = d.getElementsByTagName(s)[0];
+                                 
+                                        if ( d.getElementById(id) ) {
+                                            return;
+                                        }
+                                 
+                                        js      = d.createElement(s); 
+                                        js.id   = id;
+                                        js.src  = "//connect.facebook.net/en_US/sdk.js";
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                    }   (document, 'script', 'facebook-jssdk')
+                                );
+                            }
                         }, {
                             xtype   : 'button',
                             itemId  : 'twPost',

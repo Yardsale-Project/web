@@ -24,7 +24,7 @@ class SendMessage
         $this->appId        = $Facebook->getAppId();
         $this->uid          = $Facebook->getUser();
         $data               = $Facebook->api( '/me' );
-        $this->userName     = $data['username'];
+        $this->userName     = $data['id'];
         $this->appSecret    = $Facebook->getAppSecret();
         $this->AccessToken  = $Facebook->getAccessToken();
         $this->STREAM_XML   = '<stream:stream ' . 'xmlns:stream="http://etherx.jabber.org/streams" ' . 'version="1.0" xmlns="jabber:client" to="chat.facebook.com" ' . 'xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">';

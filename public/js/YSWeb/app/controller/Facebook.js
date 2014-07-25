@@ -29,7 +29,7 @@ Ext.define('YSWeb.controller.Facebook', {
     	var fbSharBtn = this.getFbShareBtn();
     	var me = this;
 
-    	Ext.Ajax.request({
+    	/*Ext.Ajax.request({
             url     : YSConfig.url + '/application/facebook/getShareLink',
             method  : 'POST',
             success : function(response) {
@@ -58,7 +58,7 @@ Ext.define('YSWeb.controller.Facebook', {
                     });
                 }
             }
-        });
+        });*/
     },
 
     fbInviteFriends : function() {

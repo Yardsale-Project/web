@@ -42,4 +42,29 @@ class SocialMedia extends Table
 
         return $affected_rows;
 	}
+
+    public function getInvites($setting) {
+
+        $whereClause = array(
+            'sms_access_token.setting'  => $setting,
+            'sms_access_token.active'   => 1,
+            'sms_invite.invite_sent'    => 0
+        );
+
+        $smsInviteCols = array(
+            'sms_id',
+            'sms_username'
+        );
+
+        $smsAccessTokeCols = array('token');
+
+        $select = $this->select()
+                        ->from($this->_name)
+                        ->columns($smsInviteCols)
+                        ->join('sms_access_token', 'sms_access_token.user_id = sms_invite.user_id', $smsAccessTokeCols)
+                        ->where($whereClause)
+                        ->order( array('sms_username') );
+
+        return $this->fetchAllToArray($select);
+    }
 }
