@@ -109,40 +109,10 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                                         }
                                     );
 
-                                    FB.getLoginStatus(function(response) {
-                                        if (response.status === 'connected') {
-                                          // Logged into your app and Facebook.
-                                            /*FB.ui({
-                                                method        : 'share_open_graph',
-                                                action_type   : 'og.share',
-                                                action_properties: JSON.stringify({
-                                                    object  : 'http://yardsale.druidinc.com/',
-                                                    message : 'this is a message',
-                                                    scrape  : 'true',
-                                                    image   : 'http://yardsale.druidinc.com/img/admin/logo/logo_1.png'
-                                                })
-                                            }, function(response){});*/
-
-                                            FB.ui({
-                                                method: 'share',
-                                                href: 'https://developers.facebook.com/docs/',
-                                            }, function(response){});
-                                        } else if (response.status === 'not_authorized') {
-                                          // The person is logged into Facebook, but not your app.
-                                          //document.getElementById('status').innerHTML = 'Please log ' +
-                                            //'into this app.';
-
-                                        } else {
-                                          // The person is not logged into Facebook, so we're not sure if
-                                          // they are logged into this app or not.
-                                            FB.login(function(response) {
-                                                FB.ui({
-                                                    method: 'share',
-                                                    href: 'https://developers.facebook.com/docs/',
-                                                }, function(response){});
-                                            });
-                                        }
-                                    });
+                                    FB.ui({
+                                        method: 'share',
+                                        href: 'http://yardsale.druidinc.com/',
+                                    }, function(response){});
                                 };
 
                                 (   
