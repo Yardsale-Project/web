@@ -108,14 +108,38 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                                         }
                                     );
 
-                                    FB.ui({
-                                        method        : 'share_open_graph',
-                                        action_type   : 'og.likes',
-                                        action_properties: JSON.stringify({
-                                          object:'http://yardsale.druidinc.com/',
-                                        }),
-                                        redirect_uri    : 'http://yardsale.druidinc.com/'
-                                    }, function(response){});
+                                    FB.getLoginStatus(function(response) {
+                                        if (response.status === 'connected') {
+                                          // Logged into your app and Facebook.
+                                            FB.ui({
+                                                method        : 'share_open_graph',
+                                                action_type   : 'og.likes',
+                                                action_properties: JSON.stringify({
+                                                  object:'http://yardsale.druidinc.com/',
+                                                }),
+                                                redirect_uri    : 'http://yardsale.druidinc.com/'
+                                            }, function(response){});
+                                        } else if (response.status === 'not_authorized') {
+                                          // The person is logged into Facebook, but not your app.
+                                          //document.getElementById('status').innerHTML = 'Please log ' +
+                                            //'into this app.';
+                                            FB.login(function(response) {
+                                                FB.ui({
+                                                    method        : 'share_open_graph',
+                                                    action_type   : 'og.likes',
+                                                    action_properties: JSON.stringify({
+                                                      object:'http://yardsale.druidinc.com/',
+                                                    }),
+                                                    redirect_uri    : 'http://yardsale.druidinc.com/'
+                                                }, function(response){});
+                                            });
+                                        } else {
+                                          // The person is not logged into Facebook, so we're not sure if
+                                          // they are logged into this app or not.
+                                          document.getElementById('status').innerHTML = 'Please log ' +
+                                            'into Facebook.';
+                                        }
+                                    });
                                 };
 
                                 (   
