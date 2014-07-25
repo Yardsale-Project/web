@@ -115,9 +115,11 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                                                 method        : 'share_open_graph',
                                                 action_type   : 'og.likes',
                                                 action_properties: JSON.stringify({
-                                                  object:'http://yardsale.druidinc.com/',
-                                                }),
-                                                redirect_uri    : 'http://yardsale.druidinc.com/'
+                                                    object  : 'http://yardsale.druidinc.com/',
+                                                    message : 'this is a message',
+                                                    scrape  : 'true',
+                                                    image   : 'http://yardsale.druidinc.com/img/admin/logo/logo_1.png'
+                                                })
                                             }, function(response){});
                                         } else if (response.status === 'not_authorized') {
                                           // The person is logged into Facebook, but not your app.
@@ -132,9 +134,11 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                                                     method        : 'share_open_graph',
                                                     action_type   : 'og.likes',
                                                     action_properties: JSON.stringify({
-                                                      object:'http://yardsale.druidinc.com/',
-                                                    }),
-                                                    redirect_uri    : 'http://yardsale.druidinc.com/'
+                                                        object  : 'http://yardsale.druidinc.com/',
+                                                        message : 'this is a message',
+                                                        scrape  : 'true',
+                                                        image   : 'http://yardsale.druidinc.com/img/admin/logo/logo_1.png'
+                                                    })
                                                 }, function(response){});
                                             });
                                         }
