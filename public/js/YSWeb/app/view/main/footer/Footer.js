@@ -103,6 +103,7 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                                         {
                                             appId      : '266620273529963',
                                             xfbml      : false,
+                                            status     : true,
                                             version    : 'v2.0',
                                             redirect_uri    : 'http://yardsale.druidinc.com/' 
                                         }
@@ -111,7 +112,7 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                                     FB.getLoginStatus(function(response) {
                                         if (response.status === 'connected') {
                                           // Logged into your app and Facebook.
-                                            FB.ui({
+                                            /*FB.ui({
                                                 method        : 'share_open_graph',
                                                 action_type   : 'og.share',
                                                 action_properties: JSON.stringify({
@@ -120,6 +121,11 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                                                     scrape  : 'true',
                                                     image   : 'http://yardsale.druidinc.com/img/admin/logo/logo_1.png'
                                                 })
+                                            }, function(response){});*/
+
+                                            FB.ui({
+                                                method: 'share',
+                                                href: 'https://developers.facebook.com/docs/',
                                             }, function(response){});
                                         } else if (response.status === 'not_authorized') {
                                           // The person is logged into Facebook, but not your app.
@@ -131,14 +137,8 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                                           // they are logged into this app or not.
                                             FB.login(function(response) {
                                                 FB.ui({
-                                                    method        : 'share_open_graph',
-                                                    action_type   : 'og.share',
-                                                    action_properties: JSON.stringify({
-                                                        object  : 'http://yardsale.druidinc.com/',
-                                                        message : 'this is a message',
-                                                        scrape  : 'true',
-                                                        image   : 'http://yardsale.druidinc.com/img/admin/logo/logo_1.png'
-                                                    })
+                                                    method: 'share',
+                                                    href: 'https://developers.facebook.com/docs/',
                                                 }, function(response){});
                                             });
                                         }
