@@ -97,23 +97,27 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                             /*href    : YSConfig.url,
                             hrefTarget: '_parent',*/
                             cls     : 'shareBtn',
-                            handler : function() {
-                                window.fbAsyncInit = function() {
-                                    FB.init(
-                                        {
-                                            appId      : '266620273529963',
-                                            xfbml      : false,
-                                            status     : true,
-                                            version    : 'v2.0',
-                                            redirect_uri    : 'http://yardsale.druidinc.com/' 
-                                        }
-                                    );
+                            listeners : {
+                                render : function() {
+                                    window.fbAsyncInit = function() {
+                                        FB.init(
+                                            {
+                                                appId      : '266620273529963',
+                                                xfbml      : false,
+                                                status     : true,
+                                                version    : 'v2.0',
+                                                redirect_uri    : 'http://yardsale.druidinc.com/' 
+                                            }
+                                        );
 
-                                    FB.ui({
-                                        method: 'share',
-                                        href: 'http://yardsale.druidinc.com/',
-                                    }, function(response){});
-                                };
+                                        FB.ui({
+                                            method: 'share',
+                                            href: 'http://yardsale.druidinc.com/',
+                                        }, function(response){});
+                                    };
+                                }
+                            },
+                            handler : function() {
 
                                 (   
                                     function(d, s, id) {
