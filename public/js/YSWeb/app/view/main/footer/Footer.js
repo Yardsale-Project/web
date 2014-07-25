@@ -113,7 +113,7 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                                           // Logged into your app and Facebook.
                                             FB.ui({
                                                 method        : 'share_open_graph',
-                                                action_type   : 'og.likes',
+                                                action_type   : 'og.share',
                                                 action_properties: JSON.stringify({
                                                     object  : 'http://yardsale.druidinc.com/',
                                                     message : 'this is a message',
@@ -132,7 +132,7 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                                             FB.login(function(response) {
                                                 FB.ui({
                                                     method        : 'share_open_graph',
-                                                    action_type   : 'og.likes',
+                                                    action_type   : 'og.share',
                                                     action_properties: JSON.stringify({
                                                         object  : 'http://yardsale.druidinc.com/',
                                                         message : 'this is a message',
