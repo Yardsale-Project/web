@@ -18,7 +18,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
 
     loggedInCallback : function(obj, resp) {
         //obj.redirectTo('home/fb');
-        FB.api('/me/taggable_friends', 'GET', obj.fbFriendsCallback);
+        FB.api('/me/taggable_friends', 'GET', {}, obj.fbFriendsCallback);
     },
 
     loggedOutCallback : function(obj, resp) {
