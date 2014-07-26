@@ -5,15 +5,39 @@ Ext.define('YSWeb.controller.Root', {
 
     routes : {
     	'validate/:hash' : 	'validateUser',
-    	'home'			: 'home',
-        'home/:sms'     : {
-            before  : 'onBeforeSmsInvite',
-            action  : 'onSmsInvite'
-        }
+    	'home'			: 'home'
     },
 
     init    : function() {
         this.action = null;
+
+        window.fbAsyncInit = function() {
+            FB.init(
+                {
+                    appId      : '266620273529963',
+                    xfbml      : false,
+                    status     : true,
+                    version    : 'v2.0',
+                    redirect_uri    : 'http://yardsale.druidinc.com/' 
+                }
+            );
+        };
+
+        (   
+            function(d, s, id) {
+                var js, 
+                    fjs = d.getElementsByTagName(s)[0];
+         
+                if ( d.getElementById(id) ) {
+                    return;
+                }
+         
+                js      = d.createElement(s); 
+                js.id   = id;
+                js.src  = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }   (document, 'script', 'facebook-jssdk')
+        );
     },
 
     home 	: function() {
@@ -131,9 +155,9 @@ Ext.define('YSWeb.controller.Root', {
 
             }
         });
-    },
+    }
 
-    onBeforeSmsInvite : function(sms, action) {
+    /*onBeforeSmsInvite : function(sms, action) {
         this.action = action;
         YSDebug.log('before sms');
         // separating the GET parameters from the current URL
@@ -272,8 +296,6 @@ Ext.define('YSWeb.controller.Root', {
         }
     },
 
-    loggedOutSmsCallback : function(obj) {
-        obj.redirectTo('home');
-    }
+    */
 
 });

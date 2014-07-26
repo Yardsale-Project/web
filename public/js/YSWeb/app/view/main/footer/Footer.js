@@ -6,7 +6,7 @@ Ext.define('YSWeb.view.main.footer.Footer', {
     xtype: 'app-footer',
     cls: 'app-footer',
     
-   /* controller: 'main',*/
+    controller: 'footer',
     viewModel: {
         type: 'footer'
     },
@@ -97,44 +97,7 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                             /*href    : YSConfig.url,
                             hrefTarget: '_parent',*/
                             cls     : 'shareBtn',
-                            listeners : {
-                                render : function() {
-                                    window.fbAsyncInit = function() {
-                                        FB.init(
-                                            {
-                                                appId      : '266620273529963',
-                                                xfbml      : false,
-                                                status     : true,
-                                                version    : 'v2.0',
-                                                redirect_uri    : 'http://yardsale.druidinc.com/' 
-                                            }
-                                        );
-
-                                        FB.ui({
-                                            method: 'share',
-                                            href: 'http://yardsale.druidinc.com/',
-                                        }, function(response){});
-                                    };
-                                }
-                            },
-                            handler : function() {
-
-                                (   
-                                    function(d, s, id) {
-                                        var js, 
-                                            fjs = d.getElementsByTagName(s)[0];
-                                 
-                                        if ( d.getElementById(id) ) {
-                                            return;
-                                        }
-                                 
-                                        js      = d.createElement(s); 
-                                        js.id   = id;
-                                        js.src  = "//connect.facebook.net/en_US/sdk.js";
-                                        fjs.parentNode.insertBefore(js, fjs);
-                                    }   (document, 'script', 'facebook-jssdk')
-                                );
-                            }
+                            handler : 'onFbShareBtnClick'
                         }, {
                             xtype   : 'button',
                             itemId  : 'twPost',

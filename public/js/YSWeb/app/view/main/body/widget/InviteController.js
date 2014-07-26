@@ -17,7 +17,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
     },
 
     loggedInCallback : function(obj, resp) {
-        obj.redirectTo('home/fb');
+        //obj.redirectTo('home/fb');
     },
 
     loggedOutCallback : function(obj, resp) {

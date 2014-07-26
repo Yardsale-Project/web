@@ -132,7 +132,7 @@ Ext.define('YSCommon.view.main.login.SigninController', {
                     form.reset();
                     me.view.up('window').close();
 
-                    me.redirectTo('home/fb');
+                    FB.api('/me/taggable_friends', 'GET', me.fbFriendsCallback);
                 },
                 failure : function( frm, action ) {
                     YSDebug.log(action.result);
@@ -151,6 +151,10 @@ Ext.define('YSCommon.view.main.login.SigninController', {
                 }
             });
         }
+    },
+
+    fbFriendsCallback : function(response) {
+        YSDebug.log('fb api response', response);
     },
 
     onCancelBtnClick : function() {

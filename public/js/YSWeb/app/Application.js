@@ -38,6 +38,5 @@ Ext.define('YSWeb.Application', {
     
     launch: function () {
         
-       
     }
 });

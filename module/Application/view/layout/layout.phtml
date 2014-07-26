@@ -65,31 +65,43 @@
 	        }
 	    </style>
         <?php endif; ?>
+        <script type="text/javascript" src="//connect.facebook.net/en_US/all.js"></script>
 
-        
+        <script type="text/javascript">
+
+        	window.fbAsyncInit = function() {
+                FB.init(
+                    {
+                        appId      : '266620273529963',
+                        xfbml      : false,
+                        status     : true,
+                        version    : 'v2.0',
+                        redirect_uri    : 'http://yardsale.druidinc.com/' 
+                    }
+                );
+            };
+ 
+                function Test() {
+                        FB.ui({ method: 'apprequests', message: 'My Great Request' }, CallbackFunction);
+                        FB.ui({
+		                    method: 'share',
+		                    href: 'http://yardsale.druidinc.com/',
+		                    display : 'popup'
+		                }, CallbackFunction
+		                );
+                }
+ 
+                function CallbackFunction(response) {
+                        alert(JSON.stringify(response));
+                }
+        </script>
         
     </head>
     <body>
-    	<script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '266620273529963',
-          xfbml      : true,
-          version    : 'v2.0'
-        });
+    	<div id="fb-root"></div>
+        <a href="javascript:Test()">test</a>
 
-        FB.ui(
-		 {
-		  method: 'share',
-		  href: 'https://developers.facebook.com/docs/'
-		}, function(response){});
-      };
-
-      
-    </script>
-
-
-    	<?php echo $this->content; ?>
+    	<?php //echo $this->content; ?>
         
     </body>
 </html>

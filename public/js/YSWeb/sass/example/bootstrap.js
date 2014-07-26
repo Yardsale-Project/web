@@ -2358,6 +2358,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.body.widget.InviteController": [],
   "YSWeb.view.main.body.widget.InviteModel": [],
   "YSWeb.view.main.footer.Footer": [],
+  "YSWeb.view.main.footer.FooterController": [],
   "YSWeb.view.main.footer.FooterModel": [],
   "YSWeb.view.main.header.AccountHeader": [],
   "YSWeb.view.main.header.AccountHeaderController": [],
@@ -3788,6 +3789,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "YSWeb.view.main.footer.Footer": [
     "widget.app-footer"
+  ],
+  "YSWeb.view.main.footer.FooterController": [
+    "controller.footer"
   ],
   "YSWeb.view.main.footer.FooterModel": [
     "viewmodel.footer"
