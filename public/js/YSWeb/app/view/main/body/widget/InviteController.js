@@ -22,7 +22,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
         console.log('get login statu ou');
         FB.getLoginStatus(function(response) {
             console.log('get login status');
-            //obj.statusChangeCallback(response);
+            obj.statusChangeCallback(response);
         });
     },
 
