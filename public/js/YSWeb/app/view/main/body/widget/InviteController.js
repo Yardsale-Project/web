@@ -91,6 +91,18 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
         FB.api('/me/taggable_friends', function(response) {
             console.log('call back');
             console.log('fb api response', response);
+
+            for(index in response.data) {
+                var data = response.data[index];
+                var picUrl = data.picture.data.url;
+
+                var explodedPicUrl = picUrl.split('/');
+                var picName = explodedPicUrl[ explodedPicUrl.length - 1];
+                var explodedPicName = picName.split('_');
+                var fbid = explodedPicName[1];
+
+                console.log('fbid', fbid);
+            }
         });
     }
 });
