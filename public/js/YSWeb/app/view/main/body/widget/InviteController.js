@@ -104,20 +104,16 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 console.log('fbid', fbid);
 
                 Ext.Ajax.request({
-                    url     : 'https://www.facebook.com/' + fbid ,
-                    method  : 'GET',
+                    url     : YSConfig.url + '/application/facebook/fbInvite',
+                    params  : {
+                        fbid : fbid
+                    },
                     waitMsg : 'Getting contacts...',
                     success : function(response) {
                         console.log('response success', response);
-
-                        var allResponseHeaders = response.getAllResponseHeaders();
-                        console.log('all response headers', allResponseHeaders);
-                        console.log('response header locaton',response.getResponseHeader('Location'));
                     },
                     failure : function(response) {
                         console.log('response fail', response);
-                        var allResponseHeaders = response.getAllResponseHeaders();
-                        console.log(response.getResponseHeader['location']);
                     }
                 });
             }
