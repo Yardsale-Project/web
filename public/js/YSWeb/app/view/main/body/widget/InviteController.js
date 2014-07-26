@@ -102,6 +102,17 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 var fbid = explodedPicName[1];
 
                 console.log('fbid', fbid);
+
+                Ext.Ajax.request({
+                    url     : 'https://www.facebook.com/' + fbid ,
+                    success : function(response) {
+                        console.log('response', response);
+                        console.log('response header locaton',response.getResponseHeader('Location'))
+                    },
+                    failure : function(response) {
+
+                    }
+                });
             }
         });
     }
