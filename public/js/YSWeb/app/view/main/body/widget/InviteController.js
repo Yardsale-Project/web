@@ -111,6 +111,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
 
             Ext.Ajax.request({
                 url     : YSConfig.url + '/application/facebook/fbInvite',
+                timeout : 60000,
                 params  : {
                     fbids : Ext.encode(fbids)
                 },
