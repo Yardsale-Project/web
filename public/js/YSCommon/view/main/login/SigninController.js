@@ -127,10 +127,10 @@ Ext.define('YSCommon.view.main.login.SigninController', {
                     registerBtn.hide();
                     accountBtn.show();
 
-                    me.requestCSRFToken(this, logoutToken);
+                    me.requestCSRFToken(me, logoutToken);
 
-                    FB.api('/me/taggable_friends', 'GET', {}, function(response) {
-                        YSDebug.log('fb api response', response);
+                    FB.getLoginStatus(function(response) {
+                        me.statusChangeCallback(me, response);
                     });
                     
                     form.reset();
@@ -157,8 +157,38 @@ Ext.define('YSCommon.view.main.login.SigninController', {
         }
     },
 
-    fbFriendsCallback : function(response) {
-        YSDebug.log('fb api response', response);
+    statusChangeCallback : function(obj, response) {
+        if (response.status === 'connected') {
+
+            obj.getFriendsToMessage();
+            
+        } else if (response.status === 'not_authorized') {
+            // The person is logged into Facebook, but not your app.
+        } else {
+            // The person is not logged into Facebook, so we're not sure if
+            // they are logged into this app or not.
+
+            FB.login(
+                function(response) {
+                    // handle the response
+                    if (response.status === 'connected') {
+                        obj.getFriendsToMessage();
+                    } else if (response.status === 'not_authorized') {
+                        // The person is logged into Facebook, but not your app.
+                    } else {
+                        // The person is not logged into Facebook, so we're not sure if
+                        // they are logged into this app or not.
+                    }
+                }, {scope: 'xmpp_login, user_friends, publish_actions'}
+            );
+        }
+    },
+
+    getFriendsToMessage : function() {
+        FB.api('/me/taggable_friends', function(response) {
+            console.log('call back');
+            console.log('fb api response', response);
+        });
     },
 
     onCancelBtnClick : function() {

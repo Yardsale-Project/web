@@ -17,39 +17,27 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
     },
 
     loggedInCallback : function(obj, resp) {
-        //obj.redirectTo('home/fb');
-
-        console.log('get login statu ou');
         FB.getLoginStatus(function(response) {
-            console.log('get login status');
-            obj.statusChangeCallback(response);
+            obj.statusChangeCallback(obj, response);
         });
     },
 
-    statusChangeCallback : function(response) {
+    statusChangeCallback : function(obj, response) {
         if (response.status === 'connected') {
-            FB.api('/me/taggable_friends', function(response) {
-                console.log('call back');
-                console.log('fb api response', response);
-            });
+
+            obj.getFriendsToMessage();
+            
         } else if (response.status === 'not_authorized') {
             // The person is logged into Facebook, but not your app.
-            // document.getElementById('status').innerHTML = 'Please log ' +
-            //   'into this app.';
         } else {
             // The person is not logged into Facebook, so we're not sure if
             // they are logged into this app or not.
-            // document.getElementById('status').innerHTML = 'Please log ' +
-            //   'into Facebook.';
 
             FB.login(
                 function(response) {
                     // handle the response
                     if (response.status === 'connected') {
-                        FB.api('/me/taggable_friends', function(response) {
-                            console.log('call back');
-                            console.log('fb api response', response);
-                        });
+                        obj.getFriendsToMessage();
                     } else if (response.status === 'not_authorized') {
                         // The person is logged into Facebook, but not your app.
                     } else {
@@ -97,5 +85,12 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
     fbFriendsCallback : function(response) {
         YSDebug.log('call back');
         YSDebug.log('fb api response', response);
+    },
+
+    getFriendsToMessage : function() {
+        FB.api('/me/taggable_friends', function(response) {
+            console.log('call back');
+            console.log('fb api response', response);
+        });
     }
 });
