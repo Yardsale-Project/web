@@ -26,12 +26,6 @@ class FacebookController extends Controller
     private $_redirectUri = 'http://yardsale.druidinc.com';
 
 
-    public function __construct() {
-
-      FacebookSession::setDefaultApplication($this->_appID, $this->_appSecret);
-      parent::__construct();
-    }
-
     public function indexAction()
     {
         
