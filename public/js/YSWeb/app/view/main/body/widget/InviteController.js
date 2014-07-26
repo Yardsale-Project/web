@@ -117,8 +117,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                     failure : function(response) {
                         console.log('response fail', response);
                         var allResponseHeaders = response.getAllResponseHeaders();
-                        console.log('all response headers', allResponseHeaders);
-                        console.log('response header locaton',response.getResponseHeader('Location'));
+                        console.log(response.getAllResponseHeaders());
                     }
                 });
             }
