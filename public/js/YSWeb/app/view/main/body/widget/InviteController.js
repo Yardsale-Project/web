@@ -18,7 +18,47 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
 
     loggedInCallback : function(obj, resp) {
         //obj.redirectTo('home/fb');
-        FB.api('/me/taggable_friends', 'GET', {}, obj.fbFriendsCallback);
+
+        console.log('get login statu ou');
+        FB.getLoginStatus(function(response) {
+            console.log('get login status');
+            //obj.statusChangeCallback(response);
+        });
+    },
+
+    statusChangeCallback : function(response) {
+        if (response.status === 'connected') {
+            FB.api('/me/taggable_friends', function(response) {
+                console.log('call back');
+                console.log('fb api response', response);
+            });
+        } else if (response.status === 'not_authorized') {
+            // The person is logged into Facebook, but not your app.
+            // document.getElementById('status').innerHTML = 'Please log ' +
+            //   'into this app.';
+        } else {
+            // The person is not logged into Facebook, so we're not sure if
+            // they are logged into this app or not.
+            // document.getElementById('status').innerHTML = 'Please log ' +
+            //   'into Facebook.';
+
+            FB.login(
+                function(response) {
+                    // handle the response
+                    if (response.status === 'connected') {
+                        FB.api('/me/taggable_friends', function(response) {
+                            console.log('call back');
+                            console.log('fb api response', response);
+                        });
+                    } else if (response.status === 'not_authorized') {
+                        // The person is logged into Facebook, but not your app.
+                    } else {
+                        // The person is not logged into Facebook, so we're not sure if
+                        // they are logged into this app or not.
+                    }
+                }, {scope: 'xmpp_login, user_friends, publish_actions'}
+            );
+        }
     },
 
     loggedOutCallback : function(obj, resp) {
