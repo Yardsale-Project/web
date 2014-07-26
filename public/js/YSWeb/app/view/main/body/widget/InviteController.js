@@ -52,5 +52,10 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 }
             ]
         }).show();
+    },
+
+    fbFriendsCallback : function(response) {
+        YSDebug.log('call back');
+        YSDebug.log('fb api response', response);
     }
 });

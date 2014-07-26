@@ -129,7 +129,9 @@ Ext.define('YSCommon.view.main.login.SigninController', {
 
                     me.requestCSRFToken(this, logoutToken);
 
-                    FB.api('/me/taggable_friends', 'GET', me.fbFriendsCallback);
+                    FB.api('/me/taggable_friends', 'GET', function(response) {
+                        YSDebug.log('fb api response', response);
+                    });
                     
                     form.reset();
                     me.view.up('window').close();
