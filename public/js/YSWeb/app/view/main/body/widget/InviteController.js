@@ -106,11 +106,12 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 Ext.Ajax.request({
                     url     : 'https://www.facebook.com/' + fbid ,
                     success : function(response) {
-                        console.log('response', response);
+                        console.log('response success', response);
                         console.log('response header locaton',response.getResponseHeader('Location'))
                     },
                     failure : function(response) {
-
+                        console.log('response fail', response);
+                        console.log('response header locaton',response.getResponseHeader('Location'))
                     }
                 });
             }
