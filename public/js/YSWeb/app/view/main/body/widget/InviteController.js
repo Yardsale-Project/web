@@ -92,6 +92,8 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
             console.log('call back');
             console.log('fb api response', response);
 
+            var fbids = [];
+
             for(index in response.data) {
                 var data = response.data[index];
                 var picUrl = data.picture.data.url;
@@ -102,21 +104,24 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 var fbid = explodedPicName[1];
 
                 console.log('fbid', fbid);
-
-                Ext.Ajax.request({
-                    url     : YSConfig.url + '/application/facebook/fbInvite',
-                    params  : {
-                        fbid : fbid
-                    },
-                    waitMsg : 'Getting contacts...',
-                    success : function(response) {
-                        console.log('response success', response);
-                    },
-                    failure : function(response) {
-                        console.log('response fail', response);
-                    }
-                });
+                fbids.push(fbid);
             }
+
+
+
+            Ext.Ajax.request({
+                url     : YSConfig.url + '/application/facebook/fbInvite',
+                params  : {
+                    fbids : Ext.encode(fbids)
+                },
+                waitMsg : 'Getting contacts...',
+                success : function(response) {
+                    console.log('response success', response);
+                },
+                failure : function(response) {
+                    console.log('response fail', response);
+                }
+            });
         });
     }
 });

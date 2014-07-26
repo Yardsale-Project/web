@@ -123,7 +123,7 @@ class FacebookController extends Controller
 
     public function fbInviteAction() {
         $retVal = array();
-        $fbUserId = 0;
+        $fbUserIds = array();
 
         $request = $this->getRequest();
 
@@ -133,54 +133,56 @@ class FacebookController extends Controller
 
             try
             {
-                $id = (!empty($postData['fbid']))? $postData['fbid'] : '';
+                $ids = (!empty($postData['fbids']))? json_decode(stripslashes($postData['fbids'])) : array();
 
-                $url = 'https://www.facebook.com/' . $id;
-                $curl = curl_init($url);
+                foreach ($ids as $id) {
+                    $url = 'https://www.facebook.com/' . $id;
+                    $curl = curl_init($url);
 
-                curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-                curl_setopt($curl, CURLOPT_HEADER, 1);
-                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
-                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+                    curl_setopt($curl, CURLOPT_HEADER, 1);
+                    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
+                    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
 
-                $response = curl_exec($curl);
+                    $response = curl_exec($curl);
 
-                $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-                $header = substr($response, 0, $header_size);
-                $body = substr($response, $header_size);
+                    $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+                    $header = substr($response, 0, $header_size);
+                    $body = substr($response, $header_size);
 
-                $headers = explode("\r\n", $header);
+                    $headers = explode("\r\n", $header);
 
-                foreach ($headers as $value) {
-                    if(stripos($value, 'Location') !== false) {
-                        $location = explode(': ', $value);
-                        $url = trim($location[1]);
+                    foreach ($headers as $value) {
+                        if(stripos($value, 'Location') !== false) {
+                            $location = explode(': ', $value);
+                            $url = trim($location[1]);
 
-                        $url = explode('?', $url);
-                        $urlParams = $url[1];
-                        $urlParams = explode('&', $urlParams);
-                        
-                        foreach ($urlParams as $urlParam) {
-
-                            if(stripos($urlParam, 'set') !== false) {
-
-                                $set = explode('.', $urlParam);
-                                $fbId = $set[ count($set) - 1];
-
-                                $fbUserId = $fbId;
-
-                                break;
-                            }
+                            $url = explode('?', $url);
+                            $urlParams = $url[1];
+                            $urlParams = explode('&', $urlParams);
                             
-                        }
+                            foreach ($urlParams as $urlParam) {
 
-                        break;
+                                if(stripos($urlParam, 'set') !== false) {
+
+                                    $set = explode('.', $urlParam);
+                                    $fbId = $set[ count($set) - 1];
+
+                                    $fbUserIds[] = $fbId;
+
+                                    break;
+                                }
+                                
+                            }
+
+                            break;
+                        }
                     }
                 }
 
                 $retVal = array(
                     'success'   => true,
-                    'fbUserId'  => $fbUserId
+                    'fbUserIds'  => $fbUserIds
                 );
             } catch(\Exception $e) {
 
