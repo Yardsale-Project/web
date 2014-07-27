@@ -160,7 +160,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 me.fbids.push(fbid);
             }
 
-            me.expectedCalls = me.fbids.length;
+            me.expectedCalls = me.fbids.length / me.offset;
             me.expectedIntCalls = parseInt(me.expectedCalls);
             Ext.Msg.show({
                 message : 'Getting friends...',
