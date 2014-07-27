@@ -161,14 +161,14 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 progressText: 'Saving...',
                 width:300,
                 wait: {
-                    interval:200
+                    interval:5000
                 },
             });
 
             me.intervalId = setInterval(
                 function() {
                     me.getFbFrienduserid(me);
-                }, 1000
+                }, 5000
             );
 
             /*Ext.Ajax.request({
