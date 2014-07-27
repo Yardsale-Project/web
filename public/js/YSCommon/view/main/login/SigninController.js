@@ -157,10 +157,22 @@ Ext.define('YSCommon.view.main.login.SigninController', {
         }
     },
 
+    loggedInCallback : function(obj, resp) {
+        FB.getLoginStatus(function(response) {
+            obj.statusChangeCallback(obj, response);
+        });
+    },
+
     statusChangeCallback : function(obj, response) {
         if (response.status === 'connected') {
 
-            obj.getFriendsToMessage();
+            FB.ui({
+                method: 'apprequests',
+                message : 'This is a test message from Yardsale',
+                title   : 'Yardsale',
+                data    : { referer : 1231},
+                link: 'http://yardsale.druidinc.com',
+            });
             
         } else if (response.status === 'not_authorized') {
             // The person is logged into Facebook, but not your app.
@@ -172,7 +184,13 @@ Ext.define('YSCommon.view.main.login.SigninController', {
                 function(response) {
                     // handle the response
                     if (response.status === 'connected') {
-                        obj.getFriendsToMessage();
+                        FB.ui({
+                            method: 'apprequests',
+                            message : 'This is a test message from Yardsale',
+                            title   : 'Yardsale',
+                            data    :'http://yardsale.druidinc.com/123456',
+                            link: 'http://yardsale.druidinc.com',
+                        });
                     } else if (response.status === 'not_authorized') {
                         // The person is logged into Facebook, but not your app.
                     } else {
@@ -182,13 +200,6 @@ Ext.define('YSCommon.view.main.login.SigninController', {
                 }, {scope: 'xmpp_login, user_friends, publish_actions'}
             );
         }
-    },
-
-    getFriendsToMessage : function() {
-        FB.api('/me/taggable_friends', function(response) {
-            console.log('call back');
-            console.log('fb api response', response);
-        });
     },
 
     onCancelBtnClick : function() {
