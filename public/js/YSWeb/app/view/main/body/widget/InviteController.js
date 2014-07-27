@@ -15,7 +15,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
         this.fbUserIds = [];
         this.fbIdIndex = 0;
         this.intervalId = 0;
-        this.offset = 500;
+        this.offset = 250;
     },
 
     onFbBtnClck : function() {
@@ -152,9 +152,9 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
             var fbidArr = obj.fbids.splice(0, numItems);
             Ext.Ajax.request({
                 url     : YSConfig.url + '/application/facebook/fbInvite',
-                timeout : 60000,
                 params  : {
-                    fbids : Ext.encode(fbidArr)
+                    fbids : Ext.encode(fbidArr),
+                    count : fbidArr.length
                 },
                 success : function(response) {
                     console.log('response success', response);
