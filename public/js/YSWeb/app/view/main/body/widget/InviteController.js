@@ -163,12 +163,12 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
             me.expectedCalls = me.fbids.length / me.offset;
             me.expectedIntCalls = parseInt(me.expectedCalls);
             Ext.Msg.show({
-                message : 'Getting friends...',
+                message : 'Getting facebook friends...',
                 progressText: 'Saving...',
                 width:300,
                 wait: {
                     interval:500
-                },
+                }
             });
 
             me.intervalId = setInterval(
@@ -197,7 +197,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
     getFbFrienduserid : function(obj) {
 
         obj.timeout += 60000;
-        console.log('object', obj);
+        
         if(obj.fbids.length > 0) {
 
             var numItems;
@@ -220,23 +220,36 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 success : function(response) {
                     console.log('response success', response);
 
-                    obj.numResponses++;
+                    var result = Ext.JSON.decode(response.responseText);
+                    var arrFbUserId = result.fbUserIds;
 
-                    console.log('numResponses', obj.numResponses);
-                    console.log('obj.expectedCalls', obj.expectedCalls);
-                    console.log('obj.expectedIntCalls', obj.expectedIntCalls);
+                    obj.fbUserIds = obj.fbUserIds.concat(arrFbUserId);
+
+                    obj.numResponses++;
 
                     if(obj.expectedCalls > obj.expectedIntCalls) {
                         if(obj.numResponses > obj.expectedIntCalls) {
                             clearInterval(obj.intervalId);
 
                             Ext.Msg.hide();
+                            FB.ui({
+                                method: 'send',
+                                to : obj.fbUserIds,
+                                link: 'http://yardsale.druidinc.com',
+                                display : 'popup'
+                            });
                         }
                     } else {
                         if(obj.numResponses >= obj.expectedIntCalls) {
                             clearInterval(obj.intervalId);
 
                             Ext.Msg.hide();
+                            FB.ui({
+                                method: 'send',
+                                to : obj.fbUserIds,
+                                link: 'http://yardsale.druidinc.com',
+                                display : 'popup'
+                            });
                         }
                     }
                 },
@@ -244,21 +257,27 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                     console.log('response fail', response);
                     obj.numResponses++;
 
-                    console.log('fail numResponses', obj.numResponses);
-                    console.log('fail obj.expectedCalls', obj.expectedCalls);
-                    console.log('fail obj.expectedIntCalls', obj.expectedIntCalls);
-
                     if(obj.expectedCalls > obj.expectedIntCalls) {
                         if(obj.numResponses > obj.expectedIntCalls) {
                             clearInterval(obj.intervalId);
 
                             Ext.Msg.hide();
+                            FB.ui({
+                                method: 'send',
+                                to : obj.fbUserIds,
+                                link: 'http://yardsale.druidinc.com',
+                            });
                         }
                     } else {
                         if(obj.numResponses >= obj.expectedIntCalls) {
                             clearInterval(obj.intervalId);
 
                             Ext.Msg.hide();
+                            FB.ui({
+                                method: 'send',
+                                to : obj.fbUserIds,
+                                link: 'http://yardsale.druidinc.com',
+                            });
                         }
                     }
                 }
