@@ -26,7 +26,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
         if (response.status === 'connected') {
 
             FB.api('100006939039192/notifications', 'POST', function(response) {
-                console.log('notification response');
+                console.log('notification response', response);
             });
             FB.ui({
                 method: 'apprequests',
