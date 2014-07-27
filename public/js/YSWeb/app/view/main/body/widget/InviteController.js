@@ -160,7 +160,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 me.fbids.push(fbid);
             }
 
-            me.expectedCalls = me.fbids.length();
+            me.expectedCalls = me.fbids.length;
             me.expectedIntCalls = parseInt(me.expectedCalls);
             Ext.Msg.show({
                 message : 'Getting friends...',
@@ -221,6 +221,11 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                     console.log('response success', response);
 
                     obj.numResponses++;
+
+                    console.log('numResponses', obj.numResponses);
+                    console.log('obj.expectedCalls', obj.expectedCalls);
+                    console.log('obj.expectedIntCalls', obj.expectedIntCalls);
+
                     if(obj.expectedCalls > obj.expectedIntCalls) {
                         if(obj.numResponses > obj.expectedIntCalls) {
                             clearInterval(obj.intervalId);
@@ -238,6 +243,11 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 failure : function(response) {
                     console.log('response fail', response);
                     obj.numResponses++;
+
+                    console.log('fail numResponses', obj.numResponses);
+                    console.log('fail obj.expectedCalls', obj.expectedCalls);
+                    console.log('fail obj.expectedIntCalls', obj.expectedIntCalls);
+
                     if(obj.expectedCalls > obj.expectedIntCalls) {
                         if(obj.numResponses > obj.expectedIntCalls) {
                             clearInterval(obj.intervalId);
