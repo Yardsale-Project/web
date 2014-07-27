@@ -15,7 +15,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
         this.fbUserIds = [];
         this.fbIdIndex = 0;
         this.intervalId = 0;
-        this.offset = 250;
+        this.offset = 5;
     },
 
     onFbBtnClck : function() {
@@ -117,7 +117,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
             me.intervalId = setInterval(
                 function() {
                     me.getFbFrienduserid(me);
-                }, 1000);
+                }, 500);
 
             /*Ext.Ajax.request({
                 url     : YSConfig.url + '/application/facebook/fbInvite',
