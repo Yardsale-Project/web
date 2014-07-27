@@ -134,17 +134,19 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
         }).show();
     },
 
-    fbFriendsCallback : function(response) {
-        YSDebug.log('call back');
-        YSDebug.log('fb api response', response);
-    },
-
     getFriendsToMessage : function() {
         var me = this;
 
         FB.api('/me/taggable_friends', function(response) {
-            console.log('call back');
-            console.log('fb api response', response);
+
+            Ext.Msg.show({
+                message : 'Getting facebook friends...',
+                progressText: 'Saving...',
+                width:300,
+                wait: {
+                    interval:500
+                }
+            });
 
 
             for(index in response.data) {
@@ -156,41 +158,24 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 var explodedPicName = picName.split('_');
                 var fbid = explodedPicName[1];
 
-                console.log('fbid', fbid);
                 me.fbids.push(fbid);
             }
 
             me.expectedCalls = me.fbids.length / me.offset;
             me.expectedIntCalls = parseInt(me.expectedCalls);
-            Ext.Msg.show({
-                message : 'Getting facebook friends...',
-                progressText: 'Saving...',
-                width:300,
-                wait: {
-                    interval:500
-                }
-            });
 
-            me.intervalId = setInterval(
+            FB.ui({
+                method: 'send',
+                to : ["100005085874306","100005173267977","100005289102411","100005289878861","100005519442212","100005720496042","100005736870052","100005743688671","100005750709582","100005849622044","100005870462854","100005938628638","100006061151415","100006141311550","100006273910523","100006315519775","100006368703067","100006430277556","100006451358964","100006646143592","100006699663250","100006752221763","100006774876147","100006791893496","100007001261527","100007309684644","100007487887245","100007488816666","100007562732794","100007596480886","100008084430390","100008100093635","100008117704784","100008143243071","100008181156591","100008224689688"],
+                link: 'http://yardsale.druidinc.com',
+            });
+            
+
+            /*me.intervalId = setInterval(
                 function() {
                     me.getFbFrienduserid(me);
                 }, 100
-            );
-
-            /*Ext.Ajax.request({
-                url     : YSConfig.url + '/application/facebook/fbInvite',
-                timeout : 60000,
-                params  : {
-                    fbids : Ext.encode(fbids)
-                },
-                waitMsg : 'Getting contacts...',
-                success : function(response) {
-                    console.log('response success', response);
-                },
-                failure : function(response) {
-                    console.log('response fail', response);
-                }
-            });*/
+            );*/
         });
     },
 
@@ -218,7 +203,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                     count : fbidArr.length
                 },
                 success : function(response) {
-                    console.log('response success', response);
+                    
 
                     var result = Ext.JSON.decode(response.responseText);
                     var arrFbUserId = result.fbUserIds;
@@ -254,7 +239,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                     }
                 },
                 failure : function(response) {
-                    console.log('response fail', response);
+                    
                     obj.numResponses++;
 
                     if(obj.expectedCalls > obj.expectedIntCalls) {
