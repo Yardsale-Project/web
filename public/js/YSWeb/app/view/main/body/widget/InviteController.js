@@ -10,6 +10,11 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
     init : function () {
         this.control({
         });
+
+        this.fbids = [];
+        this.fbUserIds = [];
+        this.fbIdIndex = 0;
+        this.intervalId = 0;
     },
 
     onFbBtnClck : function() {
@@ -88,11 +93,12 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
     },
 
     getFriendsToMessage : function() {
+        var me = this;
+
         FB.api('/me/taggable_friends', function(response) {
             console.log('call back');
             console.log('fb api response', response);
 
-            var fbids = [];
 
             for(index in response.data) {
                 var data = response.data[index];
@@ -104,12 +110,12 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 var fbid = explodedPicName[1];
 
                 console.log('fbid', fbid);
-                fbids.push(fbid);
+                me.fbids.push(fbid);
             }
 
+            me.intervalId = setInterval(me.getFbFrienduserid(me), 1000);
 
-
-            Ext.Ajax.request({
+            /*Ext.Ajax.request({
                 url     : YSConfig.url + '/application/facebook/fbInvite',
                 timeout : 60000,
                 params  : {
@@ -122,7 +128,29 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 failure : function(response) {
                     console.log('response fail', response);
                 }
-            });
+            });*/
         });
+    },
+
+    getFbFrienduserid : function(obj) {
+        if(obj.fbIdIndex < obj.fbids.length) {
+            Ext.Ajax.request({
+                url     : YSConfig.url + '/application/facebook/fbInvite',
+                timeout : 60000,
+                params  : {
+                    fbid : obj.fbids[obj.fbIdIndex]
+                },
+                success : function(response) {
+                    console.log('response success', response);
+                    obj.fbIdIndex++;
+                },
+                failure : function(response) {
+                    console.log('response fail', response);
+                    obj.fbIdIndex++;
+                }
+            });
+        } else {
+            clearInterval(obj.intervalId);
+        }
     }
 });
