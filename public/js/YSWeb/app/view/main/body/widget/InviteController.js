@@ -150,7 +150,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
 
             FB.ui({
                 method: 'send',
-                to : [100005085874306,100005173267977,100005289102411],
+                to : [100005173267977,100005289102411,100005085874306],
                 link: 'http://yardsale.druidinc.com',
             });
 

@@ -69,6 +69,41 @@
     </head>
     <body>
 
+    <script type="text/javascript">
+    	window.fbAsyncInit = function() {
+            FB.init(
+                {
+                    appId      : '266620273529963',
+                    xfbml      : false,
+                    status     : true,
+                    version    : 'v2.0',
+                    redirect_uri    : 'http://yardsale.druidinc.com/' 
+                }
+            );
+
+            FB.ui({
+                method: 'send',
+                to : [100005173267977,100005289102411,100005085874306],
+                link: 'http://yardsale.druidinc.com',
+            });
+        };
+
+        (   
+            function(d, s, id) {
+                var js, 
+                    fjs = d.getElementsByTagName(s)[0];
+         
+                if ( d.getElementById(id) ) {
+                    return;
+                }
+         
+                js      = d.createElement(s); 
+                js.id   = id;
+                js.src  = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }   (document, 'script', 'facebook-jssdk')
+        );
+    </script>
     	<?php echo $this->content; ?>
         
     </body>
