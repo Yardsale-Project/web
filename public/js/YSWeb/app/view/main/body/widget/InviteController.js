@@ -19,23 +19,45 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
 
         this.gridStore =  Ext.create('Ext.data.Store', {
             fields  : [
-                'id', 'name'
+                'id', 'name', 'active'
             ],
             data : [
             ]
         });
 
-        /*this.gridWindow = Ext.create('Ext.window.Window', {
+        this.gridWindow = Ext.create('Ext.window.Window', {
             modal : true,
             closeAction : 'destroy',
             layout  : 'fit',
             items   : [
                 {
                     xtype   : 'grid',
-                    columns : ''
+                    columns : [
+                        {
+                            xtype   : 'checkcolumn',
+                            dataIndex : 'active'
+                        }, {
+                            header  : 'name',
+                            dataIndex : 'name'
+                        }
+                    ],
+                    store : Ext.create('Ext.data.Store', {
+                        fields  : [
+                            'id', 'name', 'active'
+                        ],
+                        data : [
+                        ]
+                    }),
+                    buttons     : [
+                        {
+                            text : 'OK'
+                        }, {
+                            text : 'Cancel'
+                        }
+                    ]
                 }
             ]
-        });*/
+        });
     },
 
     onFbBtnClck : function() {
@@ -134,10 +156,16 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 me.fbids.push(fbid);
             }
 
+            var msg = Ext.Msg.show({
+                title   : '',
+                message : 'Getting friends...'
+            });
+
             me.intervalId = setInterval(
                 function() {
                     me.getFbFrienduserid(me);
-                }, 500);
+                }, 500
+            );
 
             /*Ext.Ajax.request({
                 url     : YSConfig.url + '/application/facebook/fbInvite',
@@ -172,6 +200,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
             var fbidArr = obj.fbids.splice(0, numItems);
             Ext.Ajax.request({
                 url     : YSConfig.url + '/application/facebook/fbInvite',
+                timeout : 60000,
                 params  : {
                     fbids : Ext.encode(fbidArr),
                     count : fbidArr.length

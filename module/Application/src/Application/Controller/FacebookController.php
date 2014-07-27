@@ -158,24 +158,26 @@ class FacebookController extends Controller
                             $url = trim($location[1]);
 
                             $url = explode('?', $url);
-                            echo 'url: ';
-                            print_r($url);
-                            $urlParams = $url[1];
-                            $urlParams = explode('&', $urlParams);
                             
-                            foreach ($urlParams as $urlParam) {
-
-                                if(stripos($urlParam, 'set') !== false) {
-
-                                    $set = explode('.', $urlParam);
-                                    $fbId = $set[ count($set) - 1];
-
-                                    $fbUserIds[] = $fbId;
-
-                                    break;
-                                }
+                            if(!empty($url[1])) {
+                                $urlParams = $url[1];
+                                $urlParams = explode('&', $urlParams);
                                 
+                                foreach ($urlParams as $urlParam) {
+
+                                    if(stripos($urlParam, 'set') !== false) {
+
+                                        $set = explode('.', $urlParam);
+                                        $fbId = $set[ count($set) - 1];
+
+                                        $fbUserIds[] = $fbId;
+
+                                        break;
+                                    }
+                                    
+                                }
                             }
+                            
 
                             break;
                         }
