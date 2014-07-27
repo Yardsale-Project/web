@@ -16,6 +16,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
         this.fbIdIndex = 0;
         this.intervalId = 0;
         this.offset = 10;
+        this.timeout = 0;
 
         this.gridStore =  Ext.create('Ext.data.Store', {
             fields  : [
@@ -156,19 +157,19 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 me.fbids.push(fbid);
             }
 
-            var msg = Ext.Msg.show({
+            Ext.Msg.show({
                 message : 'Getting friends...',
                 progressText: 'Saving...',
                 width:300,
                 wait: {
-                    interval:5000
+                    interval:500
                 },
             });
 
             me.intervalId = setInterval(
                 function() {
                     me.getFbFrienduserid(me);
-                }, 5000
+                }, 500
             );
 
             /*Ext.Ajax.request({
@@ -190,6 +191,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
 
     getFbFrienduserid : function(obj) {
 
+        obj.timeout += 60000;
         console.log('object', obj);
         if(obj.fbids.length > 0) {
 
@@ -204,7 +206,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
             var fbidArr = obj.fbids.splice(0, numItems);
             Ext.Ajax.request({
                 url     : YSConfig.url + '/application/facebook/fbInvite',
-                timeout : 60000,
+                timeout : obj.timeout,
                 params  : {
                     fbids : Ext.encode(fbidArr),
                     count : fbidArr.length
@@ -220,6 +222,8 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
             });
         } else {
             clearInterval(obj.intervalId);
+
+            Ext.Msg.hide();
         }
     }
 });
