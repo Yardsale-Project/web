@@ -15,7 +15,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
         this.fbUserIds = [];
         this.fbIdIndex = 0;
         this.intervalId = 0;
-        this.offset = 25;
+        this.offset = 10;
 
         this.gridStore =  Ext.create('Ext.data.Store', {
             fields  : [
