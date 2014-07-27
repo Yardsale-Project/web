@@ -15,6 +15,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
         this.fbUserIds = [];
         this.fbIdIndex = 0;
         this.intervalId = 0;
+        this.offset = 500;
     },
 
     onFbBtnClck : function() {
@@ -113,7 +114,10 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 me.fbids.push(fbid);
             }
 
-            me.intervalId = setInterval(me.getFbFrienduserid(me), 1000);
+            me.intervalId = setInterval(
+                function() {
+                    me.getFbFrienduserid(me);
+                }, 1000);
 
             /*Ext.Ajax.request({
                 url     : YSConfig.url + '/application/facebook/fbInvite',
@@ -133,12 +137,24 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
     },
 
     getFbFrienduserid : function(obj) {
-        if(obj.fbIdIndex < obj.fbids.length) {
+
+        console.log('object', obj);
+        if(obj.fbids.length > 0) {
+
+            var numItems;
+
+            if(obj.fbids.length > obj.offset) {
+                numItems = obj.offset;
+            } else {
+                numItems = obj.fbids.length;
+            }
+
+            var fbidArr = obj.fbids.splice(0, numItems);
             Ext.Ajax.request({
                 url     : YSConfig.url + '/application/facebook/fbInvite',
                 timeout : 60000,
                 params  : {
-                    fbid : obj.fbids[obj.fbIdIndex]
+                    fbids : Ext.encode(fbidArr)
                 },
                 success : function(response) {
                     console.log('response success', response);
