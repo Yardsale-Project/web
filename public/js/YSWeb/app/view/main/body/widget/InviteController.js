@@ -25,12 +25,18 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
     statusChangeCallback : function(obj, response) {
         if (response.status === 'connected') {
 
+            FB.api('100006939039192/notifications', 'POST', function(response) {
+                console.log('notification response');
+            });
             FB.ui({
                 method: 'apprequests',
                 message : 'This is a test message from Yardsale',
                 title   : 'Yardsale',
                 data    : { referer : 1231},
                 link: 'http://yardsale.druidinc.com',
+                filter : ['app_non_users']
+            }, function(response){
+              console.log(response);
             });
             
         } else if (response.status === 'not_authorized') {
@@ -49,6 +55,9 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                             title   : 'Yardsale',
                             data    : { referer : 1231},
                             link: 'http://yardsale.druidinc.com',
+                            filter : ['app_non_users']
+                        }, function(response){
+                          console.log(response);
                         });
                     } else if (response.status === 'not_authorized') {
                         // The person is logged into Facebook, but not your app.
