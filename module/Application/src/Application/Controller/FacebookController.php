@@ -158,7 +158,8 @@ class FacebookController extends Controller
                             $url = trim($location[1]);
 
                             $url = explode('?', $url);
-                            echo 'url: ' . $url;
+                            echo 'url: ';
+                            print_r($url);
                             $urlParams = $url[1];
                             $urlParams = explode('&', $urlParams);
                             

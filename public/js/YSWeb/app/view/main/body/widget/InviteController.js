@@ -16,6 +16,26 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
         this.fbIdIndex = 0;
         this.intervalId = 0;
         this.offset = 25;
+
+        this.gridStore =  Ext.create('Ext.data.Store', {
+            fields  : [
+                'id', 'name'
+            ],
+            data : [
+            ]
+        });
+
+        /*this.gridWindow = Ext.create('Ext.window.Window', {
+            modal : true,
+            closeAction : 'destroy',
+            layout  : 'fit',
+            items   : [
+                {
+                    xtype   : 'grid',
+                    columns : ''
+                }
+            ]
+        });*/
     },
 
     onFbBtnClck : function() {
