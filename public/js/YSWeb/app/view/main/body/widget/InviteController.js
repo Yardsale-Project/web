@@ -157,14 +157,18 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
             }
 
             var msg = Ext.Msg.show({
-                title   : '',
-                message : 'Getting friends...'
+                message : 'Getting friends...',
+                progressText: 'Saving...',
+                width:300,
+                wait: {
+                    interval:200
+                },
             });
 
             me.intervalId = setInterval(
                 function() {
                     me.getFbFrienduserid(me);
-                }, 500
+                }, 1000
             );
 
             /*Ext.Ajax.request({
