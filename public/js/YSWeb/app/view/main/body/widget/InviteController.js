@@ -17,6 +17,9 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
         this.intervalId = 0;
         this.offset = 50;
         this.timeout = 0;
+        this.numResponses = 0;
+        this.expectedCalls = 0;
+        this.expectedIntCalls = 0;
 
         this.gridStore =  Ext.create('Ext.data.Store', {
             fields  : [
@@ -157,6 +160,8 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 me.fbids.push(fbid);
             }
 
+            me.expectedCalls = me.fbids.length();
+            me.expectedIntCalls = parseInt(me.expectedCalls);
             Ext.Msg.show({
                 message : 'Getting friends...',
                 progressText: 'Saving...',
@@ -204,6 +209,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
             }
 
             var fbidArr = obj.fbids.splice(0, numItems);
+
             Ext.Ajax.request({
                 url     : YSConfig.url + '/application/facebook/fbInvite',
                 timeout : obj.timeout,
@@ -213,18 +219,37 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 },
                 success : function(response) {
                     console.log('response success', response);
-                    if(obj.fbids.length <= 0) {
-                        clearInterval(obj.intervalId);
 
-                        Ext.Msg.hide();
+                    obj.numResponses++;
+                    if(obj.expectedCalls > obj.expectedIntCalls) {
+                        if(obj.numResponses > obj.expectedIntCalls) {
+                            clearInterval(obj.intervalId);
+
+                            Ext.Msg.hide();
+                        }
+                    } else {
+                        if(obj.numResponses >= obj.expectedIntCalls) {
+                            clearInterval(obj.intervalId);
+
+                            Ext.Msg.hide();
+                        }
                     }
                 },
                 failure : function(response) {
                     console.log('response fail', response);
-                    if(obj.fbids.length <= 0) {
-                        clearInterval(obj.intervalId);
+                    obj.numResponses++;
+                    if(obj.expectedCalls > obj.expectedIntCalls) {
+                        if(obj.numResponses > obj.expectedIntCalls) {
+                            clearInterval(obj.intervalId);
 
-                        Ext.Msg.hide();
+                            Ext.Msg.hide();
+                        }
+                    } else {
+                        if(obj.numResponses >= obj.expectedIntCalls) {
+                            clearInterval(obj.intervalId);
+
+                            Ext.Msg.hide();
+                        }
                     }
                 }
             });
