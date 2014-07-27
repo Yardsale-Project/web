@@ -15,7 +15,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
         this.fbUserIds = [];
         this.fbIdIndex = 0;
         this.intervalId = 0;
-        this.offset = 10;
+        this.offset = 50;
         this.timeout = 0;
 
         this.gridStore =  Ext.create('Ext.data.Store', {
@@ -169,7 +169,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
             me.intervalId = setInterval(
                 function() {
                     me.getFbFrienduserid(me);
-                }, 500
+                }, 100
             );
 
             /*Ext.Ajax.request({
@@ -213,17 +213,23 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
                 },
                 success : function(response) {
                     console.log('response success', response);
-                    obj.fbIdIndex++;
+                    if(obj.fbids.length <= 0) {
+                        clearInterval(obj.intervalId);
+
+                        Ext.Msg.hide();
+                    }
                 },
                 failure : function(response) {
                     console.log('response fail', response);
-                    obj.fbIdIndex++;
+                    if(obj.fbids.length <= 0) {
+                        clearInterval(obj.intervalId);
+
+                        Ext.Msg.hide();
+                    }
                 }
             });
         } else {
             clearInterval(obj.intervalId);
-
-            Ext.Msg.hide();
         }
     }
 });
