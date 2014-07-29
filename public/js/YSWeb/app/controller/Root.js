@@ -11,29 +11,6 @@ Ext.define('YSWeb.controller.Root', {
     init    : function() {
         this.action = null;
 
-    },
-
-    home 	: function() {
-    	YSDebug.log('home');
-
-        var accountBtn,
-            signInBtn,
-            orTbText,
-            registerBtn,
-            logoutToken,
-            me = this;
-
-        UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutCallback);
-
-    },
-
-    loggedInCallback : function(object,rsp) {
-        var accountBtn  = Ext.ComponentQuery.query('#accountBtn')[0];
-        var signInBtn   = Ext.ComponentQuery.query('#signInBtn')[0];
-        var orTbText    = Ext.ComponentQuery.query('#orTbText')[0];
-        var registerBtn = Ext.ComponentQuery.query('#registerBtn')[0];
-        var logoutToken = Ext.ComponentQuery.query('#logoutToken')[0];
-
         window.fbAsyncInit = function() {
             FB.init(
                 {
@@ -61,6 +38,27 @@ Ext.define('YSWeb.controller.Root', {
                 fjs.parentNode.insertBefore(js, fjs);
             }   (document, 'script', 'facebook-jssdk')
         );
+    },
+
+    home 	: function() {
+    	YSDebug.log('home');
+
+        var accountBtn,
+            signInBtn,
+            orTbText,
+            registerBtn,
+            logoutToken,
+            me = this;
+
+        UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutCallback);
+    },
+
+    loggedInCallback : function(object,rsp) {
+        var accountBtn  = Ext.ComponentQuery.query('#accountBtn')[0];
+        var signInBtn   = Ext.ComponentQuery.query('#signInBtn')[0];
+        var orTbText    = Ext.ComponentQuery.query('#orTbText')[0];
+        var registerBtn = Ext.ComponentQuery.query('#registerBtn')[0];
+        var logoutToken = Ext.ComponentQuery.query('#logoutToken')[0];
 
 
         accountBtn.setText(rsp.email);
@@ -105,58 +103,6 @@ Ext.define('YSWeb.controller.Root', {
 
     loggedOutCallback : function(object,rsp) {
         YSDebug.log('not logged in');
-
-        window.fbAsyncInit = function() {
-            FB.init(
-                {
-                    appId      : '266620273529963',
-                    xfbml      : false,
-                    status     : true,
-                    version    : 'v2.0',
-                    redirect_uri    : 'http://yardsale.druidinc.com/' 
-                }
-            );
-        };
-
-        (   
-            function(d, s, id) {
-                var js, 
-                    fjs = d.getElementsByTagName(s)[0];
-         
-                if ( d.getElementById(id) ) {
-                    return;
-                }
-         
-                js      = d.createElement(s); 
-                js.id   = id;
-                js.src  = "//connect.facebook.net/en_US/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }   (document, 'script', 'facebook-jssdk')
-        );
-
-        var getParams = document.URL.split("?");
-        // transforming the GET parameters into a dictionnary
-
-        if(getParams.length > 1) {
-            var params = Ext.urlDecode(getParams[getParams.length - 1]);
-            var paramIndex;
-
-            console.log('params init', params);
-            params = params.request_ids.replace('#home', '');
-            params = params.split(',');
-
-            console.log('params', params);
-
-
-            for(paramIndex in params) {
-                var requestId = params[paramIndex];
-
-                FB.api(requestId, 'GET', function(response) {
-                    console.log('get request', response);
-                });
-            }
-
-        }
     },
 
     validateUser : function(hash) {
