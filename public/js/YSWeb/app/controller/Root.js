@@ -81,9 +81,11 @@ Ext.define('YSWeb.controller.Root', {
         if(getParams.length > 1) {
             var params = Ext.urlDecode(getParams[getParams.length - 1]);
             var paramIndex;
+
+            console.log('params init', params);
             params = params.replace('#home', '');
             params = params.split(',');
-            
+
             console.log('params', params);
 
 
