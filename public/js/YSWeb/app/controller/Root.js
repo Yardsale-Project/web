@@ -52,29 +52,6 @@ Ext.define('YSWeb.controller.Root', {
 
         UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutCallback);
 
-        var getParams = document.URL.split("?");
-        // transforming the GET parameters into a dictionnary
-
-        if(getParams.length > 1) {
-            var params = Ext.urlDecode(getParams[getParams.length - 1]);
-            var paramIndex;
-
-            console.log('params init', params);
-            params = params.request_ids.replace('#home', '');
-            params = params.split(',');
-
-            console.log('params', params);
-
-
-            for(paramIndex in params) {
-                var requestId = params[paramIndex];
-
-                FB.api(requestId, 'GET', function(response) {
-                    console.log('get request', response);
-                });
-            }
-
-        }
     },
 
     loggedInCallback : function(object,rsp) {
@@ -98,11 +75,59 @@ Ext.define('YSWeb.controller.Root', {
         if(object.action) {
             object.action.resume();
         }
+
+        var getParams = document.URL.split("?");
+        // transforming the GET parameters into a dictionnary
+
+        if(getParams.length > 1) {
+            var params = Ext.urlDecode(getParams[getParams.length - 1]);
+            var paramIndex;
+
+            console.log('params init', params);
+            params = params.request_ids.replace('#home', '');
+            params = params.split(',');
+
+            console.log('params', params);
+
+
+            for(paramIndex in params) {
+                var requestId = params[paramIndex];
+
+                FB.api(requestId, 'GET', function(response) {
+                    console.log('get request', response);
+                });
+            }
+
+        }
        
     },
 
     loggedOutCallback : function(object,rsp) {
         YSDebug.log('not logged in');
+
+        var getParams = document.URL.split("?");
+        // transforming the GET parameters into a dictionnary
+
+        if(getParams.length > 1) {
+            var params = Ext.urlDecode(getParams[getParams.length - 1]);
+            var paramIndex;
+
+            console.log('params init', params);
+            params = params.request_ids.replace('#home', '');
+            params = params.split(',');
+
+            console.log('params', params);
+
+
+            for(paramIndex in params) {
+                var requestId = params[paramIndex];
+
+                FB.api(requestId, 'GET', function(response) {
+                    console.log('get request', response);
+                });
+            }
+
+        }
     },
 
     validateUser : function(hash) {
