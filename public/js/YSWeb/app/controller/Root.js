@@ -74,6 +74,10 @@ Ext.define('YSWeb.controller.Root', {
         if(object.action) {
             object.action.resume();
         }
+
+        var getParams = document.URL.split("?");
+        // transforming the GET parameters into a dictionnary
+        var params = Ext.urlDecode(getParams[getParams.length - 1]);
     },
 
     loggedOutCallback : function(object,rsp) {
