@@ -83,10 +83,18 @@ Ext.define('YSWeb.controller.Root', {
             var paramIndex;
             params = params.replace('#home', '');
             params = params.split(',');
-
-
-
+            
             console.log('params', params);
+
+
+            for(paramIndex in params) {
+                var requestId = params[paramIndex];
+
+                FB.api(requestId, 'GET', function(response) {
+                    console.log('get request', response);
+                });
+            }
+
         }
        
     },
