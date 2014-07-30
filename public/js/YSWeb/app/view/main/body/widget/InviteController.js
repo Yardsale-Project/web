@@ -17,9 +17,11 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
     },
 
     loggedInCallback : function(obj, resp) {
-        FB.getLoginStatus(function(response) {
+
+        obj.redirectTo('home/fbInvite');
+        /*FB.getLoginStatus(function(response) {
             obj.statusChangeCallback(obj, response);
-        });
+        });*/
     },
 
     statusChangeCallback : function(obj, response) {

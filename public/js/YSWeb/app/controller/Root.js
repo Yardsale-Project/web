@@ -4,8 +4,12 @@ Ext.define('YSWeb.controller.Root', {
     extend: 'Ext.app.Controller',
 
     routes : {
-    	'validate/:hash' : 	'validateUser',
-    	'home'			: 'home'
+    	'validate/:hash'   : 'validateUser',
+    	'home'             : 'home',
+        'home/:sns'        : {
+            before         : 'onBeforeSns',
+            action         : 'onSns'
+        }
     },
 
     init    : function() {
@@ -75,7 +79,7 @@ Ext.define('YSWeb.controller.Root', {
             object.action.resume();
         }
 
-        var getParams = document.URL.split("?");
+        /*var getParams = document.URL.split("?");
         // transforming the GET parameters into a dictionnary
 
         if(getParams.length > 1) {
@@ -97,7 +101,7 @@ Ext.define('YSWeb.controller.Root', {
                 });
             }
 
-        }
+        }*/
        
     },
 
@@ -180,6 +184,72 @@ Ext.define('YSWeb.controller.Root', {
 
             }
         });
+    },
+
+    onBeforeSns    : function(sns, action) {
+        this.action = action;
+
+        UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutCallback);
+    },
+
+    onSns   : function(sns) {
+        var me = this;
+
+        if(sns == 'fbInvite') {
+            FB.getLoginStatus(function(response) {
+                me.statusChangeCallback(response);
+            });
+        }
+    },
+
+    statusChangeCallback : function(response) {
+
+        var me = this;
+
+        if (response.status === 'connected') {
+
+            FB.ui({
+                method: 'apprequests',
+                message : 'This is a test message from Yardsale',
+                title   : 'Yardsale',
+                data    : 'thisisadatasample',
+                link: 'http://yardsale.druidinc.com',
+                filter : ['app_non_users']
+            }, function(response){
+              console.log(response);
+              me.redirectTo('home');
+            });
+            
+        } else if (response.status === 'not_authorized') {
+            // The person is logged into Facebook, but not your app.
+        } else {
+            // The person is not logged into Facebook, so we're not sure if
+            // they are logged into this app or not.
+
+            FB.login(
+                function(response) {
+                    // handle the response
+                    if (response.status === 'connected') {
+                        FB.ui({
+                            method: 'apprequests',
+                            message : 'This is a test message from Yardsale',
+                            title   : 'Yardsale',
+                            data    : 'thisisadatasample',
+                            link: 'http://yardsale.druidinc.com',
+                            filter : ['app_non_users']
+                        }, function(response){
+                          console.log(response);
+                          me.redirectTo('home');
+                        });
+                    } else if (response.status === 'not_authorized') {
+                        // The person is logged into Facebook, but not your app.
+                    } else {
+                        // The person is not logged into Facebook, so we're not sure if
+                        // they are logged into this app or not.
+                    }
+                }, {scope: 'xmpp_login, user_friends, publish_actions'}
+            );
+        }
     }
 
     /*onBeforeSmsInvite : function(sms, action) {

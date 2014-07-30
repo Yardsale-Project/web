@@ -158,9 +158,10 @@ Ext.define('YSCommon.view.main.login.SigninController', {
     },
 
     loggedInCallback : function(obj, resp) {
-        FB.getLoginStatus(function(response) {
+        obj.redirectTo('home/fbInvite');
+        /*FB.getLoginStatus(function(response) {
             obj.statusChangeCallback(obj, response);
-        });
+        });*/
     },
 
     statusChangeCallback : function(obj, response) {
