@@ -216,7 +216,7 @@ Ext.define('YSWeb.controller.Root', {
                 link: 'http://yardsale.druidinc.com',
                 filter : ['app_non_users']
             }, function(response){
-              console.log(response);
+              me.saveInviteResponse(response);
               me.redirectTo('home');
             });
             
