@@ -347,6 +347,7 @@ class UserController extends Controller {
 
                 if( empty($validationCode)) {
                     $retVal['email'] = '';
+                    $this->_sessionContainer->getManager()->destroy();
                 } else {
                     $user = $this->model('Users');
                     $result = $user->getAccoutInfoBySessionCode($validationCode);

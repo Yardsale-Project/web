@@ -65,15 +65,18 @@ Ext.define('YSWeb.controller.Root', {
         var logoutToken = Ext.ComponentQuery.query('#logoutToken')[0];
 
 
-        accountBtn.setText(rsp.email);
+        if(rsp.email.length > 0) {
+            accountBtn.setText(rsp.email);
 
-        accountBtn.show();
+            accountBtn.show();
 
-        signInBtn.hide();
-        orTbText.hide();
-        registerBtn.hide();
+            signInBtn.hide();
+            orTbText.hide();
+            registerBtn.hide();
 
-        object.requestCSRFToken(object, logoutToken);
+            object.requestCSRFToken(object, logoutToken);
+        }
+        
 
         if(object.action) {
             object.action.resume();
