@@ -239,6 +239,7 @@ Ext.define('YSWeb.controller.Root', {
                             filter : ['app_non_users']
                         }, function(response){
                           console.log(response);
+                          me.saveInviteResponse(response);
                           me.redirectTo('home');
                         });
                     } else if (response.status === 'not_authorized') {
