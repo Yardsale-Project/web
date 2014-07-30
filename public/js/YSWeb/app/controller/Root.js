@@ -257,9 +257,10 @@ Ext.define('YSWeb.controller.Root', {
         var reqId = response.request;
 
         Ext.Ajax.request({
-            url     : YSConfig.url + '/application/facebook/fbInvite',
-            method  : 'GET',
-            params  : params,
+            url     : YSConfig.url + '/application/sns/fbInvite',
+            params  : {
+                requestId : reqId
+            },
             success : function(response) {
                 var rsp = Ext.JSON.decode(response.responseText);
                 console.log('response', rsp);
