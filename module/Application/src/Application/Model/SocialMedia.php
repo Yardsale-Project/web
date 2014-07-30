@@ -85,7 +85,7 @@ class SocialMedia extends Table
     public function acceptInvite($data, $id) {
 
         $whereClause = array(
-            'id'        => $user_id
+            'id'        => $id
         );
 
         $this->update($this->_name, $data, $whereClause);
