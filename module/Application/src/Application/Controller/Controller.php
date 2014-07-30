@@ -25,4 +25,38 @@ class Controller extends AbstractActionController
 
         return $model->get($modelName);
 	}
+
+	protected function getUserId() {
+
+		$id = 0;
+
+		$host = $this->getRequest()->getServer('HTTP_HOST');
+        $referer = $this->getRequest()->getServer('HTTP_REFERER');
+
+        if(stripos($referer, $host) === FALSE) {
+            $session = $this->model('Session');
+            $result = $session->getValidationCode($referer);
+
+            if(!empty($result)) {
+                $validationCode = $result['validationCode'];
+            }
+        } else {
+            $validationCode = $this->_sessionContainer->user_code;
+        }
+
+        if( empty($validationCode)) {
+            $id = 0;
+        } else {
+            $user = $this->model('Users');
+            $result = $user->getAccoutInfoBySessionCode($validationCode);
+
+            if(!empty($result)) {
+                $id = $result['id'];
+            } else {
+                $id = 0;
+            }
+        }
+
+        return $id;
+	}
 }

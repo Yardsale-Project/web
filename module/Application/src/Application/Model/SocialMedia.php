@@ -67,4 +67,27 @@ class SocialMedia extends Table
 
         return $this->fetchAllToArray($select);
     }
+
+    public function getSnsRequest($requestId) {
+        $whereClause = array(
+            'sms_request_id'    => $requestId,
+            'invite_sent'       => 1,
+            'invite_accepted'   => 0
+        );
+
+        $select = $this->select()
+                        ->from($this->_name)
+                        ->where($whereClause);
+
+        return $this->fetchRowToArray($select);
+    }
+
+    public function acceptInvite($data, $id) {
+
+        $whereClause = array(
+            'id'        => $user_id
+        );
+
+        $this->update($this->_name, $data, $whereClause);
+    }
 }

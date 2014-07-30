@@ -250,6 +250,35 @@ Ext.define('YSWeb.controller.Root', {
                 }, {scope: 'xmpp_login, user_friends, publish_actions'}
             );
         }
+    },
+
+    saveInviteResponse : function(response) {
+        var reqId = response.request;
+
+        Ext.Ajax.request({
+            url     : YSConfig.url + '/application/facebook/fbInvite',
+            method  : 'GET',
+            params  : params,
+            success : function(response) {
+                var rsp = Ext.JSON.decode(response.responseText);
+                console.log('response', rsp);
+                if(rsp.success) {
+                    if(rsp.hasOwnProperty('loginUrl')) {
+                        window.location = rsp.loginUrl;
+                    }
+
+                    if(rsp.hasOwnProperty('loggedIn')) {
+                        
+                    }
+                } else {
+                    window.location = YSConfig.url + '#home';
+                }
+
+            },
+            failure : function(response) {
+
+            }
+        });
     }
 
     /*onBeforeSmsInvite : function(sms, action) {

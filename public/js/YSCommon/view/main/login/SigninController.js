@@ -129,9 +129,7 @@ Ext.define('YSCommon.view.main.login.SigninController', {
 
                     me.requestCSRFToken(me, logoutToken);
 
-                    FB.getLoginStatus(function(response) {
-                        me.statusChangeCallback(me, response);
-                    });
+                    obj.redirectTo('home/fbInvite');
                     
                     form.reset();
                     me.view.up('window').close();

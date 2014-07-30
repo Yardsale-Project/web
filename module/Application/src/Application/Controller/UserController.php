@@ -30,6 +30,7 @@ class UserController extends Controller {
             try {
                 $email      = $postData['email']; //$_POST['email'];
                 $password   = $postData['password'];
+                $uriParams  = $postData['uriParams'];
 
                 // check for existing email
                 if( !$this->_isEmailExist($email) ) {
@@ -78,8 +79,35 @@ class UserController extends Controller {
 
                         mail($to,$subject,$message,$from);
 
+                        $modelSnsMedia = $this->model('SocialMedia');
+
+                        $uriParams = explode(',', $uriParams);
+
+                        foreach ($uriParams as $requestId) {
+                            $result = $modelSnsMedia->getSnsRequest($requestId);
+
+                            if(!empty($result)) {
+                                $data = array(
+                                    'invite_accepted' => 1
+                                );
+
+                                $modelSnsMedia->acceptInvite($data, $result['id']);
+
+                                //commission the user
+                                $data = array(
+                                    'user_id' => $result['user_id'],
+                                    'commission_type_id' => 1
+                                );
+
+                                $commissionModel = $this->model('Commission');
+                                $commissionModel->addCommission($data);
+
+                                break;
+                            }
+                        }
+
                         $retVal['success'] = true;
-                        $retVal['message'] = 'Email sent';
+                        $retVal['message'] = 'A validation link has been sent to your email. Please open your email and click the link to validate and activate your account.';
                     }
 
 
