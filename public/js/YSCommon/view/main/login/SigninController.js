@@ -129,7 +129,7 @@ Ext.define('YSCommon.view.main.login.SigninController', {
 
                     me.requestCSRFToken(me, logoutToken);
 
-                    obj.redirectTo('home/fbInvite');
+                    me.redirectTo('home/fbInvite');
                     
                     form.reset();
                     me.view.up('window').close();
