@@ -1,0 +1,7 @@
+.app-chat {
+	.isTyping {
+		position: absolute;
+		z-index: 1000;
+		bottom: 40px;
+	}
+}

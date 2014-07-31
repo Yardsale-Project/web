@@ -42,6 +42,27 @@ Ext.define('YSWeb.controller.Root', {
                 fjs.parentNode.insertBefore(js, fjs);
             }   (document, 'script', 'facebook-jssdk')
         );
+
+        Ext.Loader.loadScript({ 
+            url : 'https://cdn.socket.io/socket.io-1.0.6.js',
+            onLoad : function() {
+                Ext.create('Ext.window.Window', {
+                    modal       : true,
+                    layout      : 'fit',
+                    closeAction : 'destroy',
+                    resizable   : false,
+                    minimizable : true,
+                    maximizable : true,
+                    title       : 'Chat',
+
+                    items       : [
+                        {
+                            xtype : 'app-chat'
+                        }
+                    ]
+                }).show();
+            }
+        });
     },
 
     home 	: function() {
