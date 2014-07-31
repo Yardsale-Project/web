@@ -291,6 +291,13 @@
   background-image: url("img/admin/icons/twitter-icon_50x50.png") !important;
 }
 
+/* line 2, ../../../../../YSWeb/sass/var/view/main/chat/Chat.scss */
+.app-chat .isTyping {
+  position: absolute;
+  z-index: 1000;
+  bottom: 40px;
+}
+
 /* line 3, ../../../../../YSWeb/sass/var/view/main/header/AccountHeader.scss */
 .app-accountheader .linkBtn {
   background: transparent;
@@ -342,6 +349,12 @@
 .app-header .title {
   font-size: 22px;
   font-weight: bold;
+}
+
+/* line 2, ../../../../../YSWeb/sass/var/view/main/header/Navigation.scss */
+.app-navigation .linkBtn {
+  background: transparent;
+  border: transparent;
 }
 
 /* including package ext-theme-crisp */

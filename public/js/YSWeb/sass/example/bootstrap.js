@@ -2357,6 +2357,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.body.widget.Invite": [],
   "YSWeb.view.main.body.widget.InviteController": [],
   "YSWeb.view.main.body.widget.InviteModel": [],
+  "YSWeb.view.main.chat.Chat": [],
+  "YSWeb.view.main.chat.ChatController": [],
   "YSWeb.view.main.footer.Footer": [],
   "YSWeb.view.main.footer.FooterController": [],
   "YSWeb.view.main.footer.FooterModel": [],
@@ -2370,6 +2372,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.header.CenterHeaderModel": [],
   "YSWeb.view.main.header.Header": [],
   "YSWeb.view.main.header.HeaderModel": [],
+  "YSWeb.view.main.header.Navigation": [],
+  "YSWeb.view.main.header.NavigationController": [],
+  "YSWeb.view.main.header.NavigationModel": [],
   "YSWeb.view.main.login.Register": [],
   "YSWeb.view.main.login.RegisterController": [],
   "YSWeb.view.main.login.RegisterModel": [],
@@ -3787,6 +3792,12 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWeb.view.main.body.widget.InviteModel": [
     "viewmodel.invite"
   ],
+  "YSWeb.view.main.chat.Chat": [
+    "widget.app-chat"
+  ],
+  "YSWeb.view.main.chat.ChatController": [
+    "controller.chat"
+  ],
   "YSWeb.view.main.footer.Footer": [
     "widget.app-footer"
   ],
@@ -3825,6 +3836,15 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "YSWeb.view.main.header.HeaderModel": [
     "viewmodel.header"
+  ],
+  "YSWeb.view.main.header.Navigation": [
+    "widget.app-navigation"
+  ],
+  "YSWeb.view.main.header.NavigationController": [
+    "controller.navigation"
+  ],
+  "YSWeb.view.main.header.NavigationModel": [
+    "viewmodel.navigation"
   ],
   "YSWeb.view.main.login.Register": [
     "widget.app-register"

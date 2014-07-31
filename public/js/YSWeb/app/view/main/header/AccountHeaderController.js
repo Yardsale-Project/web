@@ -43,6 +43,7 @@ Ext.define('YSWeb.view.main.header.AccountHeaderController', {
 
     onLogoutMenuClick : function() {
         var token = this.lookupReference('logoutToken').getValue();
+        var navigation = Ext.ComponentQuery.query('#navigation')[0];
         var me = this;
 
         Ext.Ajax.request({
@@ -55,6 +56,7 @@ Ext.define('YSWeb.view.main.header.AccountHeaderController', {
 
                 if(rsp.success)
                 {
+                    navigation.hide();
                     me.lookupReference('accountBtn').hide();
                     me.lookupReference('signInBtn').show();
                     me.lookupReference('orTbText').show();

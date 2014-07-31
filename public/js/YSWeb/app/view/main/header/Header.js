@@ -21,6 +21,9 @@ Ext.define('YSWeb.view.main.header.Header', {
             xtype   : 'app-centerheader',
             columnWidth : 1
         }, {
+            xtype       : 'app-navigation',
+            columnWidth : 1
+        }, {
             xtype   : 'app-adsheader',
             columnWidth : 1
         }

@@ -43,7 +43,7 @@ Ext.define('YSWeb.controller.Root', {
             }   (document, 'script', 'facebook-jssdk')
         );
 
-        Ext.Loader.loadScript({ 
+        /*Ext.Loader.loadScript({ 
             url : 'https://cdn.socket.io/socket.io-1.0.6.js',
             onLoad : function() {
                 Ext.create('Ext.window.Window', {
@@ -62,7 +62,7 @@ Ext.define('YSWeb.controller.Root', {
                     ]
                 }).show();
             }
-        });
+        });*/
     },
 
     home 	: function() {
@@ -84,12 +84,14 @@ Ext.define('YSWeb.controller.Root', {
         var orTbText    = Ext.ComponentQuery.query('#orTbText')[0];
         var registerBtn = Ext.ComponentQuery.query('#registerBtn')[0];
         var logoutToken = Ext.ComponentQuery.query('#logoutToken')[0];
+        var navigation = Ext.ComponentQuery.query('#navigation')[0];
 
 
         if(rsp.email.length > 0) {
             accountBtn.setText(rsp.email);
 
             accountBtn.show();
+            navigation.show();
 
             signInBtn.hide();
             orTbText.hide();

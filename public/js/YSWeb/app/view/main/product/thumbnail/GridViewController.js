@@ -3,7 +3,7 @@
 Ext.define('YSWeb.view.main.product.thumbnail.GridViewController', {
     extend: 'Ext.app.ViewController',
 
-    alias: 'controller.app-gridView',
+    alias: 'controller.gridView',
 
     init : function () {
 
