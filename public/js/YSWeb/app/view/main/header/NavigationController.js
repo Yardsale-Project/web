@@ -9,5 +9,21 @@ Ext.define('YSWeb.view.main.header.NavigationController', {
         this.control({
             
         });
+    },
+
+    onAddNewBtnClick : function() {
+    	Ext.create('Ext.window.Window', {
+    		modal 		: true,
+    		layout 		: 'fit',
+    		resizable 	: false,
+    		closeAction : 'destroy',
+    		title 		: 'Add New Product',
+
+    		items 		: [
+    			{
+    				xtype	: 'app-product'
+    			}
+    		]
+    	}).show();
     }
 });

@@ -25,7 +25,7 @@ Ext.define('YSWeb.view.main.header.Navigation', {
             frame   : false,
             border  : false,
             layout  : 'hbox',
-            columnWidth : .8,
+            columnWidth : .95,
             tbar        : [
                 {
                     xtype   : 'button',
@@ -41,7 +41,8 @@ Ext.define('YSWeb.view.main.header.Navigation', {
                             }
                         }, {
                             bind    : {
-                                text    : '{addNew}'
+                                text    : '{addNew}',
+                                handler : 'onAddNewBtnClick'
                             }
                         }
                     ]

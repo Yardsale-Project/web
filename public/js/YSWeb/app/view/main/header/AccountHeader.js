@@ -19,7 +19,7 @@ Ext.define('YSWeb.view.main.header.AccountHeader', {
         {
             xtype   : 'toolbar',
             dock    : 'top',
-            columnWidth : .8,
+            columnWidth : .95,
             items   : [
                 '->',
                 {

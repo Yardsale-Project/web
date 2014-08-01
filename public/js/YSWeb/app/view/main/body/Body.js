@@ -17,18 +17,18 @@ Ext.define('YSWeb.view.main.body.Body', {
             xtype       : 'panel',
             cls         : 'bodyContainer',
             border      : false,
-            columnWidth : .8,
+            columnWidth : .95,
             layout      : 'hbox',
             items       : [
                 {
                     xtype   : 'app-bodyLeft',
-                    width   : 210
+                    width   : 250
                 }, {
                     xtype   : 'app-bodyCenter',
                     flex    : 1
                 }, {
                     xtype   : 'app-bodyRight',
-                    width   : 210
+                    width   : 250
                 }
             ]
         }

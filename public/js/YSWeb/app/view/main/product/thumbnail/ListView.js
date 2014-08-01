@@ -22,7 +22,7 @@ Ext.define('YSWeb.view.main.product.thumbnail.ListView', {
         	dataIndex: 'image',
         	width 	: 150,
         	renderer : function(value) {
-        		var src = YSCommon.config.Config.url + '/img/userPic/' + value;
+        		var src = YSCommon.config.Config.url + '/img/product/thumbnail/' + value;
         		return '<img src="' + src + '" height="100px"/>';
         	}
         }, { 

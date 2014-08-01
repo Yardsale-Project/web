@@ -227,7 +227,7 @@ Ext.define('YSCommon.ux.TreePicker', {
     setValue: function(value) {
         var me = this,
             record;
-
+        console.log('catgory', value);
         me.value = value;
 
         if (me.store.loading) {

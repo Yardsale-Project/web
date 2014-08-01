@@ -1276,7 +1276,6 @@ Ext.Loader.addClassPathMappings({
   "Ext.util.StoreHolder": "../../../ext/src/util/StoreHolder.js",
   "Ext.ux.desktop.TrayClock": "../../../ext/src/ux/desktop/TaskBar.js",
   "ExtThemeNeptune": "../../../ext/packages/ext-theme-neptune/overrides",
-  "Mobile": "../../app/view/main/product/thumbnail/GridView.js",
   "YSCommon": "../../../YSCommon",
   "YSCommon.validation.Validation": "../../../YSCommon/validation/Vallidation.js",
   "YSWeb": "../../app"
@@ -2316,7 +2315,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "ExtThemeNeptune.resizer.Splitter": [],
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
-  "Mobile": [],
   "YSCommon.config.Config": [
     "YSConfig"
   ],
@@ -2379,6 +2377,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.login.RegisterController": [],
   "YSWeb.view.main.login.RegisterModel": [],
   "YSWeb.view.main.login.Signin": [],
+  "YSWeb.view.main.product.Product": [],
+  "YSWeb.view.main.product.ProductController": [],
+  "YSWeb.view.main.product.ProductModel": [],
   "YSWeb.view.main.product.thumbnail.GridView": [],
   "YSWeb.view.main.product.thumbnail.GridViewController": [],
   "YSWeb.view.main.product.thumbnail.ListView": [],
@@ -3711,7 +3712,6 @@ Ext.ClassManager.addNameAliasMappings({
   "ExtThemeNeptune.resizer.Splitter": [],
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
-  "Mobile": [],
   "YSCommon.config.Config": [],
   "YSCommon.helper.User": [],
   "YSCommon.model.Category": [],
@@ -3858,11 +3858,20 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWeb.view.main.login.Signin": [
     "widget.app-signin"
   ],
+  "YSWeb.view.main.product.Product": [
+    "widget.app-product"
+  ],
+  "YSWeb.view.main.product.ProductController": [
+    "controller.product"
+  ],
+  "YSWeb.view.main.product.ProductModel": [
+    "viewmodel.product"
+  ],
   "YSWeb.view.main.product.thumbnail.GridView": [
     "widget.app-view-grid"
   ],
   "YSWeb.view.main.product.thumbnail.GridViewController": [
-    "controller.app-gridView"
+    "controller.gridView"
   ],
   "YSWeb.view.main.product.thumbnail.ListView": [
     "widget.app-view-list"

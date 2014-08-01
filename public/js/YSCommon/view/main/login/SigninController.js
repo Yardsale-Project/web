@@ -54,7 +54,8 @@ Ext.define('YSCommon.view.main.login.SigninController', {
     		signInBtn,
     		orTbText,
     		registerBtn,
-    		logoutToken;
+    		logoutToken,
+            navigation;
 
     	if( form.isValid()) {
     		form.submit({
@@ -66,6 +67,7 @@ Ext.define('YSCommon.view.main.login.SigninController', {
            			orTbText 	= Ext.ComponentQuery.query('#orTbText')[0];
            			registerBtn = Ext.ComponentQuery.query('#registerBtn')[0];
            			logoutToken = Ext.ComponentQuery.query('#logoutToken')[0];
+                    navigation = Ext.ComponentQuery.query('#navigation')[0];
 
            			accountBtn.setText( me.lookupReference('email').getValue() );
 
@@ -73,6 +75,7 @@ Ext.define('YSCommon.view.main.login.SigninController', {
            			orTbText.hide();
            			registerBtn.hide();
            			accountBtn.show();
+                    navigation.show();
 
            			me.requestCSRFToken(this, logoutToken);
            			

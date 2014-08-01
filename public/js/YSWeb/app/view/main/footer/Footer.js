@@ -20,7 +20,7 @@ Ext.define('YSWeb.view.main.footer.Footer', {
             xtype   : 'panel',
             id      : 'app-footer-container',
             header  : false,
-            columnWidth : .8,
+            columnWidth : .95,
             layout  : 'column',
             items   : [
                 {

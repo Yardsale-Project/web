@@ -24,7 +24,7 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
         {
             xtype   : 'toolbar',
             dock    : 'top',
-            columnWidth : .8,
+            columnWidth : .95,
             items   : [,
                 {
                     xtype   : 'image',

@@ -22,7 +22,7 @@ Ext.define('YSWeb.view.main.header.AdsHeader', {
             frame   : false,
             border  : false,
             layout  : 'hbox',
-            columnWidth : .8,
+            columnWidth : .95,
             items   : [
                 {
                     xtype   : 'tbtext',

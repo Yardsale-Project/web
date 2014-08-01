@@ -14,7 +14,7 @@ Ext.define('YSWeb.view.main.chat.ChatController', {
             }
         });
 
-        this.socket = io.connect('http://192.168.1.102:3555');
+        this.socket = io.connect('http://192.168.1.36:3555');
     },
 
     onAfterRender : function() {
