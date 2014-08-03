@@ -3,7 +3,7 @@
 Ext.define('YSCommon.config.Config', {
 	singleton 			: true,
 	alternateClassName  : ['YSConfig'],
-	localUrl 			: 'http://local.main.yardsale:8181',
+	localUrl 			: 'http://local.main.yardsale',
 	serverUrl 			: 'http://yardsale.druidinc.com',
 
 	debug 				: true,

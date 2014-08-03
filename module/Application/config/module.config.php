@@ -106,7 +106,7 @@ return array(
             'Application\Controller\User'       => 'Application\Controller\UserController',
             'Application\Controller\Admin'      => 'Application\Controller\AdminController',
             'Application\Controller\Sns'   => 'Application\Controller\SnsController',
-            'Application\Controller\SocialMediaConsole'   => 'Application\Controller\SocialMediaConsoleController'
+            'Application\Controller\Payment'   => 'Application\Controller\PaymentController'
         ),
     ),
     'controller_plugins' => array(
@@ -114,6 +114,7 @@ return array(
             'NoCSRF' => 'Application\Controller\Plugin\NoCSRF',
             'Report' => 'Application\Controller\Plugin\Report',
             'MobileDetect' => 'Application\Controller\Plugin\MobileDetect',
+            'HTTP' => 'Application\Controller\Plugin\HTTP',
         ),
     ),
     'view_manager' => array(
@@ -138,12 +139,12 @@ return array(
     'console' => array(
         'router' => array(
             'routes' => array(
-                'social_media' => array(
+                'payment' => array(
                     'options' => array(
-                        'route'    => 'social_media sendInvite [--verbose|-v] <smsSetting>',
+                        'route'    => 'payment pay [--verbose|-v]',
                         'defaults' => array(
-                            'controller' => 'Application\Controller\SocialMediaConsole',
-                            'action'     => 'sendInvite'
+                            'controller' => 'Application\Controller\Payment',
+                            'action'     => 'pay'
                         )
                     )
                 ),

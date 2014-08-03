@@ -2,8 +2,6 @@
 namespace Application\Controller;
 
 use Application\Controller\Controller;
-use Application\Controller\FacebookChat\Facebook;
-use Application\Controller\FacebookChat\SendMessage;
 
 use Zend\View\Model\JsonModel;
 use Zend\Console\Request as ConsoleRequest;
@@ -11,7 +9,7 @@ use Zend\Math\Rand;
 
 use \Exception;
 
-class SocialMediaConsoleController extends Controller
+class PaymentController extends Controller
 {
 
     private $_fb = null;
@@ -23,6 +21,95 @@ class SocialMediaConsoleController extends Controller
         $retVal     = array();
 
         return 'test';   
+    }
+
+    public function payAction() {
+
+        $httpEndpoint   = null;
+        $userId         = null;
+        $userPassword   = null;
+        $signature      = null;
+        $appId          = null;
+        $email          = null;
+
+        $request = $this->getRequest();
+
+        try {
+            $itemCode = $request->getParam('verbose');
+        } catch(\Exception $e) {
+
+            $retVal = array(
+                "success" => false,
+                "errorMessage" =>  $e->getMessage()
+            );
+        }
+
+        $this->_view->setVariables(
+            array(
+                'token' => '131313435'
+            )
+        );
+
+        return $this->_view;
+
+        // Make sure that we are running in a console and the user has not tricked our
+        // application into running this action from a public web server.
+        /*if (!$request instanceof ConsoleRequest){
+            throw new \RuntimeException('You can only use this action from a console!');
+        }*/
+
+        //$verbose     = $request->getParam('verbose');
+
+        /*$settingsModel = $this->model('Settings');
+        $settings = $settingsModel->getSettings('paypal');
+
+        if(!$this->isProduction()) {
+            $httpEndpoint   = $settings['http_endpoint_adaptivepay_sandbox'];
+            $userId         = $settings['user_id_sandbox'];
+            $userPassword   = $settings['user_password_sandbox'];
+            $signature      = $settings['user_signature_sandbox'];
+            $appId          = $settings['app_id_sandbox'];
+            $email          = $settings['email_sandbox'];
+        }
+
+
+        $headers = array(
+            "X-PAYPAL-SECURITY-USERID:" . $userId,
+            "X-PAYPAL-SECURITY-PASSWORD:" . $userPassword,
+            "X-PAYPAL-SECURITY-SIGNATURE:" . $signature,
+            "X-PAYPAL-APPLICATION-ID:" . $appId,
+            "X-PAYPAL-REQUEST-DATA-FORMAT:NV",
+            "X-PAYPAL-RESPONSE-DATA-FORMAT:JSON",
+            "X-PAYPAL-DEVICE-IPADDRESS:" . $this->getClientIP(),
+            "X-PAYPAL-SANDBOX-EMAIL-ADDRESS:" . $email
+        );
+
+        $request_body = array(
+            'actionType'    => 'PAY',
+            'cancelUrl'     => 'http://yardsale.druidinc.com',
+            'currencyCode'  => 'USD',
+            'returnUrl'     => 'http://example.com',
+            'requestEnvelope.errorLanguage'=> 'en_US',
+            'receiverList.receiver(0).amount'=> '20',
+            'receiverList.receiver(0).email'=> 'egeeboygutierrez91-facilitator@gmail.com'
+        );
+
+        $request = array();
+
+        foreach ($request_body as $key => $value) {
+            $request[] = $key . '=' . $value;
+        }
+
+        $request = implode('&', $request);
+
+        $http = $this->HTTP()->init($httpEndpoint);        
+        $http->setHeaders($headers);
+        $http->executePost($request, FALSE);
+        $response = $http->getResponse();
+        $response = json_decode($response['body'], true);
+
+        $payKey = (!empty($response['payKey']))? $response['payKey'] : 0
+        var_dump(json_decode($response, true));*/
     }
 
     public function sendInviteAction() {
