@@ -240,4 +240,62 @@ class ProductController extends Controller
         
         return true;
     }
+
+    public function getProductAction() {
+        $retVal     = array();
+        $request    = $this->getRequest();
+        $file       = null;
+        $file_name  = null;
+        $file_temp  = null;
+        $new_path   = null;
+        $result     = true;
+
+
+        if( $request->isPost() ) {
+            $postData = $request->getPost();
+
+            try {
+
+                $userId = $this->getUserId();
+                $id = (!empty($postData['id']))? $postData['id'] : 0;
+
+                if( empty($userId) ) {
+                    $retVal = array(
+                        'success'       => false,
+                        'errorMessage'  => 'You must be logged in to add a new product'
+                    );
+                } else {
+                    $productsModel = $this->model('Product');
+
+                    $whereClause = array(
+                        'product_sell.product_id IS NULL',
+                        'product.active' => 1,
+                        'product.id' => $id
+                    );
+
+                    $result = $productsModel->getProducts($whereClause);
+
+                    $retVal = array(
+                        'success'   => true,
+                        'message'   => 'Success',
+                        'totalRecords'  => count($result),
+                        'result'    => (count($result)) ? $result[0] : array()
+                    );
+                }
+
+            } catch (\Exception $e) {
+                $reVal = array(
+                    'success'       => false,
+                    'errorMessage'  => 'Error processing request. ' . $e->getMessage()
+                );
+            }
+        } else {
+            $reVal = array(
+                'success'       => false,
+                'errorMessage'  => 'Invalid request'
+            );
+        }
+
+        return new JsonModel($retVal);
+    }
 }

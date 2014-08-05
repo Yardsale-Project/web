@@ -21,7 +21,47 @@ Ext.define('YSWeb.view.main.product.ClientProductController', {
 
     onBeforeRender : function() {
         YSDebug.log('item id',this.view._itmId);
+
+        this.getProduct(this.view._itmId);
     },
+
+    getProduct : function(id) {
+        var me = this;
+        Ext.Ajax.request({
+            url     : YSConfig.url + '/application/product/getProduct',
+            params  : {
+                id : id
+            },
+            success : function(response) {
+                var rsp = Ext.JSON.decode(response.responseText);
+
+                if(rsp.success)
+                {
+                    YSDebug.log('success', rsp);
+
+                    var prod = rsp.result;
+
+                    var id              = me.lookupReference('id'),
+                        title           = me.lookupReference('title'),
+                        imguserpicture  = me.lookupReference('imguserpicture'),
+                        thumbPrice      = me.lookupReference('thumbPrice'),
+                        price           = me.lookupReference('price'),
+                        quantity        = me.lookupReference('quantity');
+
+                    id.setValue(prod.id);
+                    title.setText(prod.productName);
+                    imguserpicture.setSrc('http://local.main.yardsale:8181/img/product/' + prod.image);
+                    thumbPrice.setText('Php ' + prod.currentPrice);
+                    price.setValue(prod.currentPrice);
+
+                }
+            },
+            failure : function(response) {
+
+            }
+        });
+    },
+
 
     onAfterRenderForm: function() {
         if(YSConfig.loggedin) {

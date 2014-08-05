@@ -21,11 +21,13 @@ Ext.define('YSWeb.view.main.product.ClientProduct', {
 		{
 			xtype 	    : 'hiddenfield',
 			name 	    : 'id',
+			reference 	: 'id',
 			value 	    : '0'
 		}, {
 			xtype       : 'label',
             columnWidth : 1,
             cls         : 'title',
+            reference 	: 'title',
             text        : 'title product sdhfka jshdflaksjhdfk lsdy fekj fkjsdhf kfys yksejfha lsdjfh lku ekwjefhskljdf hsuefskjef ud kdj fe'
 		}, {
 			xtype 		: 'image',
@@ -46,7 +48,8 @@ Ext.define('YSWeb.view.main.product.ClientProduct', {
 					xtype 	: 'label',
 					cls 	: 'thumb-price',
 					columnWidth : 1,
-					text 	: 'Php 165151'
+					text 	: 'Php 165151',
+					reference : 'thumbPrice'
 				}, {
 					xtype 	: 'hiddenfield',
 					name 	: 'price',
@@ -73,7 +76,7 @@ Ext.define('YSWeb.view.main.product.ClientProduct', {
 						border 	: false,
 						frame 	: false,
 						columnWidth : 1,
-						margin 		: '5 0 0 0',
+						margin 		: '20 0 0 0',
 						items 	: [
 							{
 								xtype       : 'button',
