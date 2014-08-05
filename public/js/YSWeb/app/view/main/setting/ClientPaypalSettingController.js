@@ -47,7 +47,7 @@ Ext.define('YSWeb.view.main.setting.ClientPaypalSettingController', {
                 success : function( frm, action ) {
 
                     var payKey = action.result.payKey;
-                    var paykeyEl = Ext.get('paykey');
+                    var paykeyEl = Ext.fly('paykey');
 
                     paykeyEl.dom.value = payKey;
 
