@@ -22,15 +22,16 @@ Ext.define('YSWeb.view.main.product.ClientProductController', {
     onBeforeRender : function() {
         YSDebug.log('item id',this.view._itmId);
 
-        this.getProduct(this.view._itmId);
+        this.getProduct(this.view._itmId, this.view._itmCd);
     },
 
-    getProduct : function(id) {
+    getProduct : function(id, code) {
         var me = this;
         Ext.Ajax.request({
             url     : YSConfig.url + '/application/product/getProduct',
             params  : {
-                id : id
+                id : id,
+                code : code
             },
             success : function(response) {
                 var rsp = Ext.JSON.decode(response.responseText);
@@ -46,13 +47,22 @@ Ext.define('YSWeb.view.main.product.ClientProductController', {
                         imguserpicture  = me.lookupReference('imguserpicture'),
                         thumbPrice      = me.lookupReference('thumbPrice'),
                         price           = me.lookupReference('price'),
-                        quantity        = me.lookupReference('quantity');
+                        quantity        = me.lookupReference('quantity'),
+                        description     = me.lookupReference('description');
 
-                    id.setValue(prod.id);
-                    title.setText(prod.productName);
-                    imguserpicture.setSrc('http://local.main.yardsale:8181/img/product/' + prod.image);
-                    thumbPrice.setText('Php ' + prod.currentPrice);
-                    price.setValue(prod.currentPrice);
+                    YSDebug.log('prod', prod);
+
+                    if(prod.hasOwnProperty('id')) {
+                        id.setValue(prod.id);
+                        title.setText(prod.productName);
+                        imguserpicture.setSrc('http://local.main.yardsale:8181/img/product/' + prod.image);
+                        thumbPrice.setText('Php ' + prod.currentPrice);
+                        price.setValue(prod.currentPrice);
+                        description.setText(prod.description);
+                    } else {
+                        me.getView().removeAll();
+                        me.getView().update('<h1>Sorry. No such product exist.</h1>');
+                    }
 
                 }
             },
@@ -65,8 +75,8 @@ Ext.define('YSWeb.view.main.product.ClientProductController', {
 
     onAfterRenderForm: function() {
         if(YSConfig.loggedin) {
-            var paykey = Ext.get('paykey');
-            var submitBtn = Ext.get('submitBtn');
+            var paykey = Ext.fly('paykey');
+            var submitBtn = Ext.fly('submitBtn');
 
             paykey.dom.value = '1321324';
             YSDebug.log('paykey.value',paykey.dom.value);
@@ -102,5 +112,9 @@ Ext.define('YSWeb.view.main.product.ClientProductController', {
                 _obj    : obj
             }]
         }).show();
+    },
+
+    onCloseBtnClick : function() {
+        this.view.up('window').close();
     }
 });

@@ -90,7 +90,7 @@ Ext.define('YSWeb.view.main.product.thumbnail.GridView', {
                     YSDebug.log('record', record);
                     YSDebug.log('this', this);
 
-                    this.controller.redirectTo('itm/' + record.data.code + '_' + record.data.id);
+                    this.controller.redirectTo('itm/' + record.data.code + '_' + record.data.id, true);
                 }
             }
         }

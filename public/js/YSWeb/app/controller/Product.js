@@ -99,7 +99,8 @@ Ext.define('YSWeb.controller.Product', {
 	        items       : [
 	            {
 	                xtype   : 'app-clientproduct',
-	                _itmId  : itm[1]
+	                _itmId  : itm[1],
+                    _itmCd  : itm[0]
 	            }
 	        ],
 

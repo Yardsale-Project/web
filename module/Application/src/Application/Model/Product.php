@@ -60,7 +60,8 @@ class Product extends Table
     		'id',
 			'code',
 			'productName'	=> 'name',
-			'image' 		=>'images'
+			'image' 		=>'images',
+            'description'
     	);
 
     	$product_price_fields = array(

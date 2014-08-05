@@ -13,6 +13,7 @@ Ext.define('YSWeb.view.main.body.widget.InviteController', {
     },
 
     onFbBtnClck : function() {
+        console.log('type',this.view._type);
         UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutCallback);
     },
 

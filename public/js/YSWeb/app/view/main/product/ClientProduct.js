@@ -16,6 +16,7 @@ Ext.define('YSWeb.view.main.product.ClientProduct', {
     width 	: 900,
     bodyPadding 	: 10,
     autoScroll : true,
+    maxHeight 	: 750,
 
 	items 	: [
 		{
@@ -101,8 +102,35 @@ Ext.define('YSWeb.view.main.product.ClientProduct', {
 									'<script type="text/javascript" charset="utf-8">' +
 									'var embeddedPPFlow = new PAYPAL.apps.DGFlow({trigger: "submitBtn"});' +
 									'</script>'
-				}
+				}, {
+		            xtype       : 'app-widget-invite',
+		            bind 		: {
+		            	title 	: '{sendToFriends}'
+		            },
+		            columnWidth : 1,
+		            margin 		: '80 0 0 0',
+		            _type 		: 'send'
+		        }
 			] 
+		}, {
+			xtype 		: 'tabpanel',
+			border 		: true,
+			columnWidth : 1,
+			items 		: [
+				{
+					title 	: 'Description',
+					layout 	: 'fit',
+					bodyPadding : 10,
+					items 	: [
+						{
+							xtype 	: 'label',
+							reference : 'description'
+						}
+					]
+				}, {
+					title 	: 'Payment Options'
+				}
+			]
 		}
 	],
 

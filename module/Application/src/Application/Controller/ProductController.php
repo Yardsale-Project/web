@@ -258,6 +258,7 @@ class ProductController extends Controller
 
                 $userId = $this->getUserId();
                 $id = (!empty($postData['id']))? $postData['id'] : 0;
+                $code = (!empty($postData['code']))? $postData['code'] : '';
 
                 if( empty($userId) ) {
                     $retVal = array(
@@ -270,7 +271,8 @@ class ProductController extends Controller
                     $whereClause = array(
                         'product_sell.product_id IS NULL',
                         'product.active' => 1,
-                        'product.id' => $id
+                        'product.id' => $id,
+                        'product.code' => $code
                     );
 
                     $result = $productsModel->getProducts($whereClause);

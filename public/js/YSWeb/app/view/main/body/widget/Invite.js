@@ -18,6 +18,7 @@ Ext.define('YSWeb.view.main.body.widget.Invite', {
     border      : true,
     layout      : 'hbox',
     bodyPadding : 10,
+    _type       : 'invite',
     items       : [
         {
             xtype       : 'button',
