@@ -125,4 +125,32 @@ class Users extends Table
 
         return $affected_rows;
     }
+
+    public function getSettings($userId) {
+        $settings = array();
+
+        $whereClause = array(
+            'user_id'   => $userId,
+            'active'    => 1
+        );
+
+        $select = $this->select()
+                        ->from('user_setting')
+                        ->columns( array( 'id', 'name', 'value') )
+                        ->where($whereClause);
+
+        $result = $this->fetchAllToArray($select);
+
+        foreach ($result as $value) {
+            $settings[$value['name']] = $value['value'];
+        }
+
+        return $settings;
+    }
+
+    public function addSetting($data) {
+        $affected_rows = $this->insert('user_setting', $data);
+
+        return $affected_rows;
+    }
 }

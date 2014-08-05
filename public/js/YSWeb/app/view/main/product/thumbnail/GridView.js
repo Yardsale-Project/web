@@ -28,13 +28,13 @@ Ext.define('YSWeb.view.main.product.thumbnail.GridView', {
 
         this.tpl  = Ext.create('Ext.XTemplate',
             '<tpl for=".">',
-                '<div class="product" style="margin: 5px 0 5px ' + parseInt(offset) + 'px !important">',
-                    '<img width="133" height="100" src="' + YSCommon.config.Config.url + '/img/product/thumbnail/{image}" />',
-                    '<br/><div class="thumbnail-prod-name">{productName}</div>',
-                    '<br/><div class="thumb-price-panel">',
-                        '<br/><div class="thumb-price">Php {currentPrice}</div>',
+                '<div class="product select" id="product_{id}" style="margin: 5px 0 5px ' + parseInt(offset) + 'px !important">',
+                    '<img name="product" class="select" width="133" height="100" src="' + YSCommon.config.Config.url + '/img/product/thumbnail/{image}" />',
+                    '<br/><div class="select thumbnail-prod-name">{productName}</div>',
+                    '<br/><div class="select thumb-price-panel">',
+                        '<br/><div class="select thumb-price">Php {currentPrice}</div>',
                     '</div>',
-                    '<br/><a name="buyNow" class="x-btn x-unselectable  x-btn-default-small" style="margin-top: -5px; text-shadow: none !important; " hidefocus="on" unselectable="on" tabindex="0" >',
+                    /*'<br/><a name="buyNow" class="x-btn x-unselectable  x-btn-default-small" style="margin-top: -5px; text-shadow: none !important; " hidefocus="on" unselectable="on" tabindex="0" >',
                         '<span  data-ref="btnWrap" role="presentation" unselectable="on" style="" class="x-btn-wrap x-btn-wrap-default-small ">',
                             '<span  data-ref="btnEl" role="presentation" unselectable="on" style="" class="x-btn-button x-btn-button-default-small x-btn-button-center  x-btn-text">',
                                 '<span  data-ref="btnIconEl" role="presentation" unselectable="on" class="x-btn-icon-el x-btn-icon-el-default-small  " style=""></span>',
@@ -53,7 +53,7 @@ Ext.define('YSWeb.view.main.product.thumbnail.GridView', {
                                 '</span>',
                             '</span>',
                         '</span>',
-                    '</a>',     
+                    '</a>',*/     
                 '</div>',
             '</tpl>', {
                 onBuyNow : function(id) {
@@ -69,7 +69,7 @@ Ext.define('YSWeb.view.main.product.thumbnail.GridView', {
         type    : 'app-productStore'
     },
     
-    id: 'phones',
+    id: 'product',
 
     itemSelector: 'div.product',
     overItemCls : 'phone-hover',
@@ -82,20 +82,17 @@ Ext.define('YSWeb.view.main.product.thumbnail.GridView', {
         },
         itemclick : function( obj, record, item, index, e, eOpts ){
             YSDebug.log('click');
-            var target = e.getTarget('[name]');
-            YSDebug.log('target', target.name);
+            var target = e.getTarget();
+            YSDebug.log('target', target.className);
 
-            if(target.hasOwnProperty('name')) {
-                if(target.name == 'buyNow') {
+            if(target.hasOwnProperty('className')) {
+                if(target.className.indexOf('select') >= 0 ) {
                     YSDebug.log('record', record);
-                    YSDebug.log('item', item);
+                    YSDebug.log('this', this);
 
-                    this.sample();
+                    this.controller.redirectTo('itm/' + record.data.code + '_' + record.data.id);
                 }
             }
-            /*if(target.name == "addButton"){
-                alert("doStuff");
-            }*/
         }
     },
 

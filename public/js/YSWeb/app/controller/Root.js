@@ -43,6 +43,10 @@ Ext.define('YSWeb.controller.Root', {
             }   (document, 'script', 'facebook-jssdk')
         );
 
+        Ext.Loader.loadScript({
+            url     : 'https://www.paypalobjects.com/js/external/dg.js'
+        });
+
         /*Ext.Loader.loadScript({ 
             url : 'https://cdn.socket.io/socket.io-1.0.6.js',
             onLoad : function() {
@@ -76,6 +80,12 @@ Ext.define('YSWeb.controller.Root', {
             me = this;
 
         UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutCallback);
+    },
+
+    closePaypal : function() {
+        dgFlow = top.dgFlow || top.opener.top.dgFlow;
+        dgFlow.closeFlow();
+        top.close();
     },
 
     loggedInCallback : function(object,rsp) {
@@ -214,7 +224,7 @@ Ext.define('YSWeb.controller.Root', {
 
     onBeforeSns    : function(sns, action) {
         this.action = action;
-
+        YSDebug.log(action);
         UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutCallback);
     },
 

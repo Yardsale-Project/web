@@ -16,7 +16,8 @@ Ext.define('YSWeb.view.main.product.ProductModel', {
         stock           : 'Stock',
         weight          : 'Weight',
         minPrice        : 'Minimum Price',
-        sellPrice       : 'Selling Price'
+        sellPrice       : 'Selling Price',
+        close           : 'Close'
     }
 
     //TODO - add data, formulas and/or methods to support your view

@@ -11,7 +11,8 @@ Ext.define('YSWeb.Application', {
     requires : [
         'YSCommon.config.Config',
         'YSCommon.util.Debug',
-        'YSCommon.helper.User'
+        'YSCommon.helper.User',
+        'YSCommon.helper.Paypal'
     ],
 
     views: [
@@ -24,7 +25,8 @@ Ext.define('YSWeb.Application', {
 
     controllers: [
         'Root',
-        'Facebook'
+        'Facebook',
+        'Product'
         // TODO: add controllers here
     ],
 

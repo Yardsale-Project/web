@@ -2318,6 +2318,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSCommon.config.Config": [
     "YSConfig"
   ],
+  "YSCommon.helper.Paypal": [
+    "Paypal"
+  ],
   "YSCommon.helper.User": [
     "UserHelper"
   ],
@@ -2339,6 +2342,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.Application": [],
   "YSWeb.controller.Facebook": [],
   "YSWeb.controller.Main": [],
+  "YSWeb.controller.Product": [],
   "YSWeb.controller.Root": [],
   "YSWeb.view.main.Main": [],
   "YSWeb.view.main.MainController": [],
@@ -2377,13 +2381,20 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.login.RegisterController": [],
   "YSWeb.view.main.login.RegisterModel": [],
   "YSWeb.view.main.login.Signin": [],
+  "YSWeb.view.main.product.ClientProduct": [],
+  "YSWeb.view.main.product.ClientProductController": [
+    "YSClientProductController"
+  ],
   "YSWeb.view.main.product.Product": [],
   "YSWeb.view.main.product.ProductController": [],
   "YSWeb.view.main.product.ProductModel": [],
   "YSWeb.view.main.product.thumbnail.GridView": [],
   "YSWeb.view.main.product.thumbnail.GridViewController": [],
   "YSWeb.view.main.product.thumbnail.ListView": [],
-  "YSWeb.view.main.product.thumbnail.ListViewController": []
+  "YSWeb.view.main.product.thumbnail.ListViewController": [],
+  "YSWeb.view.main.setting.ClientPaypalSetting": [],
+  "YSWeb.view.main.setting.ClientPaypalSettingController": [],
+  "YSWeb.view.main.setting.ClientSettingModel": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractManager": [],
@@ -3713,6 +3724,7 @@ Ext.ClassManager.addNameAliasMappings({
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
   "YSCommon.config.Config": [],
+  "YSCommon.helper.Paypal": [],
   "YSCommon.helper.User": [],
   "YSCommon.model.Category": [],
   "YSCommon.model.CategoryTree": [],
@@ -3746,6 +3758,7 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWeb.Application": [],
   "YSWeb.controller.Facebook": [],
   "YSWeb.controller.Main": [],
+  "YSWeb.controller.Product": [],
   "YSWeb.controller.Root": [],
   "YSWeb.view.main.Main": [
     "widget.app-main"
@@ -3858,6 +3871,12 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWeb.view.main.login.Signin": [
     "widget.app-signin"
   ],
+  "YSWeb.view.main.product.ClientProduct": [
+    "widget.app-clientproduct"
+  ],
+  "YSWeb.view.main.product.ClientProductController": [
+    "controller.clientproduct"
+  ],
   "YSWeb.view.main.product.Product": [
     "widget.app-product"
   ],
@@ -3878,6 +3897,15 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "YSWeb.view.main.product.thumbnail.ListViewController": [
     "controller.app-listView"
+  ],
+  "YSWeb.view.main.setting.ClientPaypalSetting": [
+    "widget.app-clientpaypalsetting"
+  ],
+  "YSWeb.view.main.setting.ClientPaypalSettingController": [
+    "controller.clientpaypalsetting"
+  ],
+  "YSWeb.view.main.setting.ClientSettingModel": [
+    "viewmodel.clientsetting"
   ]
 });
 Ext.setVersion("ext", "5.0.0.970");

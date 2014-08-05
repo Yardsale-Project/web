@@ -18,11 +18,13 @@ Ext.define('YSCommon.helper.User', {
                 {
                     if( rsp.email != '') {
                         YSDebug.log('logged in');
+                        YSConfig.loggedin = true;
 
                         loggedInCallback(object, rsp);
                     } else {
 
                     	if(!Ext.isEmpty(loggedOutCallback)) {
+                            YSConfig.loggedin = false;
                     		loggedOutCallback(object, rsp);
                     	}
                     }
