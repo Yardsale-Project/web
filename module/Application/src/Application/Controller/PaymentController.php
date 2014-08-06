@@ -20,7 +20,7 @@ class PaymentController extends Controller
 
         $retVal     = array();
 
-        return 'test';   
+        return $this->_view;
     }
 
     public function payAction() {
@@ -79,7 +79,7 @@ class PaymentController extends Controller
                     $result = $userModel->getSettings($userId);
 
 
-                    if(!in_array('pp_email', $result)) {
+                    if(empty($result['pp_email'])) {
                         $retVal['email'] = '';
                     } else {
                         $retVal['email'] = $result['pp_email'];
@@ -236,7 +236,7 @@ class PaymentController extends Controller
         return new JsonModel($retVal);
     }
 
-    private function _getPayKey($itmId, $price, $quantity) {
+    private function _getPayKey($itmId, $price, $quantity, $type='online_order') {
         $email = '';
 
         $settingsModel = $this->model('Settings');
@@ -247,12 +247,13 @@ class PaymentController extends Controller
         $userModel = $this->model('Users');
         $result = $userModel->getSettings($userId);
 
-
-        if(!in_array('pp_email', $result)) {
+        if(empty($result['pp_email'])) {
             $email = '';
         } else {
             $email = $result['pp_email'];
         }
+
+
 
         if(!$this->isProduction()) {
             $httpEndpoint   = $settings['http_endpoint_adaptivepay_sandbox'];
@@ -260,7 +261,6 @@ class PaymentController extends Controller
             $userPassword   = $settings['user_password_sandbox'];
             $signature      = $settings['user_signature_sandbox'];
             $appId          = $settings['app_id_sandbox'];
-            $email          = $settings['email_sandbox'];
         }
 
 
@@ -282,8 +282,12 @@ class PaymentController extends Controller
             'requestEnvelope.errorLanguage'=> 'en_US',
             'receiverList.receiver(0).amount'=> floatval(str_replace(',', '', $price)) * $quantity,
             'receiverList.receiver(0).email'=> 'egeeboygutierrez91-facilitator@gmail.com',
-            'senderEmail'   => $email
+            // 'senderEmail'   => $email
         );
+
+        if($type == 'invite_commission') {
+            $request_body['senderEmail'] = $email;
+        }
 
         $request = array();
 
@@ -297,6 +301,7 @@ class PaymentController extends Controller
         $http->setHeaders($headers);
         $http->executePost($request, FALSE);
         $response = $http->getResponse();
+
         $response = json_decode($response['body'], true);
 
         $payKey = (!empty($response['payKey']))? $response['payKey'] : 0;

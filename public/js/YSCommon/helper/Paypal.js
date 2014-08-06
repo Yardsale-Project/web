@@ -50,11 +50,12 @@ Ext.define('YSCommon.helper.Paypal', {
 
         Ext.create('Ext.Component', {
             width: 385,
-            height: 550,
+            auto: 550,
             floating: true, // make this panel an absolutely-positioned floating component
             header : false,
             border  : false,
             frame   : false,
+            modal   : true,
             html: '<iframe name="PPDGFrame" frameborder="0" scrolling="no" width="100%" height="100%"></iframe>'
         }).show(); // render and show the floating panel
         
@@ -113,6 +114,7 @@ Ext.define('YSCommon.helper.Paypal', {
         Ext.Ajax.request({
             url     : YSConfig.url + '/application/payment/getPaypalAccount',
             method  : 'POST',
+            waitMsg : 'Getting paypal info...',
             params  : {
                 itmId       : itmId,
                 price       : price,

@@ -61,7 +61,7 @@ class Controller extends AbstractActionController
 	}
 
     protected function isProduction() {
-        if(!empty($_SERVER['APPLICATION_ENV']) && $_SERVER['APPLICATION_ENV'] == 'development') {
+        if(!empty($_SERVER['APPLICATION_ENV']) && $_SERVER['APPLICATION_ENV'] == 'production') {
             return true;
         }
 

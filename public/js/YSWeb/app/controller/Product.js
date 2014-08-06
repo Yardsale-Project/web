@@ -44,6 +44,8 @@ Ext.define('YSWeb.controller.Product', {
             registerBtn.hide();
 
             object.requestCSRFToken(object, logoutToken);
+
+            YSCommon.loggedin = true;
         }
         
         YSDebug.log('object', object.action);

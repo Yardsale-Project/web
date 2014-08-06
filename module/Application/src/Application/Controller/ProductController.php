@@ -256,34 +256,26 @@ class ProductController extends Controller
 
             try {
 
-                $userId = $this->getUserId();
                 $id = (!empty($postData['id']))? $postData['id'] : 0;
                 $code = (!empty($postData['code']))? $postData['code'] : '';
 
-                if( empty($userId) ) {
-                    $retVal = array(
-                        'success'       => false,
-                        'errorMessage'  => 'You must be logged in to add a new product'
-                    );
-                } else {
-                    $productsModel = $this->model('Product');
+                $productsModel = $this->model('Product');
 
-                    $whereClause = array(
-                        'product_sell.product_id IS NULL',
-                        'product.active' => 1,
-                        'product.id' => $id,
-                        'product.code' => $code
-                    );
+                $whereClause = array(
+                    'product_sell.product_id IS NULL',
+                    'product.active' => 1,
+                    'product.id' => $id,
+                    'product.code' => $code
+                );
 
-                    $result = $productsModel->getProducts($whereClause);
+                $result = $productsModel->getProducts($whereClause);
 
-                    $retVal = array(
-                        'success'   => true,
-                        'message'   => 'Success',
-                        'totalRecords'  => count($result),
-                        'result'    => (count($result)) ? $result[0] : array()
-                    );
-                }
+                $retVal = array(
+                    'success'   => true,
+                    'message'   => 'Success',
+                    'totalRecords'  => count($result),
+                    'result'    => (count($result)) ? $result[0] : array()
+                );
 
             } catch (\Exception $e) {
                 $reVal = array(

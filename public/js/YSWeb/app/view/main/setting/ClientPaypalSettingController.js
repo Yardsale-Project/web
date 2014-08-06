@@ -29,6 +29,7 @@ Ext.define('YSWeb.view.main.setting.ClientPaypalSettingController', {
 
     onSaveBtnClick : function() {
         var form = this.view.getForm();
+        var me = this;
 
         var object  = this.view._obj,
             itmId = object.view._itmId,
@@ -47,12 +48,17 @@ Ext.define('YSWeb.view.main.setting.ClientPaypalSettingController', {
                 success : function( frm, action ) {
 
                     var payKey = action.result.payKey;
-                    var paykeyEl = Ext.fly('paykey');
+                    var submitBtn = document.getElementById('submitBtn');
+                    var paykeyEl = document.getElementById('paykey');
+                    //
 
-                    paykeyEl.dom.value = payKey;
+                    paykeyEl.value = payKey;
+                    submitBtn.click();
 
                     form.reset();
                     me.view.up('window').close();
+
+
                 },
                 failure : function( frm, action ) {
                     YSDebug.log(action.result);
