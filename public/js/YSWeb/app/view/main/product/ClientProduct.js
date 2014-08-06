@@ -12,7 +12,6 @@ Ext.define('YSWeb.view.main.product.ClientProduct', {
     },
 
     controller : 'clientproduct',
-
     width 	: 900,
     bodyPadding 	: 10,
     autoScroll : true,
