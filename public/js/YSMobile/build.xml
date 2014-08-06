@@ -9,43 +9,43 @@
 
     <target name="-after-build">
         
-        <copy todir="D:/www/yardsale-mobile/config" overwrite="true">
+        <copy todir="${workspace.dir}/../../../yardsale-mobile/config" overwrite="true">
           <fileset dir="${workspace.dir}/../../config">
             <include name="**/*" />
           </fileset>
         </copy>
 
-        <copy todir="D:/www/yardsale-mobile/module/Application/config" overwrite="true">
+        <copy todir="${workspace.dir}/../../../yardsale-mobile/module/Application/config" overwrite="true">
           <fileset dir="${workspace.dir}/../../module/Application/config">
             <include name="**/*" />
           </fileset>
         </copy>
 
-        <copy todir="D:/www/yardsale-mobile/module/Application/language" overwrite="true">
+        <copy todir="${workspace.dir}/../../../yardsale-mobile/module/Application/language" overwrite="true">
           <fileset dir="${workspace.dir}/../../module/Application/language">
             <include name="**/*" />
           </fileset>
         </copy>
 
-        <copy todir="D:/www/yardsale-mobile/module/Application/src" overwrite="true">
+        <copy todir="${workspace.dir}/../../../yardsale-mobile/module/Application/src" overwrite="true">
           <fileset dir="${workspace.dir}/../../module/Application/src">
             <include name="**/*" />
           </fileset>
         </copy>
 
-        <copy todir="D:/www/yardsale-mobile/public/js/YSCommon" overwrite="true">
+        <copy todir="${workspace.dir}/../../../yardsale-mobile/public/js/YSCommon" overwrite="true">
           <fileset dir="${workspace.dir}/YSCommon">
             <include name="**/*" />
           </fileset>
         </copy>
 
-        <copy todir="D:/www/yardsale-mobile/public/js/build/production/YSMobile" overwrite="true">
+        <copy todir="${workspace.dir}/../../../yardsale-mobile/public/js/build/production/YSMobile" overwrite="true">
           <fileset dir="${workspace.dir}/build/production/YSMobile">
             <include name="**/*" />
           </fileset>
         </copy>
 
-        <copy todir="D:/www/yardsale-mobile/public" overwrite="true">
+        <copy todir="${workspace.dir}/../../../yardsale-mobile/public" overwrite="true">
           <fileset dir="${workspace.dir}/build/production/YSMobile">
             <include name="**/*" />
           </fileset>
