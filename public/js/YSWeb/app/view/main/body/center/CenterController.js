@@ -28,7 +28,7 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
         this.createdPanelWidth = width;
         YSDebug.log('box width', width);
 
-        this.createGridView();
+        this.createListView();
     },
 
     onProductsViewContainerAfterrender : function() {
@@ -62,12 +62,40 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
     createGridView : function() {
         YSDebug.log('create grid vire');
 
+        var categoryPanel  = Ext.ComponentQuery.query('#categoryPanel')[0];
+        var sm = categoryPanel.getSelectionModel();
+
         if(this.createdPanel) {
+
+            /*YSDebug.log('this.createdPanel.getStore', this.createdPanel.getStore());
+            this.createdPanel.getStore().destroy();*/
             this.createdPanel.destroy();
             this.lookupReference('productsViewContainer').removeAll();
         }
 
         this.createdPanel = Ext.create('YSWeb.view.main.product.thumbnail.GridView', { panelWidth : this.createdPanelWidth });
+
+        if(sm.hasSelection()) {
+            var selection = sm.getSelection()[0];
+
+            var store = this.createdPanel.getStore();
+
+            store.on('beforeload', function(str, op) {
+                var filter = [
+                    { 
+                        'table' : 'parent',
+                        'field' : 'category_id',
+                        'value' : selection.data.id
+                    }
+                ];
+
+                op.setParams( {
+                    filter: Ext.encode( filter )
+                } );
+            });
+
+            store.load();
+        }
 
         this.lookupReference('productsViewContainer').add(this.createdPanel);
     },
@@ -75,12 +103,39 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
     createListView : function() {
         YSDebug.log('create list view');
 
+        var categoryPanel  = Ext.ComponentQuery.query('#categoryPanel')[0];
+        var sm = categoryPanel.getSelectionModel();
+
         if(this.createdPanel) {
+                /*YSDebug.log('this.createdPanel.getStore', this.createdPanel.getStore());
+                this.createdPanel.getStore().destroy();*/
             this.createdPanel.destroy();
             this.lookupReference('productsViewContainer').removeAll();
         }
 
         this.createdPanel = Ext.create('YSWeb.view.main.product.thumbnail.ListView', { panelWidth : this.createdPanelWidth });
+
+        if(sm.hasSelection()) {
+            var selection = sm.getSelection()[0];
+
+            var store = this.createdPanel.getStore();
+
+            store.on('beforeload', function(str, op) {
+                var filter = [
+                    { 
+                        'table' : 'parent',
+                        'field' : 'category_id',
+                        'value' : selection.data.id
+                    }
+                ];
+
+                op.setParams( {
+                    filter: Ext.encode( filter )
+                } );
+            });
+
+            store.load();
+        }
 
         this.lookupReference('productsViewContainer').add(this.createdPanel);
     }

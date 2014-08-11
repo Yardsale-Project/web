@@ -292,7 +292,20 @@ Ext.define('YSWeb.view.main.product.ClientProductController', {
 
             items   : [{
                 xtype   : 'app-clientpaypalsetting',
-                _obj    : obj
+                _obj    : obj,
+                buttons     : [
+                    {
+                        bind    : {
+                            text    : '{save}'
+                        },
+                        handler : 'onSaveBtnClick'
+                    }, {
+                        bind    : {
+                            text    : '{reset}'
+                        },
+                        handler : 'onResetBtnClick'
+                    }
+                ]
             }]
         }).show();
     },

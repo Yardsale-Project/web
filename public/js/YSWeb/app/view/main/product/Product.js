@@ -176,6 +176,11 @@ Ext.define('YSWeb.view.main.product.Product', {
 				text 	: '{reset}'
 			},
 			handler : 'onResetBtnClick'
-		}
+		}, {
+            bind    : {
+                text    : '{cancel}'
+            },
+            handler : 'onCancelBtnClick'
+        }
 	]
 });

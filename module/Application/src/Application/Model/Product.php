@@ -57,7 +57,7 @@ class Product extends Table
     public function getProducts($where) {
 
     	$product_fields = array(
-    		'id',
+    		'id' => new Expression('DISTINCT(product.id)'),
 			'code',
 			'productName'	=> 'name',
 			'image' 		=>'images',
@@ -70,13 +70,17 @@ class Product extends Table
     	);
 
     	$select = $this->select()
-    					->from($this->_name)
-    					->columns($product_fields)
+    					->from(array( 'node' => 'category_tree'))
+    					->columns(array())
+                        ->join(array('parent' => 'category_tree'), 'node.lft BETWEEN parent.lft AND parent.rgt', array())
+                        ->join('category', 'category.id = node.category_id', array(), 'LEFT')
+                        ->join('product_category', 'product_category.category_id = node.category_id', array())
+                        ->join('product', 'product.id = product_category.product_id', $product_fields)
     					->join('product_sell', 'product_sell.product_id = product.id', array(), 'LEFT')
     					->join('product_price', 'product_price.product_id = product.id', $product_price_fields)
-    					->join('product_category', 'product_category.product_id = product.id', array())
     					->join('product_user', 'product_user.product_id = product.id', array())
-    					->where($where);
+    					->where($where)
+                        ->order(array('currentPrice DESC'));
 
     	return $this->fetchAllToArray($select);
     }

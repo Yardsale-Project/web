@@ -31,23 +31,12 @@ Ext.define('YSWeb.view.main.body.center.Center', {
             layout      : 'column',
             items       : [
                 {
-                    xtype   : 'toolbar',
+                    xtype   : 'app-breadcrumb',
                     dock    : 'top',
                     itemId  : 'breadcrumb',
                     cls     : 'breadcrumb',
                     columnWidth : 1,
-                    items   : [
-                        {
-                            xtype   : 'tbtext',
-                            text    : 'Home'
-                        }, {
-                            xtype   : 'tbtext',
-                            text    : '>'
-                        }, {
-                            xtype   : 'tbtext',
-                            text    : 'All Categories'
-                        }
-                    ] 
+                    
                 }, {
                     xtype   : 'panel',
                     header  : false,
@@ -70,13 +59,9 @@ Ext.define('YSWeb.view.main.body.center.Center', {
                                 {
                                     bind    : {
                                         text    : '{grid}'
-                                    },
-                                    pressed     : true,
-                                    enableToggle: true,
-                                    listeners   : {
-                                        render  : 'onGridViewBtnRender'
                                     }
                                 }, {
+                                    pressed     : true,
                                     bind    : {
                                         text    : '{list}'
                                     }

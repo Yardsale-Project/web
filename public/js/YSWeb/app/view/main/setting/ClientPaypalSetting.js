@@ -28,7 +28,7 @@ Ext.define('YSWeb.view.main.setting.ClientPaypalSetting', {
 				fieldLabel 	: '{ppEmail}'
 			},
 			columnWidth : 1,
-			name 		: 'ppemail',
+			name 		: 'pp_email',
 			vtype 		: 'email',
 			msgTarget 	: 'side',
 			allowBlank 	: false
@@ -36,7 +36,7 @@ Ext.define('YSWeb.view.main.setting.ClientPaypalSetting', {
 			xtype 		: 'checkboxfield',
 			boxLabel 	: 'Enable SMS Payment',
 			columnWidth	: 1,
-			name 		: 'smsPaymentEnable',
+			name 		: 'sms_payment_enabled',
 			inputValue 	: '1',
 			listeners 	: {
 				change 	: 'onCheckBoxChange'
@@ -48,24 +48,10 @@ Ext.define('YSWeb.view.main.setting.ClientPaypalSetting', {
 			},
 			inputType 	: 'password',
 			columnWidth	: 1,
-			name 		: 'pppassword',
+			name 		: 'pp_password',
 			reference 	: 'pppassword',
 			hidden 		: true,
 			allowBlank 	: true
-		}
-	],
-
-	buttons 	: [
-		{
-			bind 	: {
-				text 	: '{save}'
-			},
-			handler : 'onSaveBtnClick'
-		}, {
-			bind 	: {
-				text 	: '{reset}'
-			},
-			handler : 'onResetBtnClick'
 		}
 	]
 });

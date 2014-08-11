@@ -124,6 +124,9 @@ Ext.define('YSWeb.view.main.product.ProductController', {
                             if(btn === 'ok') {
                                 form.reset();
                                 me.lookupReference('imguserpicture').setSrc('');
+
+                                var store = Ext.getStore('app-productStore');
+                                store.load();
                                 me.view.up('window').close();
                                 
                             }
@@ -157,5 +160,9 @@ Ext.define('YSWeb.view.main.product.ProductController', {
         form.reset();
 
         this.lookupReference('imguserpicture').setSrc('');
+    },
+
+    onCancelBtnClick : function() {
+        this.view.up('window').close();
     }
 });

@@ -81,8 +81,93 @@ Ext.define('YSCommon.view.main.login.SigninController', {
            			
            			form.reset();
     				me.view.up('window').close();
+    				if(action.result.hasOwnProperty('first_login') && action.result.first_login == true) {
+                        YSDebug.log('First login');
 
-    				me.redirectTo('home');
+                        Ext.create('Ext.window.Window', {
+                            modal   : true,
+                            closable: false,
+                            resizable: false,
+                            layout  : 'fit',
+                            title   : 'Please complete the information',
+                            bodyPadding : '10',
+
+                            items   : [
+                                {
+                                    xtype   : 'panel',
+                                    requires: [
+                                        'Ext.layout.container.Card'
+                                    ],
+                                    layout  : 'card',
+
+                                    width   : 600,
+
+                                    border  : false,
+
+                                    defaultListenerScope : true,
+
+                                    bbar : ['->',
+                                        {
+                                            itemId: 'card-prev',
+                                            text: '&laquo; Previous',
+                                            handler: 'showPrevious',
+                                            disabled: true
+                                        }, {
+                                            itemId: 'card-next',
+                                            text: 'Next &raquo;',
+                                            handler: 'showNext'
+                                        }, {
+                                            itemId : 'card-close',
+                                            text: 'Done',
+                                            handler: 'close',
+                                            hidden  : true
+                                        }
+                                    ],
+
+                                    items: [
+                                        {
+                                            id: 'card-0',
+                                            xtype   : 'app-personal'
+                                        }, {
+                                            id: 'card-1',
+                                            xtype : 'app-clientpaypalsetting',
+                                            controller : 'personal'
+                                        }, {
+                                            id: 'card-2',
+                                            html: '<h1>Congratulations!</h1><p>Information Complete</p>'
+                                        }
+                                    ],
+
+                                    showNext: function () {
+                                        this.doCardNavigation(1);
+                                    },
+
+                                    showPrevious: function (btn) {
+                                        this.doCardNavigation(-1);
+                                    },
+
+                                    close : function() {
+                                        this.up('window').destroy();
+                                    },
+
+                                    doCardNavigation: function (incr) {
+                                        var me = this;
+                                        var l = me.getLayout();
+                                        var i = l.activeItem.id.split('card-')[1];
+                                        var next = parseInt(i, 10) + incr;
+                                        l.setActiveItem(next);
+
+                                        me.down('#card-prev').setDisabled(next===0);
+                                        me.down('#card-next').setDisabled(next===2);
+                                        me.down('#card-close').setHidden(next!==2);
+                                    }
+                                        
+                                }
+                            ]
+                        }).show();
+                    } else {
+                        me.redirectTo('home');
+                    }
 			    },
     			failure : function( frm, action ) {
     				YSDebug.log(action.result);

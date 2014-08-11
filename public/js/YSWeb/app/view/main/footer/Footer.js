@@ -90,6 +90,7 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                         {
                             xtype   : 'button',
                             itemId  : 'fbPost',
+                            reference: 'fbPost',
                             bind    : {
                                 text    : '{fb}'
                             },
@@ -101,6 +102,7 @@ Ext.define('YSWeb.view.main.footer.Footer', {
                         }, {
                             xtype   : 'button',
                             itemId  : 'twPost',
+                            reference  : 'twPost',
                             bind    : {
                                 text    : '{tw}'
                             },

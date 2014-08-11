@@ -22,12 +22,22 @@ class ProductController extends Controller
         if( $request->isPost() ) {
             $postData = $request->getPost();
 
+            $filters = (!empty($postData['filter']))? json_decode(stripslashes($postData['filter']), true): array();
+
             $productsModel = $this->model('Product');
 
             $whereClause = array(
+                'parent.category_id' => 0,
                 'product_sell.product_id IS NULL',
                 'product.active' => 1
             );
+
+
+            foreach ($filters as $filter) {
+
+                $key = $filter['table'] . '.' . $filter['field'];
+                $whereClause[$key] = $filter['value'];
+            }
 
             $result = $productsModel->getProducts($whereClause);
 

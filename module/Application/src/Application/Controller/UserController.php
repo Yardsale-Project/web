@@ -187,13 +187,17 @@ class UserController extends Controller {
 
                             $user_id = $result['id'];
                             $loginValidationCode = hash('sha1', date('Y-m-d h:i:s'));
-                            $users->storeValidation($user_id, $loginValidationCode);
+                            $result = $users->storeValidation($user_id, $loginValidationCode);
 
                             if(stripos($referer, $host) === FALSE) {
                                 $session = $this->model('Session');
                                 $session->storeToken($referer, $loginValidationCode);
                             } else {
                                 $this->_sessionContainer->user_code = $loginValidationCode;
+                            }
+                            
+                            if($result['user_id_count'] == 0 || $result['user_id_count'] == 1) {
+                                $retVal['first_login'] = true;
                             }
                             
                             
@@ -454,5 +458,141 @@ class UserController extends Controller {
             'referer'   => $this->getRequest()->getServer('HTTP_REFERER'),
             'host'      => $this->getRequest()->getServer('HTTP_HOST')
         ));
+    }
+
+    public function getUserInfoAction() {
+        $retVal = array();
+
+        $request = $this->getRequest();
+
+        if ($request->isPost())  {
+
+            try {
+                $userModel = $this->model('Users');
+
+                $result = $userModel->getUserInfo($this->getUserId());                
+
+                $retVal['success'] = true;
+                $retVal['data'] = $result;
+            } catch (\Exception $e) {
+
+                $retVal['success'] = false;
+                $retVal['errorMessage'] = 'Problem getting user information. ' . $e->getMessage();
+            }
+        } else {
+            $retVal['success'] = false;
+            $retVal['errorMessage'] = 'Invalid request.';
+        }
+
+        return new JsonModel($retVal);        
+    }
+
+    public function saveUserInfoAction(){
+        $retVal = array();
+        $errors = array();
+
+        $request = $this->getRequest();
+
+        if ($request->isPost())  {
+
+            try {
+                $postData = $request->getPost();
+
+                $user_id    = (!empty($postData['user_id']))? $postData['user_id'] : 0;
+                $firstname  = (!empty($postData['firstname']))? $postData['firstname'] : '';
+                $middlename = (!empty($postData['middlename']))? $postData['middlename'] : '';
+                $lastname   = (!empty($postData['lastname']))? $postData['lastname'] : '';
+                $telephone  = (!empty($postData['telephone']))? $postData['telephone'] : '';
+                $mobile     = (!empty($postData['mobile']))? $postData['mobile'] : '';
+                $address1   = (!empty($postData['address1']))? $postData['address1'] : '';
+                $address2   = (!empty($postData['address2']))? $postData['address2'] : '';
+                $country    = 1;
+
+                if(empty($firstname)) {
+                    $errors[] = 'First name field cannot be empty.';
+                }
+
+                if(empty($lastname)) {
+                    $errors[] = 'Last name field cannot be empty.';
+                }
+
+                if(empty($mobile)) {
+                    $errors[] = 'Mobile field cannot be empty.';
+                }
+
+                if(empty($address1)) {
+                    $errors[] = 'Address1 field cannot be empty.';
+                }
+
+                if(empty($country)) {
+                    $errors[] = 'Country field cannot be empty.';
+                }
+
+                if(!empty($errors)) {
+                    $retVal['success'] = false;
+                    $retVal['errorMessage'] = implode('<br>', $errors);
+                } else {
+
+                    $userModel = $this->model('Users');
+
+                    $data = array(
+                        'firstname'  => $firstname,
+                        'middlename' => $middlename,
+                        'lastname'   => $lastname,
+                        'telephone'  => $telephone,
+                        'mobile'     => $mobile,
+                        'address1'   => $address1,
+                        'address2'   => $address2,
+                        'country'    => $country
+                    );
+
+                    if(empty($user_id)) {
+                        $data['user_id'] = $this->getUserId();
+                        $userModel->addUserInfo($data);
+                    } else {
+                        $userModel->updateUserInfo($data, $user_id);
+                    }
+
+                    $retVal['success'] = true;
+                    $retVal['message'] = 'Saved';
+                }
+            } catch (\Exception $e) {
+
+                $retVal['success'] = false;
+                $retVal['errorMessage'] = 'Problem saving. ' . $e->getMessage();
+            }
+        } else {
+            $retVal['success'] = false;
+            $retVal['errorMessage'] = 'Invalid request.';
+        }
+
+        return new JsonModel($retVal); 
+    }
+
+    public function getPaymentSettingsAction() {
+        $retVal = array();
+
+        $request = $this->getRequest();
+
+        if ($request->isPost())  {
+
+            try {
+                $userModel = $this->model('Users');
+
+                $result = $userModel->getSettings($this->getUserId());                
+
+                $retVal['success'] = true;
+                $retVal['data'] = $result;
+            } catch (\Exception $e) {
+
+                $retVal['success'] = false;
+                $retVal['errorMessage'] = 'Problem getting settings. ' . $e->getMessage();
+            }
+        } else {
+            $retVal['success'] = false;
+            $retVal['errorMessage'] = 'Invalid request.';
+        }
+
+        return new JsonModel($retVal);        
     }
 }

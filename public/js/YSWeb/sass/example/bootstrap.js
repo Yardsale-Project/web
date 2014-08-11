@@ -2321,6 +2321,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSCommon.helper.Paypal": [
     "Paypal"
   ],
+  "YSCommon.helper.Setting": [
+    "Setting"
+  ],
   "YSCommon.helper.User": [
     "UserHelper"
   ],
@@ -2344,6 +2347,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.controller.Main": [],
   "YSWeb.controller.Product": [],
   "YSWeb.controller.Root": [],
+  "YSWeb.controller.Search": [],
+  "YSWeb.store.Product": [],
   "YSWeb.view.main.Main": [],
   "YSWeb.view.main.MainController": [],
   "YSWeb.view.main.MainModel": [],
@@ -2356,6 +2361,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.body.left.LeftModel": [],
   "YSWeb.view.main.body.right.Right": [],
   "YSWeb.view.main.body.right.RightModel": [],
+  "YSWeb.view.main.body.toolbar.Breadcrumb": [],
   "YSWeb.view.main.body.widget.Invite": [],
   "YSWeb.view.main.body.widget.InviteController": [],
   "YSWeb.view.main.body.widget.InviteModel": [],
@@ -2392,6 +2398,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.product.thumbnail.GridViewController": [],
   "YSWeb.view.main.product.thumbnail.ListView": [],
   "YSWeb.view.main.product.thumbnail.ListViewController": [],
+  "YSWeb.view.main.profile.Personal": [],
+  "YSWeb.view.main.profile.PersonalController": [],
+  "YSWeb.view.main.profile.PersonalModel": [],
   "YSWeb.view.main.setting.ClientPaypalSetting": [],
   "YSWeb.view.main.setting.ClientPaypalSettingController": [],
   "YSWeb.view.main.setting.ClientSettingModel": []
@@ -3725,6 +3734,7 @@ Ext.ClassManager.addNameAliasMappings({
   "ExtThemeNeptune.toolbar.Toolbar": [],
   "YSCommon.config.Config": [],
   "YSCommon.helper.Paypal": [],
+  "YSCommon.helper.Setting": [],
   "YSCommon.helper.User": [],
   "YSCommon.model.Category": [],
   "YSCommon.model.CategoryTree": [],
@@ -3760,6 +3770,8 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWeb.controller.Main": [],
   "YSWeb.controller.Product": [],
   "YSWeb.controller.Root": [],
+  "YSWeb.controller.Search": [],
+  "YSWeb.store.Product": [],
   "YSWeb.view.main.Main": [
     "widget.app-main"
   ],
@@ -3795,6 +3807,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "YSWeb.view.main.body.right.RightModel": [
     "viewmodel.right"
+  ],
+  "YSWeb.view.main.body.toolbar.Breadcrumb": [
+    "widget.app-breadcrumb"
   ],
   "YSWeb.view.main.body.widget.Invite": [
     "widget.app-widget-invite"
@@ -3897,6 +3912,15 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "YSWeb.view.main.product.thumbnail.ListViewController": [
     "controller.app-listView"
+  ],
+  "YSWeb.view.main.profile.Personal": [
+    "widget.app-personal"
+  ],
+  "YSWeb.view.main.profile.PersonalController": [
+    "controller.personal"
+  ],
+  "YSWeb.view.main.profile.PersonalModel": [
+    "viewmodel.personal"
   ],
   "YSWeb.view.main.setting.ClientPaypalSetting": [
     "widget.app-clientpaypalsetting"

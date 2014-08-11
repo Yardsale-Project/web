@@ -28,7 +28,10 @@ Ext.define('YSWeb.view.main.body.left.Left', {
             columnWidth : 1,
             rootVisible : false,
             store       : Ext.create('YSCommon.store.CategoryTree'),
-            lines       : false
+            lines       : false,
+            listeners   : {
+                itemclick : 'onItemClick'
+            }
         }, {
             xtype       : 'panel',
             itemId      : 'newsletter',

@@ -29,4 +29,16 @@ class Settings extends Table
 
         return $settings;
 	}
+
+    public function getSetting($setting, $name) {
+        $whereClause = array(
+            'setting'   => $setting,
+            'name'   => $name
+        );
+        $select = $this->select()
+                        ->from($this->_name)
+                        ->where($whereClause);
+
+        return $this->fetchRowToArray($select);
+    }
 }

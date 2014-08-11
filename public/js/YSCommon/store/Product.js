@@ -16,6 +16,9 @@ Ext.define('YSCommon.store.Product', {
     proxy     : {
         type         : 'ajax',
         url          : YSConfig.url + '/application/product',
+        extraParams  : {
+            filter: ''
+        },
         actionMethods: {
             create : 'POST',
             read   : 'POST',

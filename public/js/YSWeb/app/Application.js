@@ -12,7 +12,8 @@ Ext.define('YSWeb.Application', {
         'YSCommon.config.Config',
         'YSCommon.util.Debug',
         'YSCommon.helper.User',
-        'YSCommon.helper.Paypal'
+        'YSCommon.helper.Paypal',
+        'YSCommon.helper.Setting'
     ],
 
     views: [
@@ -26,16 +27,17 @@ Ext.define('YSWeb.Application', {
     controllers: [
         'Root',
         'Facebook',
-        'Product'
+        'Product',
+        'Search'
         // TODO: add controllers here
     ],
 
     stores: [
         // TODO: add stores here
+        'Product',
         'YSCommon.store.Category',
         'YSCommon.store.States',
-        'YSCommon.store.CategoryTree',
-        'YSCommon.store.Product'
+        'YSCommon.store.CategoryTree'
     ],
     
     launch: function () {

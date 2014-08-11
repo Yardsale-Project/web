@@ -25,5 +25,10 @@ Ext.define('YSWeb.view.main.body.left.LeftController', {
 
     onExpand    : function() {
         
+    },
+
+    onItemClick : function(grid, record) {
+        YSDebug.log('item click here');
+        YSWeb.app.getController('Search').onItemClick(grid, record);
     }
 });

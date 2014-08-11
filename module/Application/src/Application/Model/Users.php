@@ -2,6 +2,8 @@
 
 namespace Application\Model;
 
+use Zend\Db\Sql\Expression;
+
 class Users extends Table
 {
 
@@ -69,7 +71,24 @@ class Users extends Table
 
         $affected_rows = $this->insert('user_login', $data);
 
-        return $affected_rows;
+        $data = array(
+            'user_id'   => $user_id,
+            'type'      => 'login',
+            'added'     =>  date('Y-m-d h:i:s'),
+            'ip'        => $this->getClientIP()
+        );
+
+        $affected_rows = $this->insert('user_login_history', $data);
+
+        $columns = array( 'user_id_count' => new Expression('COUNT(user_id)'));
+        $whereClause = array( 'user_id' => $user_id);
+
+        $select = $this->select()
+                        ->from('user_login_history')
+                        ->columns($columns)
+                        ->where($whereClause);
+
+        return $this->fetchRowToArray($select);
     }
 
     public function getAccoutInfoBySessionCode($validationCode) {
@@ -145,11 +164,50 @@ class Users extends Table
             $settings[$value['name']] = $value['value'];
         }
 
+        $settings['id'] = $userId;
+
         return $settings;
     }
 
     public function addSetting($data) {
         $affected_rows = $this->insert('user_setting', $data);
+
+        return $affected_rows;
+    }
+
+    public function updateSetting($data, $id, $name) {
+        $whereClause    = array( 
+            'user_id'   => $id,
+            'name'      => $name
+        );
+
+        $affected_rows  = $this->update('user_setting', $data, $whereClause);
+    }
+
+    public function getUserInfo($userId) {
+        $where = array(
+            'user_id' => $userId
+        );
+
+        $select = $this->select()
+                        ->from('user')
+                        ->where($where);
+
+        return $this->fetchRowToArray($select);
+
+    }
+
+    public function addUserInfo($data)
+    {
+        $affected_rows = $this->insert($this->_name, $data);
+
+        return $affected_rows;
+    }
+
+    public function updateUserInfo($data, $user_id) {
+        $whereClause    = array( 'user_id' => $user_id);
+
+        $affected_rows  = $this->update($this->_name, $data, $whereClause);
 
         return $affected_rows;
     }

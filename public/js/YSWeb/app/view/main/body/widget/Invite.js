@@ -23,6 +23,8 @@ Ext.define('YSWeb.view.main.body.widget.Invite', {
         {
             xtype       : 'button',
             iconCls     : 'fbButton',
+            reference   : 'fbButton',
+            itemId      : 'fbButton',
             margin      : '0 5 0 0',
             autoWidth   : true,
             autoHeight  : true,
@@ -30,6 +32,8 @@ Ext.define('YSWeb.view.main.body.widget.Invite', {
         }, {
             xtype       : 'button',
             iconCls     : 'twButton',
+            reference   : 'twButton',
+            itemId      : 'twButton',
             margin      : '0 5 0 0',
             autoWidth   : true,
             autoHeight  : true

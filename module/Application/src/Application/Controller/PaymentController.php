@@ -150,15 +150,18 @@ class PaymentController extends Controller
 
     public function savePPSettingAction() {
         $retVal = array();
+        $payKey = 0;
 
         $request = $this->getRequest();
 
         if( $request->isPost() ) {
             $postData = $request->getPost();
 
-            $ppemail            = (!empty($postData['ppemail']))? $postData['ppemail'] : '';
-            $smsPaymentEnable   = (!empty($postData['smsPaymentEnable']))? $postData['smsPaymentEnable'] : 0;
-            $pppassword         = (!empty($postData['pppassword']))? $postData['pppassword'] : '';
+            $id                 = (!empty($postData['id']))? $postData['id'] : 0;
+            $ppemail            = (!empty($postData['pp_email']))? $postData['pp_email'] : '';
+            $smsPaymentEnable   = (!empty($postData['sms_payment_enabled']))? $postData['sms_payment_enabled'] : 0;
+            $pppassword         = (!empty($postData['pp_password']))? $postData['pp_password'] : '';
+            $saveOnly           = (!empty($postData['saveOnly']))? $postData['saveOnly'] : 0;
 
             $itmId = (!empty($postData['itmId']))?  $postData['itmId'] : '';
             $price = (!empty($postData['price']))?  $postData['price'] : '';
@@ -184,6 +187,8 @@ class PaymentController extends Controller
                     );
                 } else {
                     $userModel = $this->model('Users');
+
+                    $settings = $userModel->getSettings($userId);
                     
                     $data = array(
                         array(
@@ -210,10 +215,24 @@ class PaymentController extends Controller
                     }
 
                     foreach ($data as $value) {
-                        $userModel->addSetting($value);
+                        
+                        if(empty($id)) {
+                            $userModel->addSetting($value);
+                        } else {
+                            if(array_key_exists($value['name'], $settings)) {
+                                unset($value['added']);
+                                $value['updated'] = date('Y-m-d h:i:s');
+                                $userModel->updateSetting($value, $id, $value['name']);
+                            } else {
+                                $userModel->addSetting($value);
+                            }
+                            
+                        }
                     }
 
-                    $payKey = $this->_getPayKey($itmId, $price, $quantity);
+                    if(!$saveOnly) {
+                        $payKey = $this->_getPayKey($itmId, $price, $quantity);
+                    }
 
                     $retVal['success'] = true;
                     $retVal['payKey'] = $payKey;

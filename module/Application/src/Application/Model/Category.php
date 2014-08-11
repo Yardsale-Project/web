@@ -9,11 +9,14 @@ class Category extends Table
 
 	private $_name = 'category_tree';
 
-	public function getCategories() {
+	public function getCategories($whereClause = array()) {
 
-		$whereClause = array(
-            'parent.category_id' 	=> 0
-        );
+        if(empty($whereClause)) {
+            $whereClause = array(
+                'parent.category_id'    => 0
+            );
+        }
+		
 
         $category_fields = array(
         	'id',

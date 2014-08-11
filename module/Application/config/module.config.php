@@ -105,8 +105,9 @@ return array(
             'Application\Controller\Product'    => 'Application\Controller\ProductController',
             'Application\Controller\User'       => 'Application\Controller\UserController',
             'Application\Controller\Admin'      => 'Application\Controller\AdminController',
-            'Application\Controller\Sns'   => 'Application\Controller\SnsController',
-            'Application\Controller\Payment'   => 'Application\Controller\PaymentController'
+            'Application\Controller\Sns'        => 'Application\Controller\SnsController',
+            'Application\Controller\Payment'    => 'Application\Controller\PaymentController',
+            'Application\Controller\Setting'   => 'Application\Controller\SettingController'
         ),
     ),
     'controller_plugins' => array(
