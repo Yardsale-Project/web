@@ -16,9 +16,9 @@ Ext.define('YSWebAdmin.view.main.body.Body', {
     border : false,
 
     items   : [
-        {
+        /*{
             xtype       : 'app-categories',
             columnWidth : .95
-        }
+        }*/
     ]
 });

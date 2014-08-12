@@ -10,7 +10,9 @@ Ext.define('YSWebAdmin.Application', {
 
     requires : [
         'YSCommon.config.Config',
-        'YSCommon.util.Debug'
+        'YSCommon.util.Debug',
+        'YSCommon.ux.UpperCaseTextfield',
+        'YSCommon.validation.Validation'
     ],
 
     views: [
@@ -28,7 +30,9 @@ Ext.define('YSWebAdmin.Application', {
 
     stores: [
         // TODO: add stores here
-        'YSCommon.store.CategoryTree'
+        'YSCommon.store.CategoryTree',
+        'Country',
+        'States'
     ],
     
     launch: function () {

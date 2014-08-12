@@ -5,6 +5,8 @@ Ext.define('YSWebAdmin.view.main.header.Navigation', {
 
     xtype: 'app-navigation',
     cls: 'app-navigation',
+
+    controller : 'navigation',
     
    /* controller: 'header',
     viewModel: {
@@ -22,7 +24,21 @@ Ext.define('YSWebAdmin.view.main.header.Navigation', {
                     xtype   : 'button',
                     itemId  : 'btn-categories',
                     text    : 'Categories',
-                    cls     : 'linkBtn'
+                    cls     : 'linkBtn',
+                    handler : 'onClickCategoriesBtn'
+                }, {
+                    xtype   : 'button',
+                    itemId  : 'btn-settings',
+                    text    : 'Settings',
+                    cls     : 'linkBtn',
+                    menu    : [
+                        {
+                            xtype   : 'button',
+                            itemId  : 'btn-country',
+                            text    : 'Country',
+                            handler : 'onClickCountryBtn'
+                        }
+                    ]
                 }
             ]
         }

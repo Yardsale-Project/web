@@ -107,7 +107,9 @@ return array(
             'Application\Controller\Admin'      => 'Application\Controller\AdminController',
             'Application\Controller\Sns'        => 'Application\Controller\SnsController',
             'Application\Controller\Payment'    => 'Application\Controller\PaymentController',
-            'Application\Controller\Setting'   => 'Application\Controller\SettingController'
+            'Application\Controller\SMS'        => 'Application\Controller\SMSController',
+            'Application\Controller\Setting'   => 'Application\Controller\SettingController',
+            'Application\Controller\Location'   => 'Application\Controller\LocationController'
         ),
     ),
     'controller_plugins' => array(

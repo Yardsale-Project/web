@@ -2318,6 +2318,15 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSCommon.config.Config": [
     "YSConfig"
   ],
+  "YSCommon.helper.Paypal": [
+    "Paypal"
+  ],
+  "YSCommon.helper.Setting": [
+    "Setting"
+  ],
+  "YSCommon.helper.User": [
+    "UserHelper"
+  ],
   "YSCommon.model.Category": [],
   "YSCommon.model.CategoryTree": [],
   "YSCommon.model.Product": [],
@@ -2329,6 +2338,7 @@ Ext.ClassManager.addNameAlternateMappings({
     "YSDebug"
   ],
   "YSCommon.ux.TreePicker": [],
+  "YSCommon.ux.UpperCaseTextfield": [],
   "YSCommon.validation.Validation": [],
   "YSCommon.view.main.login.Signin": [],
   "YSCommon.view.main.login.SigninController": [],
@@ -2337,6 +2347,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWebAdmin.controller.Categories": [],
   "YSWebAdmin.controller.Main": [],
   "YSWebAdmin.controller.Root": [],
+  "YSWebAdmin.model.Country": [],
+  "YSWebAdmin.store.Country": [],
+  "YSWebAdmin.store.States": [],
   "YSWebAdmin.view.main.Main": [],
   "YSWebAdmin.view.main.MainController": [],
   "YSWebAdmin.view.main.MainModel": [],
@@ -2347,11 +2360,18 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWebAdmin.view.main.body.Category": [],
   "YSWebAdmin.view.main.body.CategoryController": [],
   "YSWebAdmin.view.main.body.CategoryModel": [],
+  "YSWebAdmin.view.main.body.Country": [],
+  "YSWebAdmin.view.main.body.CountryController": [],
+  "YSWebAdmin.view.main.body.CountryModel": [],
+  "YSWebAdmin.view.main.body.States": [],
+  "YSWebAdmin.view.main.body.StatesController": [],
+  "YSWebAdmin.view.main.body.StatesModel": [],
   "YSWebAdmin.view.main.footer.Footer": [],
   "YSWebAdmin.view.main.header.Header": [],
   "YSWebAdmin.view.main.header.HeaderController": [],
   "YSWebAdmin.view.main.header.HeaderModel": [],
   "YSWebAdmin.view.main.header.Navigation": [],
+  "YSWebAdmin.view.main.header.NavigationController": [],
   "YSWebAdmin.view.main.login.Signin": [],
   "YSWebAdmin.view.main.login.SigninController": []
 });
@@ -3683,6 +3703,9 @@ Ext.ClassManager.addNameAliasMappings({
   "ExtThemeNeptune.toolbar.Paging": [],
   "ExtThemeNeptune.toolbar.Toolbar": [],
   "YSCommon.config.Config": [],
+  "YSCommon.helper.Paypal": [],
+  "YSCommon.helper.Setting": [],
+  "YSCommon.helper.User": [],
   "YSCommon.model.Category": [],
   "YSCommon.model.CategoryTree": [],
   "YSCommon.model.Product": [],
@@ -3702,6 +3725,9 @@ Ext.ClassManager.addNameAliasMappings({
   "YSCommon.ux.TreePicker": [
     "widget.app-treepicker"
   ],
+  "YSCommon.ux.UpperCaseTextfield": [
+    "widget.uppercasetextfield"
+  ],
   "YSCommon.validation.Validation": [],
   "YSCommon.view.main.login.Signin": [
     "widget.app-signin"
@@ -3716,6 +3742,9 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWebAdmin.controller.Categories": [],
   "YSWebAdmin.controller.Main": [],
   "YSWebAdmin.controller.Root": [],
+  "YSWebAdmin.model.Country": [],
+  "YSWebAdmin.store.Country": [],
+  "YSWebAdmin.store.States": [],
   "YSWebAdmin.view.main.Main": [
     "widget.app-main"
   ],
@@ -3746,6 +3775,24 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWebAdmin.view.main.body.CategoryModel": [
     "viewmodel.category"
   ],
+  "YSWebAdmin.view.main.body.Country": [
+    "widget.app-country"
+  ],
+  "YSWebAdmin.view.main.body.CountryController": [
+    "controller.country"
+  ],
+  "YSWebAdmin.view.main.body.CountryModel": [
+    "viewmodel.country"
+  ],
+  "YSWebAdmin.view.main.body.States": [
+    "widget.app-states"
+  ],
+  "YSWebAdmin.view.main.body.StatesController": [
+    "controller.states"
+  ],
+  "YSWebAdmin.view.main.body.StatesModel": [
+    "viewmodel.states"
+  ],
   "YSWebAdmin.view.main.footer.Footer": [
     "widget.app-footer"
   ],
@@ -3760,6 +3807,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "YSWebAdmin.view.main.header.Navigation": [
     "widget.app-navigation"
+  ],
+  "YSWebAdmin.view.main.header.NavigationController": [
+    "controller.navigation"
   ],
   "YSWebAdmin.view.main.login.Signin": [
     "widget.app-signin-admin"

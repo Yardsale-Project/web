@@ -17,5 +17,15 @@ Ext.define('YSCommon.validation.Validation', {
 		return val.match(pattern);
 	},
 
-	mobileText : 'Invalid mobile number. Please put the 11-digit mobile number.'
+	mobileText : 'Invalid mobile number. Please put the 11-digit mobile number.',
+
+	countryCode : function(val) {
+		var pattern = /^[A-Z]{2,3}$/;
+
+		val = val.toUpperCase();
+		
+		return val.match(pattern);
+	},
+
+	countryCodeText : 'Invalid country code. Must be 2-3 characters, all capital letters.'
 });
