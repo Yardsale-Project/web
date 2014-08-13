@@ -227,11 +227,21 @@ Ext.define('YSWebAdmin.view.main.body.CountryController', {
     	store.on('beforeload', function(str, op) {
     		var filter = '';
     		if(newValue.length > 0) {
-    			filter = [
-		            { 
-		                'search' : newValue
-		            }
-		        ];
+    			filter = {
+                    "op": "OR",
+                    "set": [
+                        {
+                            "field": "code",
+                            "bitOp": "LIKE",
+                            "value": newValue
+                        },
+                        {
+                            "field": "name",
+                            "bitOp": "LIKE",
+                            "value": newValue
+                        }
+                    ]
+                }
 
 		        filter = Ext.encode( filter );
     		}

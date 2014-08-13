@@ -2348,6 +2348,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWebAdmin.controller.Main": [],
   "YSWebAdmin.controller.Root": [],
   "YSWebAdmin.model.Country": [],
+  "YSWebAdmin.store.City": [],
   "YSWebAdmin.store.Country": [],
   "YSWebAdmin.store.States": [],
   "YSWebAdmin.view.main.Main": [],
@@ -2360,6 +2361,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWebAdmin.view.main.body.Category": [],
   "YSWebAdmin.view.main.body.CategoryController": [],
   "YSWebAdmin.view.main.body.CategoryModel": [],
+  "YSWebAdmin.view.main.body.City": [],
+  "YSWebAdmin.view.main.body.CityController": [],
+  "YSWebAdmin.view.main.body.CityModel": [],
   "YSWebAdmin.view.main.body.Country": [],
   "YSWebAdmin.view.main.body.CountryController": [],
   "YSWebAdmin.view.main.body.CountryModel": [],
@@ -3743,6 +3747,7 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWebAdmin.controller.Main": [],
   "YSWebAdmin.controller.Root": [],
   "YSWebAdmin.model.Country": [],
+  "YSWebAdmin.store.City": [],
   "YSWebAdmin.store.Country": [],
   "YSWebAdmin.store.States": [],
   "YSWebAdmin.view.main.Main": [
@@ -3774,6 +3779,15 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "YSWebAdmin.view.main.body.CategoryModel": [
     "viewmodel.category"
+  ],
+  "YSWebAdmin.view.main.body.City": [
+    "widget.app-city"
+  ],
+  "YSWebAdmin.view.main.body.CityController": [
+    "controller.city"
+  ],
+  "YSWebAdmin.view.main.body.CityModel": [
+    "viewmodel.city"
   ],
   "YSWebAdmin.view.main.body.Country": [
     "widget.app-country"

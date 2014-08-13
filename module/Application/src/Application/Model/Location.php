@@ -123,19 +123,29 @@ class Location extends Table
         return $this->fetchRowToArray($select);
 	}
 
-	public function isStateCodeExist($code) {
+	public function isStateCodeExist($code, $countryId) {
 		$select = $this->select()
                         ->from( 'states')
-                        ->where(array('code' => $code))
+                        ->where(
+                            array(
+                                'code' => $code,
+                                'country_id' => $countryId
+                            )
+                        )
                         ->order(array('code'));
 
         return $this->fetchAllToArray($select);
 	}
 
-	public function isStateNameExist($name) {
+	public function isStateNameExist($name, $countryId) {
 		$select = $this->select()
                         ->from( 'states')
-                        ->where(array('name' => $name))
+                        ->where(
+                            array(
+                                'name' => $name,
+                                'country_id' => $countryId
+                            )
+                        )
                         ->order(array('code'));
 
         return $this->fetchAllToArray($select);
@@ -148,4 +158,94 @@ class Location extends Table
 	public function insertState($data) {
 		return $this->insert('states', $data);
 	}
+
+    public function deleteState($id) {
+        $whereClause = array(
+            'id'    => $id
+        );
+
+        $affected_rows = $this->delete('states', $whereClause);
+
+        return $affected_rows;
+    }
+
+    public function getCities($whereClause) {
+
+        $select = $this->select()
+                        ->from( 'city')
+                        ->order(array('name', 'code'));
+
+        if(!empty($whereClause)) {
+            $select->where($whereClause);
+        }
+
+        return $this->fetchAllToArray($select);
+    }
+
+    public function getLastCityId() {
+
+        $select = $this->select()
+                        ->from( 'city')
+                        ->columns( array(
+                            'id' => new Expression('IFNULL(MAX(id), 0)')
+                        ))
+                        ->order(array('code'));
+
+        return $this->fetchRowToArray($select);
+    }
+
+    public function isCityIdExist($id) {
+        $select = $this->select()
+                        ->from( 'city')
+                        ->where(array('id' => $id))
+                        ->order(array('code'));
+
+        return $this->fetchRowToArray($select);
+    }
+
+    public function isCityCodeExist($code, $stateId) {
+        $select = $this->select()
+                        ->from( 'city')
+                        ->where(
+                            array(
+                                'code' => $code,
+                                'state_id' => $stateId
+                            )
+                        )
+                        ->order(array('code'));
+
+        return $this->fetchAllToArray($select);
+    }
+
+    public function isCityNameExist($name, $stateId) {
+        $select = $this->select()
+                        ->from( 'city')
+                        ->where(
+                            array(
+                                'name' => $name,
+                                'state_id' => $stateId
+                            )
+                        )
+                        ->order(array('code'));
+
+        return $this->fetchAllToArray($select);
+    }
+
+    public function updateCity($data, $id) {
+        return $this->update('city', $data, array('id' => $id));
+    }
+
+    public function insertCity($data) {
+        return $this->insert('city', $data);
+    }
+
+    public function deleteCity($id) {
+        $whereClause = array(
+            'id'    => $id
+        );
+
+        $affected_rows = $this->delete('city', $whereClause);
+
+        return $affected_rows;
+    }
 }

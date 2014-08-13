@@ -5,6 +5,7 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
+use \Zend\Db\Sql\Where;
 
 class Controller extends AbstractActionController
 {
@@ -69,22 +70,74 @@ class Controller extends AbstractActionController
     }
 
     protected function getClientIP() {
-          $ipaddress = '';
-          if (getenv('HTTP_CLIENT_IP'))
-              $ipaddress = getenv('HTTP_CLIENT_IP');
-          else if(getenv('HTTP_X_FORWARDED_FOR'))
-              $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
-          else if(getenv('HTTP_X_FORWARDED'))
-              $ipaddress = getenv('HTTP_X_FORWARDED');
-          else if(getenv('HTTP_FORWARDED_FOR'))
-              $ipaddress = getenv('HTTP_FORWARDED_FOR');
-          else if(getenv('HTTP_FORWARDED'))
-              $ipaddress = getenv('HTTP_FORWARDED');
-          else if(getenv('REMOTE_ADDR'))
-              $ipaddress = getenv('REMOTE_ADDR');
-          else
-              $ipaddress = 'UNKNOWN';
+        $ipaddress = '';
+        if (getenv('HTTP_CLIENT_IP'))
+            $ipaddress = getenv('HTTP_CLIENT_IP');
+        else if(getenv('HTTP_X_FORWARDED_FOR'))
+            $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+        else if(getenv('HTTP_X_FORWARDED'))
+            $ipaddress = getenv('HTTP_X_FORWARDED');
+        else if(getenv('HTTP_FORWARDED_FOR'))
+            $ipaddress = getenv('HTTP_FORWARDED_FOR');
+        else if(getenv('HTTP_FORWARDED'))
+            $ipaddress = getenv('HTTP_FORWARDED');
+        else if(getenv('REMOTE_ADDR'))
+            $ipaddress = getenv('REMOTE_ADDR');
+        else
+            $ipaddress = 'UNKNOWN';
+        return $ipaddress;
+    }
 
-          return $ipaddress;
-     }
+    protected function buildWhereClause($filters, $where = null) {
+
+        if(is_null($where)) {
+            $where = new Where();
+        }
+
+        if(is_array($filters)) {
+            if(!empty($filters['op'])) {
+                $op = $filters['op'];
+
+                $filterSet = $filters['set'];
+
+                if(count($filterSet) > 1) {
+                    if($op == 'OR') {
+                        $where = $where->nest();
+                    }
+                    
+                }
+
+                foreach ($filterSet as $key => $filter) {
+
+                    if(!empty($filter['field'])) {
+                        if(count($filterSet) > 1) {
+                            if($op == 'AND') {
+                                $where = $where->and;    
+                            } else if($op == 'OR') {
+                                $where = $where->or;
+                            }
+                            
+                        }
+
+                        if($filter['bitOp'] == 'EQ') {
+                            $where = $where->equalTo($filter['field'], $filter['value']);
+                        } else if($filter['bitOp'] == 'LIKE') {
+                            $where = $where->like($filter['field'], '%' . $filter['value'] . '%');
+                        }
+                    } else if(!empty($filter['op'])) {
+                        $where = $this->buildWhereClause($filter, $where);
+                    }
+                }
+
+                if(count($filterSet) > 1) {
+                    if($op == 'OR') {
+                        $where = $where->unnest();
+                    }
+                    
+                }
+            }
+        }
+
+        return $where;
+    }
 }

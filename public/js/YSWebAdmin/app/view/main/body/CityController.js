@@ -1,13 +1,13 @@
 'use strict';
 
-Ext.define('YSWebAdmin.view.main.body.StatesController', {
+Ext.define('YSWebAdmin.view.main.body.CityController', {
     extend: 'Ext.app.ViewController',
 
-    alias: 'controller.states',
+    alias: 'controller.city',
 
     init 	: function(){
     	this.control({
-    		'app-states' : {
+    		'app-city' : {
                 beforerender : 'onGridBeforeRender',
                 edit        : 'onGridEdit',
                 itemclick   : 'onItemClick'
@@ -17,16 +17,16 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
 
     onGridBeforeRender : function() {
         var store = this.view.getStore();
-        var countryId = this.view._countryId;
+        var stateId = this.view._stateId;
 
         store.on('beforeload', function(str, op) {
             var filter = {
                 "op": "AND",
                 "set": [
                     {
-                        "field": "country_id",
+                        "field": "state_id",
                         "bitOp": "EQ",
-                        "value": countryId
+                        "value": stateId
                     }
                 ]
             }
@@ -40,7 +40,7 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
 
     },
 
-    onAddStateClick : function() {
+    onAddCityClick : function() {
         var plugins = this.view.getPlugins();
         var rowEditing = plugins[0];
         var store = this.view.getStore();
@@ -49,7 +49,7 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
         // Create a model instance
 
         Ext.Ajax.request({
-            url     : YSConfig.url + '/application/location/getLastStateId',
+            url     : YSConfig.url + '/application/location/getLastCityId',
             method  : 'POST',
             success : function(response) {
 
@@ -75,7 +75,7 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
         });
     },
 
-    onAddStateMultipleClick : function() {
+    onAddCityMultipleClick : function() {
         var me = this;
 
         Ext.create('Ext.window.Window',{
@@ -83,7 +83,7 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
             resizable   : false,
             closeAction : 'destory',
 
-            title       : 'States/Provinces',
+            title       : 'Cities/Municipalities',
             layout      : 'fit',
             items       : [
                 {
@@ -94,7 +94,7 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
                     bodyPadding : 10,
                     width   : 400,
 
-                    controller : 'states',
+                    controller : 'city',
 
                     _me     : me,
 
@@ -102,10 +102,10 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
                         {
                             xtype   : 'label',
                             columnWidth : 1,
-                            text    : 'Comma separated list of states/provinces with respected state abbreviation. (E.g NY-New York,NJ-New Jersey)'
+                            text    : 'Comma separated list of cities/municipalities with respected state abbreviation. (E.g CC-Cebu City)'
                         }, {
                             xtype   : 'textareafield',
-                            name    : 'states',
+                            name    : 'cities',
                             columnWidth : 1,
                             height  : 400
                         }
@@ -131,15 +131,15 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
 
         if(form.isValid()) {
             form.submit({
-                url     : YSConfig.url + '/application/location/saveMultipleState',
+                url     : YSConfig.url + '/application/location/saveMultipleCity',
                 waitMsg : 'Saving data',
                 params  : {
-                    countryId  : me.view._me.view._countryId
+                    stateId  : me.view._me.view._stateId
                 },
                 success : function( frm, action ) {
                     YSDebug.log(action.result);
                     Ext.Msg.show({
-                        title       : 'States/Provinces',
+                        title       : 'Cities/Municipalities',
                         msg         : action.result.message,
                         buttons     : Ext.MessageBox.OK,
                         fn          : function(btn) {
@@ -155,7 +155,7 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
                 failure : function( frm, action ) {
                     YSDebug.log(action.result);
                     Ext.Msg.show({
-                        title       : 'States/Provinces',
+                        title       : 'Cities/Municipalities',
                         msg         : action.result.errorMessage,
                         buttons     : Ext.MessageBox.OK,
                         fn          : function(btn) {
@@ -176,40 +176,6 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
         this.view.up('window').close();
     },
 
-    onCitiesBtnClik : function() {
-        var sm = this.view.getSelectionModel();
-
-        if(sm.hasSelection()) {
-            var selection = sm.getSelection();
-            var record = selection[0];
-            var id = record.data.id;
-
-            Ext.create('Ext.window.Window', {
-                modal       : true,
-                resizable   : false,
-                closeAction : 'destroy',
-                layout      : 'fit',
-
-                title       : 'Cities/Municipalities',
-
-                items       : [
-                    {
-                        xtype       : 'app-city',
-                        _stateId  : id
-                    }
-                ]
-            }).show();
-
-        } else {
-            Ext.Msg.show({
-                title       : 'State',
-                msg         : 'Please select a state',
-                icon        : Ext.MessageBox.ERROR,
-                buttons     : Ext.MessageBox.OK
-            });
-        }
-    },
-
     onGridEdit : function(editor, context) {
         YSDebug.log('context', context);
         YSDebug.log('onGridEdit', context.record);
@@ -220,18 +186,18 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
         var id = context.record.data.id,
             code = context.record.data.code,
             name = context.record.data.name,
-            countryId = this.view._countryId,
+            stateId = this.view._stateId,
             me = this;
 
         Ext.Ajax.request({
-            url     : YSConfig.url + '/application/location/saveSingleState',
+            url     : YSConfig.url + '/application/location/saveSingleCity',
             method  : 'POST',
             waitMsg : 'Saving data',
             params  : {
                 id      : id,
                 code    : code,
                 name    : name,
-                countryId : countryId
+                stateId : stateId
             },
             success : function(response) {
 
@@ -243,7 +209,7 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
                     this.done = 1;
                     me.view.getStore().load();
                     Ext.Msg.show({
-                        title       : 'State/Province',
+                        title       : 'City/Municipality',
                         msg         : rsp.message,
                         buttons     : Ext.MessageBox.OK,
                         icon        : Ext.MessageBox.INFO
@@ -254,7 +220,7 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
                     rowEditing.startEdit(context.rowIdx, 0);
 
                     Ext.Msg.show({
-                        title       : 'State/Province',
+                        title       : 'City/Municipality',
                         msg         : rsp.errorMessage,
                         buttons     : Ext.MessageBox.OK,
                         icon        : Ext.MessageBox.ERROR
@@ -311,10 +277,8 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
     onItemClick : function(grid, record) {
 
         var deleteBtn = this.lookupReference('deleteBtn');
-        var cityBtn = this.lookupReference('cities');
 
         deleteBtn.enable();
-        cityBtn.enable();
 
     },
 
@@ -322,7 +286,6 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
         var sm = this.view.getSelectionModel();
         var store = this.view.getStore();
         var deleteBtn = this.lookupReference('deleteBtn');
-        var cityBtn = this.lookupReference('cities');
 
         if(sm.hasSelection()) {
             var selection = sm.getSelection();
@@ -330,13 +293,13 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
             var id = record.data.id;
 
             Ext.Msg.confirm(
-                'State/Province',
+                'City/Municipality',
                 'Are you sure you want to delete this record?',
                 function(btn) {
                     
                     if(btn == 'yes') {
                         Ext.Ajax.request({
-                            url     : YSConfig.url + '/application/location/deleteState',
+                            url     : YSConfig.url + '/application/location/deleteCity',
                             method  : 'POST',
                             params  : {
                                 id  : id
@@ -349,7 +312,7 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
                                 if(rsp.success)
                                 {
                                     Ext.Msg.show({
-                                        title       : 'State/Province',
+                                        title       : 'City/Municipality',
                                         msg         : rsp.message,
                                         icon        : Ext.MessageBox.INFO,
                                         buttons     : Ext.MessageBox.OK
@@ -357,11 +320,10 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
 
                                     sm.deselectAll();
                                     deleteBtn.disable();
-                                    cityBtn.disable();
                                     store.load();
                                 } else {
                                     Ext.Msg.show({
-                                        title       : 'State/Province',
+                                        title       : 'City/Municipality',
                                         msg         : rsp.errorMessage,
                                         icon        : Ext.MessageBox.ERROR,
                                         buttons     : Ext.MessageBox.OK
@@ -374,8 +336,8 @@ Ext.define('YSWebAdmin.view.main.body.StatesController', {
             );
         } else {
             Ext.Msg.show({
-                title       : 'State/Province',
-                msg         : 'Please select a State/Province to delete',
+                title       : 'City/Municpality',
+                msg         : 'Please select a City/Municipality to delete',
                 icon        : Ext.MessageBox.ERROR,
                 buttons     : Ext.MessageBox.OK
             });

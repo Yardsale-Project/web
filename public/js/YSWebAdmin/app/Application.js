@@ -32,7 +32,8 @@ Ext.define('YSWebAdmin.Application', {
         // TODO: add stores here
         'YSCommon.store.CategoryTree',
         'Country',
-        'States'
+        'States',
+        'City'
     ],
     
     launch: function () {
