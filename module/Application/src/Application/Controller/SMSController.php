@@ -11,7 +11,7 @@ use \Exception;
 
 class SMSController extends Controller{
 
-public $sms_message;
+public $sms_message; 
 
 public function indexAction(){
 	
@@ -27,10 +27,18 @@ public function indexAction(){
 
 	$value=($isValidEmail && $isValidEmail && $isItemNumValid) ? true: false;
 	
-	$data= array('return_val' => , $value);
-	
-	return new JsonModel($data);
+	//$data= array('return_val' => , $value);
+	$smsModel=$this->model('SMSModel');
+	$payer_id=$smsModel->getPayerId($email);
+
+	if($value){
+		$data=array('item_id'=>$itemNum,'payer_id'=>,$payer_id,'paid'=>'0',date('Y-m-d h:i:s'));
+		$smsModel->addData($data);
+	}
+
+	//return new JsonModel($data);
 }
+
 
 public function setSMSMessage($val){
  $this->$sms_message=$val;
