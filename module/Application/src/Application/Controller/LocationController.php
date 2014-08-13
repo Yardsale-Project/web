@@ -23,7 +23,7 @@ class LocationController extends Controller {
 
             $model = $this->model('Location');
             $result = $model->getStates($where);
-            
+
             $retVal = array(
                 'text'   => '.',
                 'children'   => array()
@@ -57,7 +57,6 @@ class LocationController extends Controller {
 
                 $retVal['children'][] = $child;
             }
-            
         }
 
         return new JsonModel($retVal);
