@@ -120,9 +120,9 @@ class Controller extends AbstractActionController
                         }
 
                         if($filter['bitOp'] == 'EQ') {
-                            $where = $where->equalTo($filter['field'], $filter['value']);
+                            $where = $where->equalTo( (!empty($filter['table']))? $filter['table'] . '.' . $filter['field'] : $filter['field'], $filter['value']);
                         } else if($filter['bitOp'] == 'LIKE') {
-                            $where = $where->like($filter['field'], '%' . $filter['value'] . '%');
+                            $where = $where->like((!empty($filter['table']))? $filter['table'] . '.' . $filter['field'] : $filter['field'], '%' . $filter['value'] . '%');
                         }
                     } else if(!empty($filter['op'])) {
                         $where = $this->buildWhereClause($filter, $where);

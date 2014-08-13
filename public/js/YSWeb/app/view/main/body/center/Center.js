@@ -57,11 +57,12 @@ Ext.define('YSWeb.view.main.body.center.Center', {
                             enableToggle: true,
                             items   : [
                                 {
+                                    pressed     : true,
                                     bind    : {
                                         text    : '{grid}'
                                     }
                                 }, {
-                                    pressed     : true,
+                                    
                                     bind    : {
                                         text    : '{list}'
                                     }

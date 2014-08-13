@@ -11,11 +11,56 @@ class LocationController extends Controller {
 
 
     public function  indexAction() {
-        $filter = array();
+        $retVal     = array();
+        $request    = $this->getRequest();
 
-        $where = $this->buildWhereClause($filter);
-        var_dump($where);
-        return new JsonModel($filter);
+
+        if( $request->isPost() ) {
+            $postData = $request->getPost();
+
+            $filter     = (!empty($postData['filter'])) ? json_decode(stripslashes($postData['filter']), true) : array();
+            $where = $this->buildWhereClause($filter);
+
+            $model = $this->model('Location');
+            $result = $model->getStates($where);
+            
+            $retVal = array(
+                'text'   => '.',
+                'children'   => array()
+            );
+
+            foreach ($result as $states) {
+                $id = $states['id'];
+
+                $child = array(
+                    'text'  => $states['name'],
+                    'id'    => $id
+                );
+
+                $children = $model->getCities(array('state_id' => $id));
+
+                if(!empty($children)) {
+                    $child['children'] = array();
+
+                    foreach ($children as $cities) {
+                        $cityChild = array(
+                            'text'  => $cities['name'],
+                            'id'    => $cities['id'],
+                            'leaf'  => true 
+                        );
+
+                        $child['children'][] = $cityChild;
+                    }
+                } else {
+                    $child['leaf'] = true;
+                }
+
+                $retVal['children'][] = $child;
+            }
+            
+        }
+
+        return new JsonModel($retVal);
     }
 
     public function getCountryAction() {

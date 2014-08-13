@@ -28,7 +28,7 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
         this.createdPanelWidth = width;
         YSDebug.log('box width', width);
 
-        this.createListView();
+        this.createGridView();
     },
 
     onProductsViewContainerAfterrender : function() {
@@ -81,13 +81,18 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
             var store = this.createdPanel.getStore();
 
             store.on('beforeload', function(str, op) {
-                var filter = [
-                    { 
-                        'table' : 'parent',
-                        'field' : 'category_id',
-                        'value' : selection.data.id
-                    }
-                ];
+
+                var filter = {
+                    'op': 'AND',
+                    'set': [
+                        {
+                            'table': 'parent',
+                            'field': 'category_id',
+                            'bitOp': 'EQ',
+                            'value': selection.data.id
+                        },
+                    ]
+                };
 
                 op.setParams( {
                     filter: Ext.encode( filter )
@@ -121,13 +126,17 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
             var store = this.createdPanel.getStore();
 
             store.on('beforeload', function(str, op) {
-                var filter = [
-                    { 
-                        'table' : 'parent',
-                        'field' : 'category_id',
-                        'value' : selection.data.id
-                    }
-                ];
+                var filter = {
+                    'op': 'AND',
+                    'set': [
+                        {
+                            'table': 'parent',
+                            'field': 'category_id',
+                            'bitOp': 'EQ',
+                            'value': selection.data.id
+                        },
+                    ]
+                };
 
                 op.setParams( {
                     filter: Ext.encode( filter )

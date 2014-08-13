@@ -11,7 +11,7 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
         'YSCommon.ux.TreePicker'
     ],
     
-   /* controller: 'main',*/
+    controller: 'centerheader',
     viewModel: {
         type: 'centerheader'
     },
@@ -51,20 +51,19 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             displayField: 'text',
                             rootVisible : false,
                             emptyText: '--All Categories--',
-                            margin  : '0 0 0 10'
+                            margin  : '0 0 0 10',
+                            border  : true
                         }, {
-                            xtype   : 'combobox',
-                            store : {
-                                type: 'states'
-                            },
-                            reference   : 'states',
-                            displayField: 'state',
-                            valueField  : 'abbr',
-                            filterPickList: true,
-                            queryMode   : 'local',
-                            multiSelect : true,
-                            emptyText   : '--All Locations--',
-                            margin  : '0 0 0 10'
+                            xtype   : 'app-treepicker',
+                            cls     : 'app-treepicker',
+                            text    : 'category',
+                            store   : Ext.create('YSWeb.store.LocationTree'),
+                            displayField: 'text',
+                            rootVisible : false,
+                            emptyText: '--All Locations--',
+                            margin  : '0 0 0 10',
+                            border  : true,
+                            maxPickerHeight : 200
                         }, {
                             xtype   : 'button',
                             margin  : '0 0 0 10',

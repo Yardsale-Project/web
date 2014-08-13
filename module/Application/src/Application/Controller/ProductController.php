@@ -32,14 +32,16 @@ class ProductController extends Controller
                 'product.active' => 1
             );
 
+            $where = $this->buildWhereClause($filters);
 
-            foreach ($filters as $filter) {
+
+            /*foreach ($filters as $filter) {
 
                 $key = $filter['table'] . '.' . $filter['field'];
                 $whereClause[$key] = $filter['value'];
-            }
+            }*/
 
-            $result = $productsModel->getProducts($whereClause);
+            $result = $productsModel->getProducts($where);
 
             /*for( $i = 1; $i <= 50; $i++) {
                 $result[] = array(

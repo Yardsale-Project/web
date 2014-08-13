@@ -67,16 +67,18 @@ Ext.define('YSWeb.controller.Search', {
 
         YSDebug.log('breadcrumb', breadcrumb);
 
-        var filter = [{ cat_id : catId}];
-
         store.on('beforeload', function(str, op) {
-            var filter = [
-                { 
-                    'table' : 'parent',
-                    'field' : 'category_id',
-                    'value' : catId
-                }
-            ];
+            var filter = {
+                'op': 'AND',
+                'set': [
+                    {
+                        'table': 'parent',
+                        'field': 'category_id',
+                        'bitOp': 'EQ',
+                        'value': catId
+                    },
+                ]
+            };
 
             op.setParams( {
                 filter: Ext.encode( filter )

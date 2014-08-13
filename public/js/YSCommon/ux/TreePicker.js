@@ -4,6 +4,8 @@
 Ext.define('YSCommon.ux.TreePicker', {
     extend: 'Ext.form.field.Picker',
     xtype: 'app-treepicker',
+
+    border : true,
     
     uses: [
         'Ext.tree.Panel'
@@ -47,7 +49,9 @@ Ext.define('YSCommon.ux.TreePicker', {
          * @cfg {Number} minPickerHeight
          * The minimum height of the tree dropdown. Defaults to 100.
          */
-        minPickerHeight: 100
+        minPickerHeight: 100,
+
+        pickerHeight : 200
     },
    
     editable: true,
@@ -82,12 +86,14 @@ Ext.define('YSCommon.ux.TreePicker', {
                 displayField: me.displayField,
                 columns: me.columns,
                 maxHeight : 300,
-                manageHeight: false,
+                manageHeight: true,
                 rootVisible : false,
                 lines       : false,
-                overflowY   : 'scroll',
+                autoScroll  : true,
                 cls         : me.cls,
-                shadow: false,
+                shadow: true,
+                border : true,
+                bodyBorder: true,
                 listeners: {
                     scope: me,
                     itemclick: me.onItemClick

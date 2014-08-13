@@ -1,5 +1,5 @@
 'use strict';
 
-Ext.define('YSWebAdmin.store.City', {
+Ext.define('YSWeb.store.City', {
 	extend 	: 'YSCommon.store.City'
 });

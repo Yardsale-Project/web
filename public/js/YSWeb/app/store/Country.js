@@ -1,5 +1,5 @@
 'use strict';
 
-Ext.define('YSWebAdmin.store.Country', {
+Ext.define('YSWeb.store.Country', {
 	extend 	: 'YSCommon.store.Country'
 });

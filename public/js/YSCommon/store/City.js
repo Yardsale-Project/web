@@ -1,11 +1,11 @@
 'use strict';
 
-Ext.define('YSCommon.store.States', {
-    extend  : 'Ext.data.Store',
+Ext.define('YSCommon.store.City', {
+	extend 	: 'Ext.data.Store',
 
-    storeId : 'states',
+	storeId	: 'city',
 
-    model  : 'YSCommon.model.Country',
+	model  : 'YSCommon.model.Country',
 
     remoteSort      : false,
     remoteFilter    : true,
@@ -14,7 +14,7 @@ Ext.define('YSCommon.store.States', {
 
     proxy     : {
         type         : 'ajax',
-        url          : YSConfig.url + '/application/location/getStates',
+        url          : YSConfig.url + '/application/location/getCities',
         extraParams  : {
             filter: ''
         },

@@ -2329,15 +2329,19 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "YSCommon.model.Category": [],
   "YSCommon.model.CategoryTree": [],
+  "YSCommon.model.Country": [],
   "YSCommon.model.Product": [],
   "YSCommon.store.Category": [],
   "YSCommon.store.CategoryTree": [],
+  "YSCommon.store.City": [],
+  "YSCommon.store.Country": [],
   "YSCommon.store.Product": [],
   "YSCommon.store.States": [],
   "YSCommon.util.Debug": [
     "YSDebug"
   ],
   "YSCommon.ux.TreePicker": [],
+  "YSCommon.ux.UpperCaseTextfield": [],
   "YSCommon.validation.Validation": [],
   "YSCommon.view.main.login.Signin": [],
   "YSCommon.view.main.login.SigninController": [],
@@ -2348,7 +2352,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.controller.Product": [],
   "YSWeb.controller.Root": [],
   "YSWeb.controller.Search": [],
+  "YSWeb.store.City": [],
+  "YSWeb.store.Country": [],
+  "YSWeb.store.LocationTree": [],
   "YSWeb.store.Product": [],
+  "YSWeb.store.States": [],
   "YSWeb.view.main.Main": [],
   "YSWeb.view.main.MainController": [],
   "YSWeb.view.main.MainModel": [],
@@ -2377,6 +2385,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "YSWeb.view.main.header.AdsHeaderController": [],
   "YSWeb.view.main.header.AdsHeaderModel": [],
   "YSWeb.view.main.header.CenterHeader": [],
+  "YSWeb.view.main.header.CenterHeaderController": [],
   "YSWeb.view.main.header.CenterHeaderModel": [],
   "YSWeb.view.main.header.Header": [],
   "YSWeb.view.main.header.HeaderModel": [],
@@ -3738,6 +3747,7 @@ Ext.ClassManager.addNameAliasMappings({
   "YSCommon.helper.User": [],
   "YSCommon.model.Category": [],
   "YSCommon.model.CategoryTree": [],
+  "YSCommon.model.Country": [],
   "YSCommon.model.Product": [],
   "YSCommon.store.Category": [
     "store.app-categoryStore"
@@ -3745,15 +3755,18 @@ Ext.ClassManager.addNameAliasMappings({
   "YSCommon.store.CategoryTree": [
     "store.app-categoryTreeStore"
   ],
+  "YSCommon.store.City": [],
+  "YSCommon.store.Country": [],
   "YSCommon.store.Product": [
     "store.app-productStore"
   ],
-  "YSCommon.store.States": [
-    "store.states"
-  ],
+  "YSCommon.store.States": [],
   "YSCommon.util.Debug": [],
   "YSCommon.ux.TreePicker": [
     "widget.app-treepicker"
+  ],
+  "YSCommon.ux.UpperCaseTextfield": [
+    "widget.uppercasetextfield"
   ],
   "YSCommon.validation.Validation": [],
   "YSCommon.view.main.login.Signin": [
@@ -3771,7 +3784,13 @@ Ext.ClassManager.addNameAliasMappings({
   "YSWeb.controller.Product": [],
   "YSWeb.controller.Root": [],
   "YSWeb.controller.Search": [],
+  "YSWeb.store.City": [],
+  "YSWeb.store.Country": [],
+  "YSWeb.store.LocationTree": [
+    "store.app-locationTreeStore"
+  ],
   "YSWeb.store.Product": [],
+  "YSWeb.store.States": [],
   "YSWeb.view.main.Main": [
     "widget.app-main"
   ],
@@ -3855,6 +3874,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "YSWeb.view.main.header.CenterHeader": [
     "widget.app-centerheader"
+  ],
+  "YSWeb.view.main.header.CenterHeaderController": [
+    "controller.centerheader"
   ],
   "YSWeb.view.main.header.CenterHeaderModel": [
     "viewmodel.centerheader"

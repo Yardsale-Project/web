@@ -35,6 +35,7 @@ Ext.define('YSWeb.Application', {
     stores: [
         // TODO: add stores here
         'Product',
+        'LocationTree',
         'YSCommon.store.Category',
         'YSCommon.store.States',
         'YSCommon.store.CategoryTree'
