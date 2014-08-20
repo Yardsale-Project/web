@@ -136,6 +136,61 @@ Ext.define('YSWeb.view.main.profile.PersonalController', {
                 }
             });
         }
+    },
+
+    onCountrySelect : function(cbo, records) {
+        var store = this.lookupReference('state').getStore();
+
+        var newValue = records[0].data.id;
+
+        console.log('records[0].data', records[0].data);
+
+        store.on('beforeload', function(str, op) {
+            var filter = {
+                "op": "AND",
+                "set": [
+                    {
+                        "field": "country_id",
+                        "bitOp": "EQ",
+                        "value": newValue
+                    }
+                ]
+            }
+
+            op.setParams( {
+                filter: Ext.encode( filter )
+            } );
+        });
+
+        store.load();
+
+        this.lookupReference('state').enable();
+    },
+
+    onStateSelect : function(cbo, records) {
+        var store = this.lookupReference('city').getStore();
+        var newValue = records[0].data.id;
+
+        store.on('beforeload', function(str, op) {
+            var filter = {
+                "op": "AND",
+                "set": [
+                    {
+                        "field": "state_id",
+                        "bitOp": "EQ",
+                        "value": newValue
+                    }
+                ]
+            }
+
+            op.setParams( {
+                filter: Ext.encode( filter )
+            } );
+        });
+
+        store.load();
+
+        this.lookupReference('city').enable();
     }
 
 });

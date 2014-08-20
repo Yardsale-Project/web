@@ -189,8 +189,38 @@ class Users extends Table
             'user_id' => $userId
         );
 
+        $userFields = array(
+            'user_id',
+            'firstname',
+            'middlename',
+            'lastname',
+            'telephone',
+            'mobile',
+            'address1',
+            'address2'
+        );
+
+        $countryFields = array(
+            'country_id'    => new Expression('IFNULL(country.id, 0)'),
+            'country'       => new Expression('IFNULL(country.name, \'\')')
+        );
+
+        $stateFields = array(
+            'state_id'  => new Expression('IFNULL(states.id, 0)'),
+            'state'     => new Expression('IFNULL(states.name, \'\')')
+        );
+
+        $cityFields = array(
+            'city_id'  => new Expression('IFNULL(city.id, 0)'),
+            'city'     => new Expression('IFNULL(city.name, \'\')')
+        );
+
         $select = $this->select()
                         ->from('user')
+                        ->columns($userFields)
+                        ->join('country', 'country.id = user.country', $countryFields, 'left')
+                        ->join('states', 'states.id = user.state', $stateFields, 'left')
+                        ->join('city', 'city.id = user.city', $cityFields, 'left')
                         ->where($where);
 
         return $this->fetchRowToArray($select);

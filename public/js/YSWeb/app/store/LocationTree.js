@@ -22,7 +22,7 @@ Ext.define('YSWeb.store.LocationTree', {
                     {
                         "field": "country_id",
                         "bitOp": "EQ",
-                        "value": 171
+                        "value": 170
                     }
                 ]
             } )

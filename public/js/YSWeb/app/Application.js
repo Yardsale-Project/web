@@ -19,7 +19,9 @@ Ext.define('YSWeb.Application', {
     views: [
         // TODO: add views here
         /*'main.header.Header'*/
-        'main.product.thumbnail.GridView'
+        'main.product.thumbnail.GridView',
+        'main.profile.Personal',
+        'main.setting.ClientPaypalSetting'
     ],
 
     defaultToken : 'home',
@@ -36,6 +38,9 @@ Ext.define('YSWeb.Application', {
         // TODO: add stores here
         'Product',
         'LocationTree',
+        'Country',
+        'States',
+        'City',
         'YSCommon.store.Category',
         'YSCommon.store.States',
         'YSCommon.store.CategoryTree'

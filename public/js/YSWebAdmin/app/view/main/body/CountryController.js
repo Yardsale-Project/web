@@ -45,7 +45,7 @@ Ext.define('YSWebAdmin.view.main.body.CountryController', {
                 {
                     YSDebug.log('id', rsp.id);
 
-                    var model = Ext.create('YSWebAdmin.model.Country', {
+                    var model = Ext.create('YSCommon.model.Country', {
                     	id 	: rsp.id + 1,
 			            code: '',
 			            name: ''

@@ -14,7 +14,9 @@ Ext.define('YSWeb.view.main.profile.PersonalModel', {
         mobile      : 'Mobile',
         address1    : 'Address 1',
         address2    : 'Address 2',
-        country     : 'Country'
+        country     : 'Country',
+        states      : 'States/Province',
+        city        : 'City'
     }
 
     //TODO - add data, formulas and/or methods to support your view

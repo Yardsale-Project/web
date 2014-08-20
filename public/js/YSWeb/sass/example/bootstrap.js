@@ -2329,8 +2329,10 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "YSCommon.model.Category": [],
   "YSCommon.model.CategoryTree": [],
+  "YSCommon.model.City": [],
   "YSCommon.model.Country": [],
   "YSCommon.model.Product": [],
+  "YSCommon.model.State": [],
   "YSCommon.store.Category": [],
   "YSCommon.store.CategoryTree": [],
   "YSCommon.store.City": [],
@@ -3747,8 +3749,10 @@ Ext.ClassManager.addNameAliasMappings({
   "YSCommon.helper.User": [],
   "YSCommon.model.Category": [],
   "YSCommon.model.CategoryTree": [],
+  "YSCommon.model.City": [],
   "YSCommon.model.Country": [],
   "YSCommon.model.Product": [],
+  "YSCommon.model.State": [],
   "YSCommon.store.Category": [
     "store.app-categoryStore"
   ],

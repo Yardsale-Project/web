@@ -1,5 +1,5 @@
 'use strict';
 
-Ext.define('YSCommon.store.States', {
+Ext.define('YSWebAdmin.store.States', {
 	extend 	: 'YSCommon.store.States'
 });

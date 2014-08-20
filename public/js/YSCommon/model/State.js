@@ -1,4 +1,4 @@
-Ext.define('YSCommon.model.Country', {
+Ext.define('YSCommon.model.State', {
     extend: 'Ext.data.Model',
     fields: [
         {name: 'id', 	type: 'int'},

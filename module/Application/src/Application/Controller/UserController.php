@@ -506,7 +506,9 @@ class UserController extends Controller {
                 $mobile     = (!empty($postData['mobile']))? $postData['mobile'] : '';
                 $address1   = (!empty($postData['address1']))? $postData['address1'] : '';
                 $address2   = (!empty($postData['address2']))? $postData['address2'] : '';
-                $country    = 1;
+                $country    = (!empty($postData['country']))? $postData['country'] : 0;
+                $state    = (!empty($postData['state']))? $postData['state'] : 0;
+                $city    = (!empty($postData['city']))? $postData['city'] : 0;
 
                 if(empty($firstname)) {
                     $errors[] = 'First name field cannot be empty.';
@@ -528,6 +530,14 @@ class UserController extends Controller {
                     $errors[] = 'Country field cannot be empty.';
                 }
 
+                if(empty($state)) {
+                    $errors[] = 'State field cannot be empty.';
+                }
+
+                if(empty($city)) {
+                    $errors[] = 'City field cannot be empty.';
+                }
+
                 if(!empty($errors)) {
                     $retVal['success'] = false;
                     $retVal['errorMessage'] = implode('<br>', $errors);
@@ -543,13 +553,32 @@ class UserController extends Controller {
                         'mobile'     => $mobile,
                         'address1'   => $address1,
                         'address2'   => $address2,
-                        'country'    => $country
+                        'country'    => $country,
+                        'state'      => $state,
+                        'city'       => $city
                     );
 
                     if(empty($user_id)) {
                         $data['user_id'] = $this->getUserId();
+                        $data['country'] = $country;
+                        $data['state'] = $state;
+                        $data['city'] = $city;
+
                         $userModel->addUserInfo($data);
                     } else {
+
+                        if(!empty($country)) {
+                            $data['country'] = $country;
+                        }
+
+                        if(!empty($state)) {
+                            $data['state'] = $state;
+                        }
+
+                        if(!empty($city)) {
+                            $data['city'] = $city;
+                        }
+                        
                         $userModel->updateUserInfo($data, $user_id);
                     }
 

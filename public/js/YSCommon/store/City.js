@@ -5,12 +5,12 @@ Ext.define('YSCommon.store.City', {
 
 	storeId	: 'city',
 
-	model  : 'YSCommon.model.Country',
+	model  : 'YSCommon.model.City',
 
     remoteSort      : false,
     remoteFilter    : true,
 
-    autoLoad    : false,
+    autoLoad    : true,
 
     proxy     : {
         type         : 'ajax',

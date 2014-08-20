@@ -5,12 +5,12 @@ Ext.define('YSCommon.store.States', {
 
     storeId : 'states',
 
-    model  : 'YSCommon.model.Country',
+    model  : 'YSCommon.model.State',
 
     remoteSort      : false,
     remoteFilter    : true,
 
-    autoLoad    : false,
+    autoLoad    : true,
 
     proxy     : {
         type         : 'ajax',

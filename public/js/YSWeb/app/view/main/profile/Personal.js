@@ -71,19 +71,51 @@ Ext.define('YSWeb.view.main.profile.Personal', {
 			allowBlank 	: true
 		}, {
             xtype   	: 'combobox',
-            store 		: {
-                type	: 'states'
-            },
+            store 		: 'Country',
             bind 		: {
 				fieldLabel 	: '{country}'
 			},
 			name 		: 'country',
-            reference   : 'states',
-            displayField: 'state',
-            valueField  : 'abbr',
-            filterPickList: true,
+            reference   : 'country',
+            displayField: 'name',
+            valueField  : 'id',
             queryMode   : 'local',
-            multiSelect : false
+            multiSelect : false,
+            allowBlank 	: false,
+            listeners 	: {
+            	select 	: 'onCountrySelect'
+            }
+        }, {
+            xtype   	: 'combobox',
+            store 		: 'States',
+            bind 		: {
+				fieldLabel 	: '{states}'
+			},
+			name 		: 'state',
+            reference   : 'state',
+            displayField: 'name',
+            valueField  : 'id',
+            queryMode   : 'local',
+            multiSelect : false,
+            disabled 	: true,
+            allowBlank 	: false,
+            listeners 	: {
+            	select 	: 'onStateSelect'
+            }
+        }, {
+            xtype   	: 'combobox',
+            store 		: 'City',
+            bind 		: {
+				fieldLabel 	: '{city}'
+			},
+			name 		: 'city',
+            reference   : 'city',
+            displayField: 'name',
+            valueField  : 'id',
+            queryMode   : 'local',
+            multiSelect : false,
+            allowBlank 	: false,
+            disabled 	: true
         }
 	]
 });
