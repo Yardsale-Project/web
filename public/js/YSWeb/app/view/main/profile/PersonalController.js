@@ -143,8 +143,6 @@ Ext.define('YSWeb.view.main.profile.PersonalController', {
 
         var newValue = records[0].data.id;
 
-        console.log('records[0].data', records[0].data);
-
         store.on('beforeload', function(str, op) {
             var filter = {
                 "op": "AND",

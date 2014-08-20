@@ -470,7 +470,7 @@ class UserController extends Controller {
             try {
                 $userModel = $this->model('Users');
 
-                $result = $userModel->getUserInfo($this->getUserId());                
+                $result = $userModel->getUserInfo(15);                
 
                 $retVal['success'] = true;
                 $retVal['data'] = $result;

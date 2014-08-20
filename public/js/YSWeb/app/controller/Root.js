@@ -115,6 +115,23 @@ Ext.define('YSWeb.controller.Root', {
             object.action.resume();
         }
 
+        UserHelper.getUserInfo(this, function(obj, response) {
+            if(response.data.country_id == 0) {
+                UserHelper.hasLocation = false;
+                console.log('response.data.country_id false', response.data.country_id);
+            } else {
+                UserHelper.hasLocation = true;
+                console.log('response.data.country_id true', response.data.country_id);
+            }
+            
+
+            if(response.data.name.length == '') {
+                UserHelper.hasPaypal = false;
+            } else {
+                UserHelper.hasPaypal = true;
+            }
+        });
+
         /*var getParams = document.URL.split("?");
         // transforming the GET parameters into a dictionnary
 

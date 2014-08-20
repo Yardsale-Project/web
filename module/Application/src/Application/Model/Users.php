@@ -186,7 +186,7 @@ class Users extends Table
 
     public function getUserInfo($userId) {
         $where = array(
-            'user_id' => $userId
+            'user.user_id' => $userId
         );
 
         $userFields = array(
@@ -215,12 +215,18 @@ class Users extends Table
             'city'     => new Expression('IFNULL(city.name, \'\')')
         );
 
+        $userSettingFields = array(
+            'name'      => new Expression('IFNULL(user_setting.name, \'\')'),
+            'value'     => new Expression('IFNULL(user_setting.value, \'\')')
+        );
+
         $select = $this->select()
                         ->from('user')
                         ->columns($userFields)
                         ->join('country', 'country.id = user.country', $countryFields, 'left')
                         ->join('states', 'states.id = user.state', $stateFields, 'left')
                         ->join('city', 'city.id = user.city', $cityFields, 'left')
+                        ->join('user_setting', 'user_setting.user_id = user.user_id', $userSettingFields, 'left')
                         ->where($where);
 
         return $this->fetchRowToArray($select);

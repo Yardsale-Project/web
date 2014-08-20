@@ -3,6 +3,8 @@
 Ext.define('YSCommon.helper.User', {
 	singleton 			: true,
 	alternateClassName  : ['UserHelper'],
+    hasLocation         : false,
+    hasPaypal           : false,
 
 	getUserLoginStatus : function( object, loggedInCallback, loggedOutCallback ) {
 
@@ -40,5 +42,32 @@ Ext.define('YSCommon.helper.User', {
                 }
             }
         });
-	}
+	},
+
+    getUserInfo : function( object, callback ) {
+
+        var loggedOutCallback = loggedOutCallback || '';
+        Ext.Ajax.request({
+            url     : YSConfig.url + '/application/user/getUserInfo',
+            method  : 'POST',
+            success : function(response) {
+
+                var rsp = Ext.JSON.decode(response.responseText);
+
+                if(rsp.success)
+                {
+                    callback(object, rsp);
+                } else {
+                    YSDebug.log('failed', rsp.success);
+
+                    Ext.Msg.show({
+                        title       : 'User Account Info',
+                        msg         : rsp.errorMessage,
+                        buttons     : Ext.MessageBox.OK,
+                        icon        : Ext.MessageBox.ERROR
+                    });
+                }
+            }
+        });
+    }
 });
