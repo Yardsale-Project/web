@@ -13,7 +13,8 @@ Ext.define('YSWeb.Application', {
         'YSCommon.util.Debug',
         'YSCommon.helper.User',
         'YSCommon.helper.Paypal',
-        'YSCommon.helper.Setting'
+        'YSCommon.helper.Setting',
+        'YSCommon.validation.Validation'
     ],
 
     views: [

@@ -99,18 +99,40 @@ Ext.define('YSWeb.view.main.header.NavigationController', {
 
                         close : function() {
                             this.up('window').destroy();
+
+                            Ext.create('Ext.window.Window', {
+                                modal       : true,
+                                layout      : 'fit',
+                                resizable   : false,
+                                closeAction : 'destroy',
+                                title       : 'Add New Product',
+                                maxHeight   : Ext.getBody().getViewSize().height - 30,
+                                autoScroll  : true,
+
+                                items       : [
+                                    {
+                                        xtype   : 'app-product'
+                                    }
+                                ]
+                            }).show();
                         },
 
                         doCardNavigation: function (incr) {
                             var me = this;
-                            var l = me.getLayout();
-                            var i = l.activeItem.id.split('card-')[1];
-                            var next = parseInt(i, 10) + incr;
-                            l.setActiveItem(next);
 
-                            me.down('#card-prev').setDisabled(next===0);
-                            me.down('#card-next').setDisabled(next===cardNum);
-                            me.down('#card-close').setHidden(next!==cardNum);
+                            var l = me.getLayout();
+                            var form = l.getActiveItem().getForm();
+
+                            if(form.isValid()) {
+                                var i = l.activeItem.id.split('card-')[1];
+                                var next = parseInt(i, 10) + incr;
+                                l.setActiveItem(next);
+
+                                me.down('#card-prev').setDisabled(next===0);
+                                me.down('#card-next').setDisabled(next===cardNum);
+                                me.down('#card-close').setHidden(next!==cardNum);
+                            }
+                           
                         }
                             
                     }
@@ -123,6 +145,8 @@ Ext.define('YSWeb.view.main.header.NavigationController', {
                 resizable   : false,
                 closeAction : 'destroy',
                 title       : 'Add New Product',
+                maxHeight   : Ext.getBody().getViewSize().height - 30,
+                autoScroll  : true,
 
                 items       : [
                     {

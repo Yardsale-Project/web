@@ -19,6 +19,7 @@ class LocationController extends Controller {
             $postData = $request->getPost();
 
             $filter     = (!empty($postData['filter'])) ? json_decode(stripslashes($postData['filter']), true) : array();
+            $searchFilter     = (!empty($postData['searchFilter'])) ? json_decode(stripslashes($postData['searchFilter']), true) : array();
             $where = $this->buildWhereClause($filter);
 
             $model = $this->model('Location');
@@ -37,7 +38,10 @@ class LocationController extends Controller {
                     'id'    => $id
                 );
 
-                $children = $model->getCities(array('state_id' => $id));
+                $where = $this->buildWhereClause($searchFilter);
+                $where = $where->and->equalTo('state_id', $id);
+
+                $children = $model->getCities( $where );
 
                 if(!empty($children)) {
                     $child['children'] = array();

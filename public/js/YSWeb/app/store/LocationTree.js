@@ -25,7 +25,8 @@ Ext.define('YSWeb.store.LocationTree', {
                         "value": 170
                     }
                 ]
-            } )
+            } ),
+            searchFilter : ''
         },
 
         actionMethods: {

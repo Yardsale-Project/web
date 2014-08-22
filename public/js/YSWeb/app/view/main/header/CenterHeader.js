@@ -63,7 +63,10 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             emptyText: '--All Locations--',
                             margin  : '0 0 0 10',
                             border  : true,
-                            maxPickerHeight : 200
+                            maxPickerHeight : 200,
+                            listeners : {
+                                change  : 'onValueChange'
+                            }
                         }, {
                             xtype   : 'button',
                             margin  : '0 0 0 10',

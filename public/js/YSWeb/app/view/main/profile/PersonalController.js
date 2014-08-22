@@ -13,7 +13,7 @@ Ext.define('YSWeb.view.main.profile.PersonalController', {
             },
             'app-clientpaypalsetting' : {
                 activate    : 'onPaypalSettingActivate',
-                deactivate  : 'onPaypalSettingDectivate'
+                deactivate  : 'onPaypalSettingDeactivate'
             }
         });
     },
@@ -26,7 +26,7 @@ Ext.define('YSWeb.view.main.profile.PersonalController', {
         });
     },
 
-    onPaypalSettingDectivate : function() {
+    onPaypalSettingDeactivate : function() {
         var form = this.view.getForm();
 
         if(form.isValid()) {
@@ -36,6 +36,7 @@ Ext.define('YSWeb.view.main.profile.PersonalController', {
                     saveOnly : 1
                 }
             });
+            UserHelper.hasPaypal = true;
         }
         YSDebug.log('paypal form deactivate');
     },
@@ -67,6 +68,9 @@ Ext.define('YSWeb.view.main.profile.PersonalController', {
             form.submit({
                 url : YSConfig.url + '/application/user/saveUserInfo'
             });
+            UserHelper.hasLocation = true;
+        } else {
+            alert('invalid form');
         }
         YSDebug.log('form deactivate');
     }, 
@@ -163,6 +167,28 @@ Ext.define('YSWeb.view.main.profile.PersonalController', {
         store.load();
 
         this.lookupReference('state').enable();
+    },
+
+    onValueChange : function(cbo, newValue){
+
+        var store = cbo.getStore();
+
+        cbo.getStore().on('beforeload', function(str, op) {
+            var filter = {
+                "op": "AND",
+                "set": [
+                    {
+                        "field": "name",
+                        "bitOp": "LIKE",
+                        "value": newValue
+                    }
+                ]
+            }
+
+            op.setParams( {
+                filter: Ext.encode( filter )
+            } );
+        });
     },
 
     onStateSelect : function(cbo, records) {

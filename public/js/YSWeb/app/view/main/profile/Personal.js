@@ -79,11 +79,13 @@ Ext.define('YSWeb.view.main.profile.Personal', {
             reference   : 'country',
             displayField: 'name',
             valueField  : 'id',
-            queryMode   : 'local',
+            queryMode   : 'remote',
+            queryDelay 	: 10,
             multiSelect : false,
             allowBlank 	: false,
             listeners 	: {
-            	select 	: 'onCountrySelect'
+            	select 	: 'onCountrySelect',
+            	change 	: 'onValueChange'
             }
         }, {
             xtype   	: 'combobox',
@@ -95,12 +97,14 @@ Ext.define('YSWeb.view.main.profile.Personal', {
             reference   : 'state',
             displayField: 'name',
             valueField  : 'id',
-            queryMode   : 'local',
+            queryMode   : 'remote',
+            queryDelay 	: 10,
             multiSelect : false,
             disabled 	: true,
             allowBlank 	: false,
             listeners 	: {
-            	select 	: 'onStateSelect'
+            	select 	: 'onStateSelect',
+            	change 	: 'onValueChange'
             }
         }, {
             xtype   	: 'combobox',
@@ -112,10 +116,14 @@ Ext.define('YSWeb.view.main.profile.Personal', {
             reference   : 'city',
             displayField: 'name',
             valueField  : 'id',
-            queryMode   : 'local',
+            queryMode   : 'remote',
+            queryDelay 	: 10,
             multiSelect : false,
             allowBlank 	: false,
-            disabled 	: true
+            disabled 	: true,
+            listeners 	: {
+            	change 	: 'onValueChange'
+            }
         }
 	]
 });

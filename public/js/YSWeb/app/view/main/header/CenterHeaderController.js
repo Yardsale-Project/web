@@ -23,7 +23,7 @@ Ext.define('YSWeb.view.main.header.CenterHeaderController', {
                     {
                         "field": "country_id",
                         "bitOp": "EQ",
-                        "value": 171
+                        "value": 170
                     }
                 ]
             }
@@ -34,6 +34,40 @@ Ext.define('YSWeb.view.main.header.CenterHeaderController', {
         });
 
         store.load();
+    },
+
+    onValueChange : function(cbo, newValue) {
+
+        cbo.getStore().on('beforeload', function(str, op) {
+            var filter = {
+                "op": "AND",
+                "set": [
+                    {
+                        "field": "country_id",
+                        "bitOp": "EQ",
+                        "value": 170
+                    }
+                ]
+            };
+
+            var searchFilter = {
+                "op": "AND",
+                "set": [
+                    {
+                        "field": "name",
+                        "bitOp": "LIKE",
+                        "value": newValue
+                    }
+                ]
+            };
+
+            op.setParams( {
+                filter: Ext.encode( filter ),
+                searchFilter: Ext.encode( searchFilter )
+            } );
+        });
+
+        cbo.getStore().load();
     },
 
     onAddNewBtnClick : function() {

@@ -153,13 +153,17 @@ Ext.define('YSCommon.view.main.login.SigninController', {
                                     doCardNavigation: function (incr) {
                                         var me = this;
                                         var l = me.getLayout();
-                                        var i = l.activeItem.id.split('card-')[1];
-                                        var next = parseInt(i, 10) + incr;
-                                        l.setActiveItem(next);
+                                        var form = l.getActiveItem().getForm();
 
-                                        me.down('#card-prev').setDisabled(next===0);
-                                        me.down('#card-next').setDisabled(next===2);
-                                        me.down('#card-close').setHidden(next!==2);
+                                        if(form.isValid()) {
+                                            var i = l.activeItem.id.split('card-')[1];
+                                            var next = parseInt(i, 10) + incr;
+                                            l.setActiveItem(next);
+
+                                            me.down('#card-prev').setDisabled(next===0);
+                                            me.down('#card-next').setDisabled(next===2);
+                                            me.down('#card-close').setHidden(next!==2);
+                                        }
                                     }
                                         
                                 }
