@@ -51,6 +51,7 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             displayField: 'text',
                             rootVisible : false,
                             emptyText: '--All Categories--',
+                            singleExpand : false,
                             margin  : '0 0 0 10',
                             border  : true
                         }, {
@@ -64,6 +65,7 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             margin  : '0 0 0 10',
                             border  : true,
                             maxPickerHeight : 200,
+                            singleExpand : false,
                             listeners : {
                                 change  : 'onValueChange'
                             }

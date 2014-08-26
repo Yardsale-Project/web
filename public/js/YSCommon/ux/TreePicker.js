@@ -94,6 +94,7 @@ Ext.define('YSCommon.ux.TreePicker', {
                 shadow: true,
                 border : true,
                 bodyBorder: true,
+                singleExpand : false,
                 listeners: {
                     scope: me,
                     itemclick: me.onItemClick

@@ -248,4 +248,27 @@ class Location extends Table
 
         return $affected_rows;
     }
+
+    public function getLocation($where) {
+
+        $statesColumns = array(
+            'state_id'  => 'id',
+            'state_name'=> 'name'
+        );
+
+        $cityColumns = array(
+            'city_id'  => 'id',
+            'city_name'=> 'name'
+        );
+
+        $select = $this->select()
+                        ->from( 'country')
+                        ->columns(array())
+                        ->join('states', 'states.country_id = country.id', $statesColumns, 'LEFT')
+                        ->join('city', 'city.state_id = states.id', $cityColumns, 'LEFT')
+                        ->where($where)
+                        ->order(array('country_id', 'state_id', 'city_id'));
+
+        return $this->fetchAllToArray($select);
+    }
 }

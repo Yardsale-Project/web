@@ -1,2 +1,2 @@
 // @tag full-page
-// @require Z:\yardsale\public\js\YSWeb\app.js
+// @require Q:\yardsale\public\js\YSWeb\app.js

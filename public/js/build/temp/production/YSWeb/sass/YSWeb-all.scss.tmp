@@ -1,4 +1,4 @@
-$image-search-path: 'Z:/yardsale/public/js/build/production/YSWeb/resources';
+$image-search-path: 'Q:/yardsale/public/js/build/production/YSWeb/resources';
 $theme-name:  'ext-theme-crisp' !default;
 $include-ext-abstractmanager: false;
 $include-ext-action: false;

@@ -13,53 +13,58 @@ class LocationController extends Controller {
     public function  indexAction() {
         $retVal     = array();
         $request    = $this->getRequest();
+        $stateChildKey = 0;
+        $prevStateId = 0;
 
 
         if( $request->isPost() ) {
             $postData = $request->getPost();
 
             $filter     = (!empty($postData['filter'])) ? json_decode(stripslashes($postData['filter']), true) : array();
-            $searchFilter     = (!empty($postData['searchFilter'])) ? json_decode(stripslashes($postData['searchFilter']), true) : array();
             $where = $this->buildWhereClause($filter);
 
             $model = $this->model('Location');
-            $result = $model->getStates($where);
+            $result = $model->getLocation($where);
 
             $retVal = array(
                 'text'   => '.',
                 'children'   => array()
             );
 
-            foreach ($result as $states) {
-                $id = $states['id'];
+            
+            foreach ($result as $key => $states) {
+                $id = $states['state_id'];
 
                 $child = array(
-                    'text'  => $states['name'],
+                    'text'  => $states['state_name'],
                     'id'    => $id
                 );
 
-                $where = $this->buildWhereClause($searchFilter);
-                $where = $where->and->equalTo('state_id', $id);
+                if( !empty($states['city_id'])) {
+                    
+                    $cityChild = array(
+                        'text'  => $states['city_name'],
+                        'id'    => $id,
+                        'leaf'  => 'true'
+                    );
 
-                $children = $model->getCities( $where );
+                    if( $id != $prevStateId) {
+                        $child['leaf'] = 'false';
+                        $child['children'] = array($cityChild);
+                        $stateChildKey = $key;
 
-                if(!empty($children)) {
-                    $child['children'] = array();
-
-                    foreach ($children as $cities) {
-                        $cityChild = array(
-                            'text'  => $cities['name'],
-                            'id'    => $cities['id'],
-                            'leaf'  => true 
-                        );
-
-                        $child['children'][] = $cityChild;
+                        $retVal['children'][] = $child;
+                    } else {
+                        $retVal['children'][$stateChildKey]['children'][] = $cityChild;
                     }
+
+                    
                 } else {
-                    $child['leaf'] = true;
+                    $child['leaf'] = 'true';
+                    $retVal['children'][] = $child;
                 }
 
-                $retVal['children'][] = $child;
+                $prevStateId = $id;
             }
         }
 
