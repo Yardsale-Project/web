@@ -27,8 +27,9 @@ class LocationController extends Controller {
             $result = $model->getLocation($where);
 
             $retVal = array(
-                'text'   => '.',
-                'children'   => array()
+                'text'          => '.',
+                'children'      => array(),
+                'totalRecords'  => count($result)
             );
 
             
@@ -44,12 +45,11 @@ class LocationController extends Controller {
                     
                     $cityChild = array(
                         'text'  => $states['city_name'],
-                        'id'    => $id,
-                        'leaf'  => 'true'
+                        'id'    => $states['city_id'],
+                        'leaf'  => true
                     );
 
                     if( $id != $prevStateId) {
-                        $child['leaf'] = 'false';
                         $child['children'] = array($cityChild);
                         $stateChildKey = $key;
 
@@ -60,7 +60,7 @@ class LocationController extends Controller {
 
                     
                 } else {
-                    $child['leaf'] = 'true';
+                    $child['leaf'] = true;
                     $retVal['children'][] = $child;
                 }
 
@@ -70,6 +70,62 @@ class LocationController extends Controller {
 
         return new JsonModel($retVal);
     }
+
+   /* public function  indexAction() {
+        $retVal     = array();
+        $request    = $this->getRequest();
+
+
+        if( $request->isPost() ) {
+            $postData = $request->getPost();
+
+            $filter     = (!empty($postData['filter'])) ? json_decode(stripslashes($postData['filter']), true) : array();
+            $searchFilter     = (!empty($postData['searchFilter'])) ? json_decode(stripslashes($postData['searchFilter']), true) : array();
+            $where = $this->buildWhereClause($filter);
+
+            $model = $this->model('Location');
+            $result = $model->getStates($where);
+
+            $retVal = array(
+                'text'   => '.',
+                'children'   => array()
+            );
+
+            foreach ($result as $states) {
+                $id = $states['id'];
+
+                $child = array(
+                    'text'  => $states['name'],
+                    'id'    => $id
+                );
+
+                $where = $this->buildWhereClause($searchFilter);
+                $where = $where->and->equalTo('state_id', $id);
+
+                $children = $model->getCities( $where );
+
+                if(!empty($children)) {
+                    $child['children'] = array();
+
+                    foreach ($children as $cities) {
+                        $cityChild = array(
+                            'text'  => $cities['name'],
+                            'id'    => $cities['id'],
+                            'leaf'  => true 
+                        );
+
+                        $child['children'][] = $cityChild;
+                    }
+                } else {
+                    $child['leaf'] = true;
+                }
+
+                $retVal['children'][] = $child;
+            }
+        }
+
+        return new JsonModel($retVal);
+    }*/
 
     public function getCountryAction() {
         $retVal = array();

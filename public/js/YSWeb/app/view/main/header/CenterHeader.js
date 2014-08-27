@@ -53,11 +53,15 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             emptyText: '--All Categories--',
                             singleExpand : false,
                             margin  : '0 0 0 10',
-                            border  : true
+                            border  : true,
+                            enableKeyEvents : true,
+                            listeners : {
+                                keyup     : 'onKeyUpCategory'
+                            }
                         }, {
                             xtype   : 'app-treepicker',
                             cls     : 'app-treepicker',
-                            text    : 'category',
+                            text    : 'location',
                             store   : Ext.create('YSWeb.store.LocationTree'),
                             displayField: 'text',
                             rootVisible : false,
@@ -66,8 +70,9 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             border  : true,
                             maxPickerHeight : 200,
                             singleExpand : false,
+                            enableKeyEvents : true,
                             listeners : {
-                                change  : 'onValueChange'
+                                keyup     : 'onKeyUpLocation'
                             }
                         }, {
                             xtype   : 'button',

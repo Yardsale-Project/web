@@ -234,7 +234,7 @@ Ext.define('YSCommon.ux.TreePicker', {
     setValue: function(value) {
         var me = this,
             record;
-        console.log('catgory', value);
+        
         me.value = value;
 
         if (me.store.loading) {
@@ -283,7 +283,7 @@ Ext.define('YSCommon.ux.TreePicker', {
         var value = this.value;
 
         if (value) {
-            this.setValue(value);
+            //this.setValue(value);
         }
     },
     
@@ -291,7 +291,7 @@ Ext.define('YSCommon.ux.TreePicker', {
         var display = this.displayField;
         
         if (type === 'edit' && modifiedFieldNames && Ext.Array.contains(modifiedFieldNames, display) && this.value === rec.getId()) {
-            this.setRawValue(rec.get(display));
+            //this.setRawValue(rec.get(display));
         }
     }
 

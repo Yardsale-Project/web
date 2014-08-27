@@ -36,8 +36,47 @@ Ext.define('YSWeb.view.main.header.CenterHeaderController', {
         store.load();
     },
 
-    onValueChange : function(cbo, newValue) {
+    onKeyUpCategory : function(cbo) {
 
+        console.log('key up category');
+        var newValue = cbo.getRawValue();
+
+        cbo.setRawValue(newValue);
+        cbo.getStore().on('beforeload', function(str, op) {
+            var filter = {
+                "op": "AND",
+                "set": [
+                    {
+                        "table": "parent",
+                        "field": "category_id",
+                        "bitOp": "EQ",
+                        "value": 0
+                    }
+                ]
+            };
+
+            if(!Ext.isEmpty(newValue)) {
+                filter.set.push({
+                    "table": "category",
+                    "field": "name",
+                    "bitOp": "LIKE",
+                    "value": newValue
+                });
+            }
+
+            op.setParams( {
+                filter: Ext.encode( filter )
+            } );
+        });
+
+        cbo.getStore().load();
+    },
+
+    onKeyUpLocation : function(cbo) {
+
+        var newValue = cbo.getRawValue();
+
+        cbo.setRawValue(newValue);
         cbo.getStore().on('beforeload', function(str, op) {
             var filter = {
                 "op": "AND",
@@ -46,24 +85,28 @@ Ext.define('YSWeb.view.main.header.CenterHeaderController', {
                         "field": "country_id",
                         "bitOp": "EQ",
                         "value": 170
-                    }, {
-                        "op": "OR",
-                        "set": [
-                            {
-                                "table": "states",
-                                "field": "name",
-                                "bitOp": "LIKE",
-                                "value": newValue
-                            }, {
-                                "table": "city",
-                                "field": "name",
-                                "bitOp": "LIKE",
-                                "value": newValue
-                            }
-                        ]
                     }
                 ]
             };
+
+            if(!Ext.isEmpty(newValue)) {
+                filter.set.push({
+                    "op": "OR",
+                    "set": [
+                        {
+                            "table": "states",
+                            "field": "name",
+                            "bitOp": "LIKE",
+                            "value": newValue
+                        }, {
+                            "table": "city",
+                            "field": "name",
+                            "bitOp": "LIKE",
+                            "value": newValue
+                        }
+                    ]
+                });
+            }
 
             op.setParams( {
                 filter: Ext.encode( filter )

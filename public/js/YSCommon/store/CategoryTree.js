@@ -15,7 +15,20 @@ Ext.define('YSCommon.store.CategoryTree', {
         type    : 'ajax',
         url     : YSConfig.url + '/application/category',
 
-        extraParams : { isTree : true },
+        extraParams : { 
+            isTree : true ,
+            filter : Ext.encode( {
+                "op": "AND",
+                "set": [
+                    {
+                        "table": "parent",
+                        "field": "category_id",
+                        "bitOp": "EQ",
+                        "value": 0
+                    }
+                ]
+            } ),
+        },
 
         actionMethods: {
             create : 'POST',

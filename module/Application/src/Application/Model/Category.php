@@ -9,14 +9,7 @@ class Category extends Table
 
 	private $_name = 'category_tree';
 
-	public function getCategories($whereClause = array()) {
-
-        if(empty($whereClause)) {
-            $whereClause = array(
-                'parent.category_id'    => 0
-            );
-        }
-		
+	public function getCategories($whereClause) {
 
         $category_fields = array(
         	'id',
@@ -39,6 +32,18 @@ class Category extends Table
 
         return $this->fetchAllToArray($select);
 	}
+
+    public function getRootCategory($catId) {
+        $whereClause = array(
+            'category_id'   => $catId
+        );
+
+        $select = $this->select()
+                        ->from($this->_name)
+                        ->where($whereClause);
+
+        return $this->fetchRowToArray($select);
+    }
 
 	public function verifyToken($referer, $token) {
 		$whereClause = array(

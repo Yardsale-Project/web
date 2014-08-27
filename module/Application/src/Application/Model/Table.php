@@ -48,12 +48,16 @@ class Table
         if($select instanceof Select)
         {
             $statement = $this->_sql->prepareStatementForSqlObject($select);
+
+            //var_dump($select->getSqlString($this->_dbAdapter->getPlatform()));
         }
         else if($select instanceof \Zend\Db\Adapter\Driver\Pdo\Statement)
         {
             $statement = $select;
         }
         
+        
+
         foreach ($statement->execute() as $row) {
             $results[] = $row;
         }

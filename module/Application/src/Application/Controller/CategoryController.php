@@ -26,9 +26,11 @@ class CategoryController extends Controller
             $postData = $request->getPost();
 
             $isTree = ( !empty($postData['isTree']) )? $postData['isTree'] : false;
+            $filter     = (!empty($postData['filter'])) ? json_decode(stripslashes($postData['filter']), true) : array();
+            $where = $this->buildWhereClause($filter);
 
             $model = $this->model('Category');
-            $result = $model->getCategories();
+            $result = $model->getCategories($where);
 
             if( $isTree === 'true' ) {
 
@@ -51,8 +53,23 @@ class CategoryController extends Controller
         return new JsonModel($retVal);
     }
 
-    private function _createTree(&$list) {
-        $shiftedVal = array_shift($list);
+    private function _createTree(&$list, $count = 0) {
+
+        $shiftedVal = array();
+
+        if($count == 0) {
+            if(!empty($list[0]['id'])) {
+                $model = $this->model('Category');
+                $result = $model->getRootCategory(0);
+
+                $shiftedVal = $result;
+            } else {
+                $shiftedVal = array_shift($list);
+            }
+
+        } else {
+            $shiftedVal = array_shift($list);
+        }
 
         $retVal = array();
         $nodeVal = array();
@@ -77,7 +94,7 @@ class CategoryController extends Controller
 
                     //$list = array_slice($list, $key);
                     $nodeVal['leaf'] = 'false';
-                    $nodeVal['children'] = $this->_createTree( $list );
+                    $nodeVal['children'] = $this->_createTree( $list , ++$count);
 
                     prev($list);
                 }
