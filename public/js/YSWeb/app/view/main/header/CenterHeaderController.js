@@ -36,6 +36,11 @@ Ext.define('YSWeb.view.main.header.CenterHeaderController', {
         store.load();
     },
 
+    onFocus   : function(cbo) {
+        console.log('focus', cbo);
+        cbo.expand();
+    },
+
     onKeyUpCategory : function(cbo) {
 
         console.log('key up category');

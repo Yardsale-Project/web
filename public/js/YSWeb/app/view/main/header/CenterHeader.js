@@ -56,7 +56,8 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             border  : true,
                             enableKeyEvents : true,
                             listeners : {
-                                keyup     : 'onKeyUpCategory'
+                                keyup       : 'onKeyUpCategory',
+                                focus       : 'onFocus'
                             }
                         }, {
                             xtype   : 'app-treepicker',
@@ -72,7 +73,8 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             singleExpand : false,
                             enableKeyEvents : true,
                             listeners : {
-                                keyup     : 'onKeyUpLocation'
+                                keyup       : 'onKeyUpLocation',
+                                focus       : 'onFocus'
                             }
                         }, {
                             xtype   : 'button',
