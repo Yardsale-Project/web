@@ -79,6 +79,7 @@ class Product extends Table
     					->join('product_sell', 'product_sell.product_id = product.id', array(), 'LEFT')
     					->join('product_price', 'product_price.product_id = product.id', $product_price_fields)
     					->join('product_user', 'product_user.product_id = product.id', array())
+                        ->join('user', 'user.user_id = product_user.user_id', array())
     					->where($where)
                         ->order(array('currentPrice DESC'));
 

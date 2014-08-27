@@ -36,7 +36,12 @@ class CategoryController extends Controller
 
                 $retVal = array(
                     'text'   => '.',
-                    'children'   => $this->_createTree($result),
+                    'children' => array(
+                        'text'  => 'All Categories',
+                        'expanded' => true,
+                        'id'    => 0,
+                        'children' => $this->_createTree($result)
+                    ),
                     'totalRecords'  => '3'
                 );
             } else {

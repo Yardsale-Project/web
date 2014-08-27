@@ -90,6 +90,8 @@ Ext.define('YSCommon.ux.TreePicker', {
                 rootVisible : false,
                 lines       : false,
                 autoScroll  : true,
+                overflowX   : 'auto',
+                overflowY   : 'auto',
                 cls         : me.cls,
                 shadow: true,
                 border : true,

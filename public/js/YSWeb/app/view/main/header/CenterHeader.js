@@ -42,6 +42,7 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             ref     : 'txt-searchBox',
                             width   : 400,
                             name    : 'searchBox',
+                            reference : 'searchBox',
                             emptyText: 'Seach'
                         }, {
                             xtype   : 'app-treepicker',
@@ -49,12 +50,13 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             text    : 'category',
                             store   : Ext.create('YSCommon.store.CategoryTree'),
                             displayField: 'text',
-                            rootVisible : false,
+                            rootVisible : true,
                             emptyText: '--All Categories--',
                             singleExpand : false,
                             margin  : '0 0 0 10',
                             border  : true,
                             enableKeyEvents : true,
+                            reference : 'categoryBox',
                             listeners : {
                                 keyup       : 'onKeyUpCategory',
                                 focus       : 'onFocus'
@@ -72,6 +74,7 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             maxPickerHeight : 200,
                             singleExpand : false,
                             enableKeyEvents : true,
+                            reference : 'locationBox',
                             listeners : {
                                 keyup       : 'onKeyUpLocation',
                                 focus       : 'onFocus'
@@ -81,7 +84,8 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             margin  : '0 0 0 10',
                             bind    : {
                                 text : '{searchText}'
-                            }
+                            },
+                            handler : 'onSearchButtonClick'
                         }
                     ]
                 }

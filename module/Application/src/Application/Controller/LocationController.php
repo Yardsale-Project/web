@@ -12,6 +12,7 @@ class LocationController extends Controller {
 
     public function  indexAction() {
         $retVal     = array();
+        $retValChildren = array();
         $request    = $this->getRequest();
         $stateChildKey = 0;
         $prevStateId = 0;
@@ -28,7 +29,12 @@ class LocationController extends Controller {
 
             $retVal = array(
                 'text'          => '.',
-                'children'      => array(),
+                'children'      => array(
+                    'text'      => 'Entire Country',
+                    'id'        => 0,
+                    'expanded'  => true,
+                    'children'  => array()
+                ),
                 'totalRecords'  => count($result)
             );
 
@@ -38,14 +44,14 @@ class LocationController extends Controller {
 
                 $child = array(
                     'text'  => $states['state_name'],
-                    'id'    => $id
+                    'id'    => 's_' . $id
                 );
 
                 if( !empty($states['city_id'])) {
                     
                     $cityChild = array(
                         'text'  => $states['city_name'],
-                        'id'    => $states['city_id'],
+                        'id'    => 'c_' . $states['city_id'],
                         'leaf'  => true
                     );
 
@@ -53,15 +59,15 @@ class LocationController extends Controller {
                         $child['children'] = array($cityChild);
                         $stateChildKey = $key;
 
-                        $retVal['children'][] = $child;
+                        $retVal['children']['children'][] = $child;
                     } else {
-                        $retVal['children'][$stateChildKey]['children'][] = $cityChild;
+                        $retVal['children']['children'][$stateChildKey]['children'][] = $cityChild;
                     }
 
                     
                 } else {
                     $child['leaf'] = true;
-                    $retVal['children'][] = $child;
+                    $retVal['children']['children'][] = $child;
                 }
 
                 $prevStateId = $id;

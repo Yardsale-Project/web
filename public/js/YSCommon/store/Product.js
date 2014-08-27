@@ -17,7 +17,17 @@ Ext.define('YSCommon.store.Product', {
         type         : 'ajax',
         url          : YSConfig.url + '/application/product',
         extraParams  : {
-            filter: ''
+            filter: Ext.encode({
+                "op": "AND",
+                "set": [
+                    {
+                        "table": "user",
+                        "field": "country",
+                        "bitOp": "EQ",
+                        "value": 170
+                    }
+                ]
+            })
         },
         actionMethods: {
             create : 'POST',

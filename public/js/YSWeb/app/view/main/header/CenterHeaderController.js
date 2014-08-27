@@ -135,5 +135,43 @@ Ext.define('YSWeb.view.main.header.CenterHeaderController', {
     			}
     		]
     	}).show();
+    },
+
+    onSearchButtonClick : function() {
+        var searchBox   = this.lookupReference('searchBox').getValue();
+        var categoryBox = this.lookupReference('categoryBox').getValue();
+        var locationBox = this.lookupReference('locationBox').getValue();
+        var filterSet   = [];
+        var filterItem  = {};
+
+        YSDebug.log('searchBox', searchBox);
+        YSDebug.log('categoryBox', categoryBox);
+        YSDebug.log('locationBox', locationBox);
+
+        filterSet.push({
+            "table": "user",
+            "field": "country",
+            "bitOp": "EQ",
+            "value": 170
+        });
+
+        if(searchBox.length > 0) {
+            filterItem = {
+                "op": "OR",
+                "set": [
+                    {
+                        "table": "product",
+                        "field": "name",
+                        "bitOp": "LIKE",
+                        "value": newValue
+                    }, {
+                        "table": "city",
+                        "field": "name",
+                        "bitOp": "LIKE",
+                        "value": newValue
+                    }
+                ]
+            };
+        }
     }
 });
