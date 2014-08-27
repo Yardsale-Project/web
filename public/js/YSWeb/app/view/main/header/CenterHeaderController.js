@@ -37,13 +37,11 @@ Ext.define('YSWeb.view.main.header.CenterHeaderController', {
     },
 
     onFocus   : function(cbo) {
-        console.log('focus', cbo);
         cbo.expand();
     },
 
     onKeyUpCategory : function(cbo) {
 
-        console.log('key up category');
         var newValue = cbo.getRawValue();
 
         cbo.setRawValue(newValue);
@@ -138,14 +136,46 @@ Ext.define('YSWeb.view.main.header.CenterHeaderController', {
     },
 
     onSearchButtonClick : function() {
+        var categoryPanel   = Ext.ComponentQuery.query('#categoryPanel')[0];
+        var breadcrumb   = Ext.ComponentQuery.query('#breadcrumb')[0];
+        var sm = categoryPanel.getSelectionModel();
         var searchBox   = this.lookupReference('searchBox').getValue();
         var categoryBox = this.lookupReference('categoryBox').getValue();
+        var categoryRawBox = this.lookupReference('categoryBox').getRawValue();
         var locationBox = this.lookupReference('locationBox').getValue();
         var filterSet   = [];
         var filterItem  = {};
+        var store       = Ext.getStore('app-productStore');
+
+        var breadcrumbItems = [
+            {
+                xtype   : 'tbtext',
+                text    : 'Search'
+            }, {
+                xtype   : 'tbtext',
+                text    : '>'
+            }, {
+                xtype   : 'tbtext',
+                text    : 'All Categories'
+            }
+        ];
+
+        if(categoryRawBox.length > 0) {
+            breadcrumbItems[2].text = categoryRawBox;
+        } else {
+            breadcrumbItems[2].text = 'All Categories';
+        }
+
+        breadcrumb.removeAll();
+
+        for(var bIndex in breadcrumbItems) {
+            breadcrumb.add(breadcrumbItems[bIndex])
+        }
+
+        sm.deselectAll();
 
         YSDebug.log('searchBox', searchBox);
-        YSDebug.log('categoryBox', categoryBox);
+        YSDebug.log('categoryBox', typeof categoryBox);
         YSDebug.log('locationBox', locationBox);
 
         filterSet.push({
@@ -163,15 +193,70 @@ Ext.define('YSWeb.view.main.header.CenterHeaderController', {
                         "table": "product",
                         "field": "name",
                         "bitOp": "LIKE",
-                        "value": newValue
+                        "value": searchBox
                     }, {
-                        "table": "city",
-                        "field": "name",
+                        "table": "product",
+                        "field": "short_description",
                         "bitOp": "LIKE",
-                        "value": newValue
+                        "value": searchBox
+                    }, {
+                        "table": "product",
+                        "field": "description",
+                        "bitOp": "LIKE",
+                        "value": searchBox
                     }
                 ]
             };
+
+            filterSet.push(filterItem);
         }
+
+        if( typeof categoryBox != 'undefined' && categoryBox.length > 0 && categoryBox > 0) {
+            filterItem = {
+                "table": "parent",
+                "field": "category_id",
+                "bitOp": "EQ",
+                "value": categoryBox
+            };
+
+            filterSet.push(filterItem);
+        }
+
+        if( typeof locationBox != 'undefined' && locationBox.length > 0 && locationBox != 0) {
+            var loc = locationBox.split('_');
+
+            if(loc[0] == 's') {
+                filterItem = {
+                    "table": "user",
+                    "field": "state",
+                    "bitOp": "EQ",
+                    "value": loc[1]
+                };
+            } else if(loc[0] == 'c') {
+                filterItem = {
+                    "table": "user",
+                    "field": "city",
+                    "bitOp": "EQ",
+                    "value": loc[1]
+                };
+            }
+            
+
+            filterSet.push(filterItem);
+        }
+
+        store.on('beforeload', function(str, op) {
+            var filter = {
+                "op": "AND",
+                "set": filterSet
+            };
+
+            op.setParams( {
+                filter: Ext.encode( filter )
+            } );
+        });
+
+        store.load();
+
     }
 });

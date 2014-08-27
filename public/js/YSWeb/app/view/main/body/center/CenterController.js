@@ -62,8 +62,15 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
     createGridView : function() {
         YSDebug.log('create grid vire');
 
-        var categoryPanel  = Ext.ComponentQuery.query('#categoryPanel')[0];
+        var categoryPanel   = Ext.ComponentQuery.query('#categoryPanel')[0];
+        var searchBox       = Ext.ComponentQuery.query('#searchBox')[0].getValue();
+        var categoryBox     = Ext.ComponentQuery.query('#categoryBox')[0].getValue();
+        var locationBox     = Ext.ComponentQuery.query('#locationBox')[0].getValue();
         var sm = categoryPanel.getSelectionModel();
+
+        var filterSet   = [];
+        var filterItem  = {};
+
 
         if(this.createdPanel) {
 
@@ -75,10 +82,19 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
 
         this.createdPanel = Ext.create('YSWeb.view.main.product.thumbnail.GridView', { panelWidth : this.createdPanelWidth });
 
+        var store       = Ext.getStore('app-productStore');
+
+        filterSet.push({
+            "table": "user",
+            "field": "country",
+            "bitOp": "EQ",
+            "value": 170
+        });
+
         if(sm.hasSelection()) {
             var selection = sm.getSelection()[0];
 
-            var store = this.createdPanel.getStore();
+            
 
             store.on('beforeload', function(str, op) {
 
@@ -100,6 +116,79 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
             });
 
             store.load();
+        } else {
+            if(searchBox.length > 0) {
+                filterItem = {
+                    "op": "OR",
+                    "set": [
+                        {
+                            "table": "product",
+                            "field": "name",
+                            "bitOp": "LIKE",
+                            "value": searchBox
+                        }, {
+                            "table": "product",
+                            "field": "short_description",
+                            "bitOp": "LIKE",
+                            "value": searchBox
+                        }, {
+                            "table": "product",
+                            "field": "description",
+                            "bitOp": "LIKE",
+                            "value": searchBox
+                        }
+                    ]
+                };
+
+                filterSet.push(filterItem);
+            }
+
+            if( typeof categoryBox != 'undefined' && categoryBox.length > 0 && categoryBox > 0) {
+                filterItem = {
+                    "table": "parent",
+                    "field": "category_id",
+                    "bitOp": "EQ",
+                    "value": categoryBox
+                };
+
+                filterSet.push(filterItem);
+            }
+
+            if( typeof locationBox != 'undefined' && locationBox.length > 0 && locationBox != 0) {
+                var loc = locationBox.split('_');
+
+                if(loc[0] == 's') {
+                    filterItem = {
+                        "table": "user",
+                        "field": "state",
+                        "bitOp": "EQ",
+                        "value": loc[1]
+                    };
+                } else if(loc[0] == 'c') {
+                    filterItem = {
+                        "table": "user",
+                        "field": "city",
+                        "bitOp": "EQ",
+                        "value": loc[1]
+                    };
+                }
+                
+
+                filterSet.push(filterItem);
+            }
+
+            store.on('beforeload', function(str, op) {
+                var filter = {
+                    "op": "AND",
+                    "set": filterSet
+                };
+                
+                op.setParams( {
+                    filter: Ext.encode( filter )
+                } );
+            });
+
+            store.load();
         }
 
         this.lookupReference('productsViewContainer').add(this.createdPanel);
@@ -109,7 +198,13 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
         YSDebug.log('create list view');
 
         var categoryPanel  = Ext.ComponentQuery.query('#categoryPanel')[0];
+        var searchBox       = Ext.ComponentQuery.query('#searchBox')[0].getValue();
+        var categoryBox     = Ext.ComponentQuery.query('#categoryBox')[0].getValue();
+        var locationBox     = Ext.ComponentQuery.query('#locationBox')[0].getValue();
         var sm = categoryPanel.getSelectionModel();
+
+        var filterSet   = [];
+        var filterItem  = {};
 
         if(this.createdPanel) {
                 /*YSDebug.log('this.createdPanel.getStore', this.createdPanel.getStore());
@@ -120,8 +215,19 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
 
         this.createdPanel = Ext.create('YSWeb.view.main.product.thumbnail.ListView', { panelWidth : this.createdPanelWidth });
 
+        var store       = Ext.getStore('app-productStore');
+
+        filterSet.push({
+            "table": "user",
+            "field": "country",
+            "bitOp": "EQ",
+            "value": 170
+        });
+
         if(sm.hasSelection()) {
             var selection = sm.getSelection()[0];
+
+            YSDebug.log('selection', selection);
 
             var store = this.createdPanel.getStore();
 
@@ -138,6 +244,79 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
                     ]
                 };
 
+                op.setParams( {
+                    filter: Ext.encode( filter )
+                } );
+            });
+
+            store.load();
+        } else {
+            if(searchBox.length > 0) {
+                filterItem = {
+                    "op": "OR",
+                    "set": [
+                        {
+                            "table": "product",
+                            "field": "name",
+                            "bitOp": "LIKE",
+                            "value": searchBox
+                        }, {
+                            "table": "product",
+                            "field": "short_description",
+                            "bitOp": "LIKE",
+                            "value": searchBox
+                        }, {
+                            "table": "product",
+                            "field": "description",
+                            "bitOp": "LIKE",
+                            "value": searchBox
+                        }
+                    ]
+                };
+
+                filterSet.push(filterItem);
+            }
+
+            if( typeof categoryBox != 'undefined' && categoryBox.length > 0 && categoryBox > 0) {
+                filterItem = {
+                    "table": "parent",
+                    "field": "category_id",
+                    "bitOp": "EQ",
+                    "value": categoryBox
+                };
+
+                filterSet.push(filterItem);
+            }
+
+            if( typeof locationBox != 'undefined' && locationBox.length > 0 && locationBox != 0) {
+                var loc = locationBox.split('_');
+
+                if(loc[0] == 's') {
+                    filterItem = {
+                        "table": "user",
+                        "field": "state",
+                        "bitOp": "EQ",
+                        "value": loc[1]
+                    };
+                } else if(loc[0] == 'c') {
+                    filterItem = {
+                        "table": "user",
+                        "field": "city",
+                        "bitOp": "EQ",
+                        "value": loc[1]
+                    };
+                }
+                
+
+                filterSet.push(filterItem);
+            }
+
+            store.on('beforeload', function(str, op) {
+                var filter = {
+                    "op": "AND",
+                    "set": filterSet
+                };
+                
                 op.setParams( {
                     filter: Ext.encode( filter )
                 } );

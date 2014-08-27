@@ -27,7 +27,12 @@ Ext.define('YSWeb.view.main.product.thumbnail.ListViewController', {
 
         this.view.setWidth(viewListControllerGridWidth);
 
-        store.load();
+        /*store.on('beforeload', function(str, op) {
+            YSDebug.log('from search');
+            op.setParams(op._proxy.extraParams);
+        });
+        
+        store.load();*/
 
         YSDebug.log('list view render');
 

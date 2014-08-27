@@ -43,6 +43,7 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             width   : 400,
                             name    : 'searchBox',
                             reference : 'searchBox',
+                            itemId  : 'searchBox',
                             emptyText: 'Seach'
                         }, {
                             xtype   : 'app-treepicker',
@@ -57,6 +58,7 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             border  : true,
                             enableKeyEvents : true,
                             reference : 'categoryBox',
+                            itemId  : 'categoryBox',
                             listeners : {
                                 keyup       : 'onKeyUpCategory',
                                 focus       : 'onFocus'
@@ -75,6 +77,7 @@ Ext.define('YSWeb.view.main.header.CenterHeader', {
                             singleExpand : false,
                             enableKeyEvents : true,
                             reference : 'locationBox',
+                            itemId  : 'locationBox',
                             listeners : {
                                 keyup       : 'onKeyUpLocation',
                                 focus       : 'onFocus'

@@ -41,12 +41,6 @@ Ext.define('YSWeb.controller.Search', {
             {
                 xtype   : 'tbtext',
                 text    : 'Home'
-            }, {
-                xtype   : 'tbtext',
-                text    : '>'
-            }, {
-                xtype   : 'tbtext',
-                text    : 'All Categories'
             }
         ];
 
