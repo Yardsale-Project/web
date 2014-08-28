@@ -1,2 +1,3 @@
 public/index.html
 sessions/
+config/autoload/database.local.php
