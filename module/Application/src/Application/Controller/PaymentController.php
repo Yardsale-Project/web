@@ -295,7 +295,7 @@ class PaymentController extends Controller
 
         $request_body = array(
             'actionType'    => 'PAY',
-            'cancelUrl'     => 'http://yardsale.druidinc.com',
+            'cancelUrl'     => 'http://yardsale.druidinc.com/#pp/cancel',
             'currencyCode'  => 'USD',
             'returnUrl'     => 'http://example.com',
             'requestEnvelope.errorLanguage'=> 'en_US',

@@ -97,10 +97,7 @@ Ext.define('YSWeb.view.main.product.ClientProduct', {
 									'<input type="image" id="submitBtn" value="Pay with PayPal" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif">' +
 									'<input id="type" type="hidden" name="expType" value="light">' +
 									'<input id="paykey" type="hidden" name="paykey" value="insert_pay_key">' +
-									'</form>' +
-									'<script type="text/javascript" charset="utf-8">' +
-									'var embeddedPPFlow = new PAYPAL.apps.DGFlow({trigger: "submitBtn"});' +
-									'</script>'
+									'</form>'
 				}, {
 		            xtype       : 'app-widget-invite',
 		            bind 		: {

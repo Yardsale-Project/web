@@ -6,6 +6,7 @@ Ext.define('YSWeb.controller.Root', {
     routes : {
     	'validate/:hash'   : 'validateUser',
     	'home'             : 'home',
+        'pp/:type'         : 'onPP',
         'home/:sns'        : {
             before         : 'onBeforeSns',
             action         : 'onSns'
@@ -14,6 +15,16 @@ Ext.define('YSWeb.controller.Root', {
 
     init    : function() {
         this.action = null;
+        this.dgFlow = null;
+
+        var me = this;
+
+        Ext.Loader.loadScript({
+            url     : 'https://www.paypalobjects.com/js/external/dg.js',
+            onLoad  : function() {
+                me.dgFlow = new PAYPAL.apps.DGFlow({trigger: 'submitBtn'});
+            }
+        });
 
         window.fbAsyncInit = function() {
             FB.init(
@@ -43,9 +54,7 @@ Ext.define('YSWeb.controller.Root', {
             }   (document, 'script', 'facebook-jssdk')
         );
 
-        Ext.Loader.loadScript({
-            url     : 'https://www.paypalobjects.com/js/external/dg.js'
-        });
+        
 
         /*Ext.Loader.loadScript({ 
             url : 'https://cdn.socket.io/socket.io-1.0.6.js',
@@ -176,6 +185,14 @@ Ext.define('YSWeb.controller.Root', {
     		success : me.onSuccess,
     		failure : me.onFailure
     	});
+    },
+
+    onPP : function(type) {
+        if(type == 'cancel') {
+            this.dgFlow = top.dgFlow || top.opener.top.dgFlow;
+            this.dgFlow.closeFlow();
+            top.close();
+        }
     },
 
     onSuccess : function(response) {

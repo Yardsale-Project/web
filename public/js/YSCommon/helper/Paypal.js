@@ -50,8 +50,8 @@ Ext.define('YSCommon.helper.Paypal', {
 
         Ext.create('Ext.Component', {
             width: 385,
-            auto: 550,
-            floating: true, // make this panel an absolutely-positioned floating component
+            height: 550,
+            floating: {shadow: false}, // make this panel an absolutely-positioned floating component
             header : false,
             border  : false,
             frame   : false,
