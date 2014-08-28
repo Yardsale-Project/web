@@ -39,6 +39,7 @@ function onSubmit() {
 Ext.define('YSCommon.helper.Paypal', {
 	singleton 			: true,
 	alternateClassName  : ['Paypal'],
+    ppWindow            : null,
 
     proceed             : false,
 
@@ -48,7 +49,7 @@ Ext.define('YSCommon.helper.Paypal', {
 
 	onSubmit : function() {
 
-        Ext.create('Ext.Component', {
+        this.ppWindow = Ext.create('Ext.Component', {
             width: 385,
             height: 550,
             floating: {shadow: false}, // make this panel an absolutely-positioned floating component
