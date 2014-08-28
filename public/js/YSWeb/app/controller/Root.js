@@ -23,6 +23,7 @@ Ext.define('YSWeb.controller.Root', {
             url     : 'https://www.paypalobjects.com/js/external/dg.js',
             onLoad  : function() {
                 me.dgFlow = new PAYPAL.apps.DGFlow({trigger: 'submitBtn'});
+                window.dgFlow = me.dgFlow;
             }
         });
 
@@ -189,9 +190,9 @@ Ext.define('YSWeb.controller.Root', {
 
     onPP : function(type) {
         if(type == 'cancel') {
-            this.dgFlow = top.dgFlow || top.opener.top.dgFlow;
+            this.dgFlow = window.top.dgFlow || window.top.opener.top.dgFlow;
             this.dgFlow.closeFlow();
-            top.close();
+            window.top.close();
         }
     },
 
