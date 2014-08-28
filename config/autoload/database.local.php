@@ -3,7 +3,7 @@
 return array(
     'db' => array(
         'driver'         => 'Pdo',
-        'dsn'            => 'mysql:dbname=druidinc_yardsale;host=localhost',
+        'dsn'            => 'mysql:dbname=druidinc_yardsale;host=yardsale',
     ),
     'service_manager' => array(
         'factories' => array(

@@ -273,6 +273,8 @@ class PaymentController extends Controller
         }
 
 
+        $productModel = $this->model('Product');
+        $itemDetails = $productModel->getProductById($itmId);
 
         if(!$this->isProduction()) {
             $httpEndpoint   = $settings['http_endpoint_adaptivepay_sandbox'];
@@ -299,8 +301,8 @@ class PaymentController extends Controller
             'currencyCode'  => 'USD',
             'returnUrl'     => 'http://example.com',
             'requestEnvelope.errorLanguage'=> 'en_US',
-            'receiverList.receiver(0).amount'=> floatval(str_replace(',', '', $price)) * $quantity,
-            'receiverList.receiver(0).email'=> 'egeeboygutierrez91-facilitator@gmail.com',
+            'receiverList.receiver(0).amount'=> floatval(str_replace(',', '', $itemDetails['currentPrice'])) * $quantity,
+            'receiverList.receiver(0).email'=> $itemDetails['email'],
             // 'senderEmail'   => $email
         );
 
@@ -324,8 +326,48 @@ class PaymentController extends Controller
         $response = json_decode($response['body'], true);
 
         $payKey = (!empty($response['payKey']))? $response['payKey'] : 0;
+
+        $http->close();
         
+        $this->_setPaymentOptions(  $headers, $payKey, $itemDetails, $quantity, $type );
+
         return $payKey;
+    }
+
+    private function _setPaymentOptions( $headers, $payKey, $itemDetails, $quantity, $type='online_order') {
+        $url = 'https://svcs.sandbox.paypal.com/AdaptivePayments/SetPaymentOptions';
+
+
+        $request_body = array(
+            'requestEnvelope.errorLanguage'                 => 'en_US',
+
+            'initiatingEntitity.institutionCustomer.displayName'    => 'Yardsale.com',
+            'initiatingEntitity.institutionCustomer.email'          => 'yardsale@yardsale.com',
+
+            'receiverOptions[0].receiver.email'             => $itemDetails['email'],
+            'receiverOptions[0].invoiceData.item[0].name'   => $itemDetails['productName'],
+            'receiverOptions[0].invoiceData.item[0].price'  => floatval(str_replace(',', '', $itemDetails['currentPrice'])) * $quantity,
+            'receiverOptions[0].invoiceData.item[0].itemCount' => $quantity,
+            'receiverOptions[0].invoiceData.item[0].itemPrice' => floatval(str_replace(',', '', $itemDetails['currentPrice'])),
+            'payKey'                                        => $payKey
+        );
+
+        $request = array();
+
+        foreach ($request_body as $key => $value) {
+            $request[] = $key . '=' . $value;
+        }
+
+        $request = implode('&', $request);
+
+        $http = $this->HTTP()->init($url);        
+        $http->setHeaders($headers);
+        $http->executePost($request, FALSE);
+        $response = $http->getResponse();
+
+        $response = json_decode($response['body'], true);
+
+        $http->close();
     }
 
     private function _getPaypalAccount($userId) {}

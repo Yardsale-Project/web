@@ -66,6 +66,11 @@ Ext.define('YSWeb.controller.Search', {
                 'op': 'AND',
                 'set': [
                     {
+                        "table": "user",
+                        "field": "country",
+                        "bitOp": "EQ",
+                        "value": 170
+                    }, {
                         'table': 'parent',
                         'field': 'category_id',
                         'bitOp': 'EQ',

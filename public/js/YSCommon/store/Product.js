@@ -25,6 +25,11 @@ Ext.define('YSCommon.store.Product', {
                         "field": "country",
                         "bitOp": "EQ",
                         "value": 170
+                    }, {
+                        "table": "parent",
+                        "field": "category_id",
+                        "bitOp": "EQ",
+                        "value": 0
                     }
                 ]
             })

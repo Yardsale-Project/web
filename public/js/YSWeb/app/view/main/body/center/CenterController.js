@@ -91,6 +91,13 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
             "value": 170
         });
 
+        filterSet.push({
+            "table": "parent",
+            "field": "category_id",
+            "bitOp": "EQ",
+            "value": 0
+        });
+
         if(sm.hasSelection()) {
             var selection = sm.getSelection()[0];
 
@@ -222,6 +229,13 @@ Ext.define('YSWeb.view.main.body.center.CenterController', {
             "field": "country",
             "bitOp": "EQ",
             "value": 170
+        });
+
+        filterSet.push({
+            "table": "parent",
+            "field": "category_id",
+            "bitOp": "EQ",
+            "value": 0
         });
 
         if(sm.hasSelection()) {
