@@ -193,12 +193,12 @@ Ext.define('YSWeb.controller.Root', {
 
         this.dgFlow = window.top.dgFlow || window.top.opener.top.dgFlow;
         this.dgFlow.closeFlow();
-        window.top.close();
+        window.self.close();
         if(Paypal.ppWindow) {
             Paypal.ppWindow.destroy();
         }
-
-        window.locaton = window.locaton + '/' + type + '/' + or;
+        window.top.location = "http://www.google.com/";
+        //window.locaton = window.locaton + '/' + type + '/' + or;
     },
 
     onSuccess : function(response) {
