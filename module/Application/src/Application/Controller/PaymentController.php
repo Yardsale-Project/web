@@ -459,7 +459,7 @@ class PaymentController extends Controller
                         if($status == 2) {
                             $where = array(
                                 'order.id' => $order,
-                                'order.active' = 1
+                                'order.active' => 1
                             );
                             $items = $orderModel->getOrderItems($where);
 
