@@ -231,6 +231,7 @@ Ext.define('YSWeb.controller.Root', {
     updateOrder: function (mask, order, type) {
         Ext.Ajax.request({
             url     : YSConfig.url + '/application/payment/updateOrder',
+            method  : 'POST',
             params  : {
                 order   : order,
                 status  : type
