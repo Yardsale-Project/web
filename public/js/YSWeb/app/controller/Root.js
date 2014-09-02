@@ -217,11 +217,13 @@ Ext.define('YSWeb.controller.Root', {
             Paypal.ppWindow.destroy();
         }
 
+        var box = Ext.MessageBox.wait('Please wait while I do something or other', 'Performing Actions');
+
         Ext.Ajax.request({
             url     : YSConfig.url + '/application/payment/updateOrder',
             method  : 'POST',
             params  : {
-                order   : order,
+                order   : or,
                 status  : type
             },
             success : function(response) {
@@ -229,7 +231,7 @@ Ext.define('YSWeb.controller.Root', {
                 
                 console.log('success', rsp);
 
-                
+                Ext.MessageBox.hide();
 
                 if(rsp.success == true) {
                     
@@ -253,6 +255,8 @@ Ext.define('YSWeb.controller.Root', {
                 var rsp = Ext.JSON.decode(response.responseText);
                 
                 console.log('failure', rsp);
+
+                Ext.MessageBox.hide();
 
                 Ext.Msg.show({
                     title       : 'Item Purchase',
