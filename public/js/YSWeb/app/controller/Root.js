@@ -190,143 +190,15 @@ Ext.define('YSWeb.controller.Root', {
     },
 
     onPP : function(type, or) {
-        var myMask;
-        var status;
-        var that = this;
 
-        if(type == 'cancel') {
-            status = 3;
-        } else if( type == 'success') {
-            status = 2;
+        this.dgFlow = window.top.dgFlow || window.top.opener.top.dgFlow;
+        this.dgFlow.closeFlow();
+        window.top.close();
+        if(Paypal.ppWindow) {
+            Paypal.ppWindow.destroy();
         }
 
-        /*myMask = new Ext.LoadMask({
-            msg    : 'Please wait...',
-            target : Ext.getBody()
-        });
-
-        myMask.show();*/
-
-        that.dgFlow = window.top.dgFlow || window.top.opener.top.dgFlow;
-        that.dgFlow.closeFlow();
-        
-
-        
-
-        var box = Ext.MessageBox.wait('Please wait while I do something or other', 'Performing Actions');
-
-        Ext.Ajax.request({
-            url     : YSConfig.url + '/application/payment/updateOrder',
-            method  : 'POST',
-            params  : {
-                order   : or,
-                status  : type
-            },
-            success : function(response) {
-                var rsp = Ext.JSON.decode(response.responseText);
-                
-                console.log('success', rsp);
-
-                if(Paypal.ppWindow) {
-                    //myMask.hide();
-                    window.top.close();
-                    Paypal.ppWindow.destroy();
-                }
-                Ext.MessageBox.hide();
-
-                if(rsp.success == true) {
-                    
-
-                    Ext.Msg.show({
-                        title       : 'Item Purchase',
-                        msg         : rsp.message,
-                        buttons     : Ext.MessageBox.OK,
-                        icon        : Ext.MessageBox.INFO
-                    });
-                } else {
-                    Ext.Msg.show({
-                        title       : 'Item Purchase',
-                        msg         : rsp.errorMessage,
-                        buttons     : Ext.MessageBox.OK,
-                        icon        : Ext.MessageBox.ERROR
-                    });
-                }
-            },
-            failure : function(response) {
-                var rsp = Ext.JSON.decode(response.responseText);
-                
-                console.log('failure', rsp);
-
-                if(Paypal.ppWindow) {
-                    //myMask.hide();
-                    window.top.close();
-                    Paypal.ppWindow.destroy();
-                }
-                Ext.MessageBox.hide();
-
-                Ext.Msg.show({
-                    title       : 'Item Purchase',
-                    msg         : rsp.errorMessage + ' failed',
-                    buttons     : Ext.MessageBox.OK,
-                    icon        : Ext.MessageBox.ERROR
-                });
-            }
-        });
-    },
-
-    updateOrder: function (myMask, order, type) {
-        var mask = myMask;
-
-        Ext.Ajax.request({
-            url     : YSConfig.url + '/application/payment/updateOrder',
-            method  : 'POST',
-            params  : {
-                order   : order,
-                status  : type
-            },
-            success : function(response) {
-                var rsp = Ext.JSON.decode(response.responseText);
-                window.top.close();
-
-                if(Paypal.ppWindow) {
-                    mask.hide();
-                    Paypal.ppWindow.destroy();
-                }
-                if(rsp.success == true) {
-                    
-
-                    Ext.Msg.show({
-                        title       : 'Item Purchase',
-                        msg         : rsp.message,
-                        buttons     : Ext.MessageBox.OK,
-                        icon        : Ext.MessageBox.INFO
-                    });
-                } else {
-                    Ext.Msg.show({
-                        title       : 'Item Purchase',
-                        msg         : rsp.errorMessage,
-                        buttons     : Ext.MessageBox.OK,
-                        icon        : Ext.MessageBox.ERROR
-                    });
-                }
-            },
-            failure : function(response) {
-                var rsp = Ext.JSON.decode(response.responseText);
-                window.top.close();
-
-                if(Paypal.ppWindow) {
-                    mask.hide();
-                    Paypal.ppWindow.destroy();
-                }
-
-                Ext.Msg.show({
-                    title       : 'Item Purchase',
-                    msg         : rsp.errorMessage + ' failed',
-                    buttons     : Ext.MessageBox.OK,
-                    icon        : Ext.MessageBox.ERROR
-                });
-            }
-        });
+        window.locaton = window.locaton + '/' + type + '/' + or;
     },
 
     onSuccess : function(response) {

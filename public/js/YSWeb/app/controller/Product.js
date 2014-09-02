@@ -4,9 +4,16 @@ Ext.define('YSWeb.controller.Product', {
     extend: 'Ext.app.Controller',
 
     routes : {
-    	'itm/:id'   : {
-    		before 	: 'beforeShowProduct',
-    		action 	: 'displayProduct',
+        'itm/:id'   : {
+            before  : 'beforeShowProduct',
+            action  : 'displayProduct',
+            conditions : {
+                ':id' : '(ITM-[0-9]+_[0-9]+)'
+            }
+        },
+    	'itm/:id/:type/:or'   : {
+    		before 	: 'beforeShowProductOrder',
+    		action 	: 'displayProductOrder',
     		conditions : {
     			':id' : '(ITM-[0-9]+_[0-9]+)'
     		}
@@ -16,12 +23,19 @@ Ext.define('YSWeb.controller.Product', {
     init : function() {
     	this.action = null;
         this.ppEmail = '';
+        this.itemWin = null;
     },
 
 
     beforeShowProduct : function(id, action) {
     	this.action = action;
     	UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutCallback);
+    },
+
+    beforeShowProductOrder : function(id, type, or, action) {
+        console.log('argas', arguments);
+        this.action = action;
+        UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutCallback);
     },
 
     loggedInCallback : function(object,rsp) {
@@ -91,7 +105,10 @@ Ext.define('YSWeb.controller.Product', {
     	var itm = id.split('_'),
             me  = this;
 
-    	Ext.create('Ext.window.Window', {
+        if(this.itemWin) {
+            this.itemWin.destroy();
+        }
+    	this.itemWin = Ext.create('Ext.window.Window', {
 	        modal       : true,
 	        resizable   : false,
 	        layout      : 'fit',
@@ -108,5 +125,95 @@ Ext.define('YSWeb.controller.Product', {
 
 	        animateTarget : 'product_' + itm[1]
 	    }).show();
-    }
+    },
+
+    displayProductOrder : function(id, type, or) {
+        YSDebug.log('displayProductOrder', id);
+        YSDebug.log('type', type);
+        YSDebug.log('or', or);
+
+        var itm = id.split('_'),
+            me  = this,
+            status;
+
+        if(type == 'c') {
+            status = 3;
+        } else if( type == 's') {
+            status = 2;
+        }
+
+        if(this.itemWin) {
+            this.itemWin.destroy();
+        }
+        this.itemWin = Ext.create('Ext.window.Window', {
+            modal       : true,
+            resizable   : false,
+            layout      : 'fit',
+            closeAction : 'destroy',
+            title       : itm[0],
+
+            items       : [
+                {
+                    xtype   : 'app-clientproduct',
+                    _itmId  : itm[1],
+                    _itmCd  : itm[0]
+                }
+            ],
+
+            animateTarget : 'product_' + itm[1]
+        }).show();
+
+        var box = Ext.MessageBox.wait('Please wait while I do something or other', 'Performing Actions');
+
+        this.updateOrder(box, or, status);
+    },
+
+    updateOrder: function (myMask, order, status) {
+        var mask = myMask;
+
+        Ext.Ajax.request({
+            url     : YSConfig.url + '/application/payment/updateOrder',
+            method  : 'POST',
+            params  : {
+                order   : order,
+                status  : status
+            },
+            success : function(response) {
+                var rsp = Ext.JSON.decode(response.responseText);
+
+                console.log('success', rsp);
+                mask.hide();
+
+                if(rsp.success == true) {
+                    
+
+                    Ext.Msg.show({
+                        title       : 'Item Purchase',
+                        msg         : rsp.message,
+                        buttons     : Ext.MessageBox.OK,
+                        icon        : Ext.MessageBox.INFO
+                    });
+                } else {
+                    Ext.Msg.show({
+                        title       : 'Item Purchase',
+                        msg         : rsp.errorMessage,
+                        buttons     : Ext.MessageBox.OK,
+                        icon        : Ext.MessageBox.ERROR
+                    });
+                }
+            },
+            failure : function(response) {
+                var rsp = Ext.JSON.decode(response.responseText);
+                console.log('fail', rsp);
+                mask.hide();
+
+                Ext.Msg.show({
+                    title       : 'Item Purchase',
+                    msg         : rsp.errorMessage + ' failed',
+                    buttons     : Ext.MessageBox.OK,
+                    icon        : Ext.MessageBox.ERROR
+                });
+            }
+        });
+    },
 });

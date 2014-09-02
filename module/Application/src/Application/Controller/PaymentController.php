@@ -327,9 +327,9 @@ class PaymentController extends Controller
 
         $request_body = array(
             'actionType'    => 'PAY',
-            'cancelUrl'     => 'http://yardsale.druidinc.com/#pp/cancel/' . $orderId,
+            'cancelUrl'     => 'http://yardsale.druidinc.com/#pp/c/' . $orderId,
             'currencyCode'  => 'USD',
-            'returnUrl'     => 'http://yardsale.druidinc.com/#pp/success/' . $orderId,
+            'returnUrl'     => 'http://yardsale.druidinc.com/#pp/s/' . $orderId,
             'requestEnvelope.errorLanguage'=> 'en_US',
             'receiverList.receiver(0).amount'=> floatval(str_replace(',', '', $itemDetails['currentPrice'])) * $quantity,
             'receiverList.receiver(0).email'=> $itemDetails['email'],
@@ -407,7 +407,7 @@ class PaymentController extends Controller
         $error = array();
 
         $request = $this->getRequest();
-        
+
         if( $request->isPost() ) {
             $postData = $request->getPost();
 
@@ -421,11 +421,12 @@ class PaymentController extends Controller
                     $error[] = 'Order empty';
                 }
 
-                if( empty($state) ) {
+                if( empty($status) ) {
                     $error[] = 'Status empty';
                 }
 
                 if(count($error)) {
+
                     $reVal['success'] = false;
                     $reVal['errorMessage'] = implode('<br>', $error);
                 } else {
@@ -454,7 +455,7 @@ class PaymentController extends Controller
 
                     if( empty($result) ) {
                         $retVal['success'] = false;
-                        $reVal['errorMessage'] = 'Error updating order';
+                        $retVal['errorMessage'] = 'Error updating order';
                     } else {
                         if($status == 2) {
                             $where = array(
@@ -476,7 +477,14 @@ class PaymentController extends Controller
 
                                 $productModel->updateStock($data, $where);
                             }
+
+                            $retVal['success'] = true;
+                            $reVal['message'] = 'Order successful';
+                        } else {
+                            $retVal['success'] = true;
+                            $reVal['message'] = 'Order cancelled successfully';
                         }
+
                     }
                 }
             } catch(\Exception $e) {
