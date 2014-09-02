@@ -65,7 +65,7 @@ class Order extends Table
                         ->join('order_items', 'order_items.order_id = order.id', $order_items_fields)
                         ->join('order_payment', 'order_payment.order_id = order.id', $order_payment_fields)
                         ->join('order_status', 'order_status.id = order.status', $order_status_fields)
-                        ->where($where)
+                        ->where($where);
 
         return $this->fetchAllToArray($select);
     }
