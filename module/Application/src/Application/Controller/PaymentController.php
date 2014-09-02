@@ -7,6 +7,8 @@ use Zend\View\Model\JsonModel;
 use Zend\Console\Request as ConsoleRequest;
 use Zend\Math\Rand;
 
+use Zend\Db\Sql\Expression;
+
 use \Exception;
 
 class PaymentController extends Controller
@@ -258,19 +260,47 @@ class PaymentController extends Controller
     private function _getPayKey($itmId, $price, $quantity, $type='online_order') {
         $email = '';
 
-        $settingsModel = $this->model('Settings');
-        $settings = $settingsModel->getSettings('paypal');
+        $settingsModel  = $this->model('Settings');
+        $settings       = $settingsModel->getSettings('paypal');
 
-        $userId = $this->getUserId();
+        $userId         = $this->getUserId();
 
-        $userModel = $this->model('Users');
-        $result = $userModel->getSettings($userId);
+        $userModel      = $this->model('Users');
+        $result         = $userModel->getSettings($userId);
 
         if(empty($result['pp_email'])) {
             $email = '';
         } else {
             $email = $result['pp_email'];
         }
+
+        $orderModel     = $this->model('Order');
+
+        $data = array(
+            'user_id'   => $userId,
+            'added'     => date('Y-m-d h:i:s'),
+            'status'    => 1,
+            'paid'      => 0,
+            'active'    => 1
+        );
+
+        $orderId = $orderModel->addOrder($data);
+
+        $data = array(
+            'order_id'  => $orderId,
+            'item_id'   => $itmId,
+            'quantity'  => $quantity,
+            'price'     => $price
+        );
+
+        $orderModel->addOrderItem($data);
+
+        $data = array(
+            'order_id'      => $orderId,
+            'payment_type'  => 'pp'
+        );
+        
+        $orderModel->addOrderPayment($data);
 
 
         $productModel = $this->model('Product');
@@ -297,9 +327,9 @@ class PaymentController extends Controller
 
         $request_body = array(
             'actionType'    => 'PAY',
-            'cancelUrl'     => 'http://yardsale.druidinc.com/#pp/cancel',
+            'cancelUrl'     => 'http://yardsale.druidinc.com/#pp/cancel/' . $orderId,
             'currencyCode'  => 'USD',
-            'returnUrl'     => 'http://example.com',
+            'returnUrl'     => 'http://yardsale.druidinc.com/#pp/success/' . $orderId,
             'requestEnvelope.errorLanguage'=> 'en_US',
             'receiverList.receiver(0).amount'=> floatval(str_replace(',', '', $itemDetails['currentPrice'])) * $quantity,
             'receiverList.receiver(0).email'=> $itemDetails['email'],
@@ -371,4 +401,98 @@ class PaymentController extends Controller
     }
 
     private function _getPaypalAccount($userId) {}
+
+    public function updateOrderAction() {
+        $retVal = array();
+        $error = array();
+
+        $request = $this->getRequest();
+
+        if( $request->isPost() ) {
+            $postData = $request->getPost();
+
+            $order = (!empty($postData['order']))? $postData['order'] : 0;
+            $status = (!empty($postData['status']))? $postData['status'] : 0;
+
+            try {
+                $userId = $this->getUserId();
+
+                if( empty($order) ) {
+                    $error[] = 'Order empty';
+                }
+
+                if( empty($state) ) {
+                    $error[] = 'Status empty';
+                }
+
+                if(count($error)) {
+                    $reVal['success'] = false;
+                    $reVal['errorMessage'] = implode('<br>', $error);
+                } else {
+
+                    $orderModel = $this->model('Order');
+
+                    $data = array(
+                        'status'    => $status,
+                        'updated'   => date('Y-m-d h::s')
+                    );
+
+                    $where = array(
+                        'id' => $order
+                    );
+                    
+                    $reVal['success'] = true;
+
+                    if($status == 3) {
+                        $reVal['message'] = 'Order cancelled successfully';
+                    } else if($status == 2) {
+                        $reVal['message'] = 'Order successful';
+                        $data['paid'] = 1;
+                    }
+
+                    $result = $orderModel->updateOrder($data, $where);
+
+                    if( empty($result) ) {
+                        $retVal['success'] = false;
+                        $reVal['errorMessage'] = 'Error updating order';
+                    } else {
+                        if($status == 2) {
+                            $where = array(
+                                'order.id' => $order,
+                                'order.active' = 1
+                            );
+                            $items = $orderModel->getOrderItems($where);
+
+                            $productModel = $this->model('Product');
+
+                            foreach ($items as $item) {
+                                $data = array(
+                                    'stock' => new Expression('stock - ' . $item['quantity'])
+                                );
+
+                                $where = array(
+                                    'id'    => $item['item_id']
+                                );
+
+                                $productModel->updateStock($data, $where);
+                            }
+                        }
+                    }
+                }
+            } catch(\Exception $e) {
+
+                $retVal = array(
+                    "success" => false,
+                    "errorMessage" =>  $e->getMessage()
+                );
+            }
+        } else {
+            $reVal = array(
+                'success'       => false,
+                'errorMessage'  => 'Invalid request'
+            );
+        }
+
+        return new JsonModel($retVal);
+    }
 }

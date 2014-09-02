@@ -4,13 +4,14 @@ Ext.define('YSWeb.controller.Root', {
     extend: 'Ext.app.Controller',
 
     routes : {
-    	'validate/:hash'   : 'validateUser',
-    	'home'             : 'home',
-        'pp/:type'         : 'onPP',
-        'home/:sns'        : {
-            before         : 'onBeforeSns',
-            action         : 'onSns'
-        }
+    	'validate/:hash'    : 'validateUser',
+    	'home'              : 'home',
+        'pp/:type/:or'          : 'onPP',
+        'home/:sns'         : {
+            before          : 'onBeforeSns',
+            action          : 'onSns'
+        },
+        'or/:id'            : 'onOrderProcess'
     },
 
     init    : function() {
@@ -188,8 +189,11 @@ Ext.define('YSWeb.controller.Root', {
     	});
     },
 
-    onPP : function(type) {
-        if(type == 'cancel') {
+    onPP : function(type, or) {
+        var myMask;
+        var status;
+
+        try {
             this.dgFlow = window.top.dgFlow || window.top.opener.top.dgFlow;
             this.dgFlow.closeFlow();
             window.top.close();
@@ -197,7 +201,73 @@ Ext.define('YSWeb.controller.Root', {
             if(Paypal.ppWindow) {
                 Paypal.ppWindow.destroy();
             }
+
+            if(type == 'cancel') {
+                status = 3;
+
+                
+            } else if( type == 'success') {
+                status = 2;
+            }
+
+            myMask = new Ext.LoadMask({
+                msg    : 'Please wait...',
+                target : Ext.getBody()
+            });
+
+            myMask.show();
+
+            this.updateOrder(myMask, or, status);
+        } catch( err ) {
+            Ext.Msg.show({
+                title       : 'Item Purchase',
+                msg         : 'Invalid request.',
+                buttons     : Ext.MessageBox.OK,
+                icon        : Ext.MessageBox.ERROR
+            });
         }
+    },
+
+    updateOrder: function (mask, order, type) {
+        Ext.Ajax.request({
+            url     : YSConfig.url + '/application/payment/updateOrder',
+            params  : {
+                order   : order,
+                status  : type
+            },
+            success : function(response) {
+                var rsp = Ext.JSON.decode(response.responseText);
+
+                if(rsp.success == true) {
+                    mask.hide();
+
+                    Ext.Msg.show({
+                        title       : 'Item Purchase',
+                        msg         : rsp.message,
+                        buttons     : Ext.MessageBox.OK,
+                        icon        : Ext.MessageBox.INFO
+                    });
+                } else {
+                    Ext.Msg.show({
+                        title       : 'Item Purchase',
+                        msg         : rsp.errorMessage,
+                        buttons     : Ext.MessageBox.OK,
+                        icon        : Ext.MessageBox.ERROR
+                    });
+                }
+            },
+            failure : function(response) {
+                var rsp = Ext.JSON.decode(response.responseText);
+                mask.hide();
+
+                Ext.Msg.show({
+                    title       : 'Item Purchase',
+                    msg         : rsp.errorMessage,
+                    buttons     : Ext.MessageBox.OK,
+                    icon        : Ext.MessageBox.ERROR
+                });
+            }
+        });
     },
 
     onSuccess : function(response) {
@@ -356,147 +426,10 @@ Ext.define('YSWeb.controller.Root', {
 
             }
         });
+    },
+
+    onOrderProcess : function(id) {
+
     }
-
-    /*onBeforeSmsInvite : function(sms, action) {
-        this.action = action;
-        YSDebug.log('before sms');
-        // separating the GET parameters from the current URL
-
-        if(document.URL.indexOf("?") >= 0){
-            var getParams = document.URL.split("?");
-            // transforming the GET parameters into a dictionnary
-            var params = Ext.urlDecode(getParams[getParams.length - 1]);
-            var state = params.state;
-            state = state.split('#');
-            params.state = state[0];
-            YSDebug.log('params', params);
-        }
-        
-        UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutSmsCallback);
-    },
-
-    onSmsInvite : function(sms) {
-        YSDebug.log('on sms');
-        var params = {};
-        var me = this;
-
-        // separating the GET parameters from the current URL
-        if(document.URL.indexOf("?") >= 0){
-            var getParams = document.URL.split("?");
-            // transforming the GET parameters into a dictionnary
-            params = Ext.urlDecode(getParams[getParams.length - 1]);
-            var state = params.state;
-            state = state.split('#');
-            params.state = state[0];
-            YSDebug.log('params', params);
-        }
-
-        if(!Object.keys(params).length) {
-            Ext.create('Ext.window.Window', {
-                modal       : true,
-                resizable   : false,
-                layout      : 'fit',
-                closable    : false,
-                closeAction : 'destroy',
-                draggable   : false,
-                width       : 400,
-                
-
-                title       : 'Message',
-
-                items       : [
-                    {
-                        xtype   : 'form',
-                        layout  : 'form',
-                        items   : [
-                            {
-                                xtype   : 'textareafield',
-                                fieldLabel : 'Write message',
-                                name    : 'custom_message',
-                                allowBlank : false,
-                                height  : 200
-                            }
-                        ],
-                        buttons     : [
-                            {
-                                text    : 'Send',
-                                handler : function(btn) {
-
-                                    var form = btn.up('form').getForm();
-
-                                    if(form.isValid()) {
-                                        if(sms == 'fb') {
-                                            form.submit({
-                                                url     : YSConfig.url + '/application/facebook/fbInvite',
-                                                waitMsg : 'Sending message...',
-                                                method  : 'GET',
-                                                params  : params,
-                                                success : function(frm, action) {
-
-                                                    window.location = action.result.loginUrl;
-
-                                                },
-                                                failure : function(frm, action) {
-                                                    Ext.Msg.show({
-                                                        title       : 'Invite friends',
-                                                        msg         : action.result.errorMessage,
-                                                        buttons     : Ext.MessageBox.OK,
-                                                        fn          : function(btn) {
-                                                            if(btn === 'ok') {
-                                                                form.reset();
-                                                            }
-                                                        }, 
-                                                        icon        : Ext.MessageBox.ERROR
-                                                    });
-                                                }
-                                            });
-                                        }
-                                    }
-
-                                    YSDebug.log('form', form);
-                                    
-                                }
-                            }, {
-                                text    : 'Cancel',
-                                handler : function() {
-                                    this.up('window').close();
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }).show();
-        } else {
-            if(sms == 'fb') {
-                Ext.Ajax.request({
-                    url     : YSConfig.url + '/application/facebook/fbInvite',
-                    method  : 'GET',
-                    params  : params,
-                    success : function(response) {
-                        var rsp = Ext.JSON.decode(response.responseText);
-                        console.log('response', rsp);
-                        if(rsp.success) {
-                            if(rsp.hasOwnProperty('loginUrl')) {
-                                window.location = rsp.loginUrl;
-                            }
-
-                            if(rsp.hasOwnProperty('loggedIn')) {
-                                
-                            }
-                        } else {
-                            window.location = YSConfig.url + '#home';
-                        }
-
-                    },
-                    failure : function(response) {
-
-                    }
-                });
-            }
-        }
-    },
-
-    */
 
 });

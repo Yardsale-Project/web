@@ -121,4 +121,10 @@ class Product extends Table
 
         return $this->fetchRowToArray($select);
     }
+
+    public function updateStock($data, $whereClause) {
+        $affected_rows  = $this->update( $this->_name , $data, $whereClause);
+
+        return $affected_rows;
+    }
 }
