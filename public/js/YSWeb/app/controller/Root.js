@@ -212,7 +212,7 @@ Ext.define('YSWeb.controller.Root', {
 
             myMask = new Ext.LoadMask({
                 msg    : 'Please wait...',
-                toFrontOnShow : true
+                target : Ext.getBody()
             });
 
             myMask.show();
