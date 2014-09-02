@@ -263,7 +263,7 @@ Ext.define('YSWeb.controller.Root', {
 
                 Ext.Msg.show({
                     title       : 'Item Purchase',
-                    msg         : rsp.errorMessage,
+                    msg         : rsp.errorMessage + ' failed',
                     buttons     : Ext.MessageBox.OK,
                     icon        : Ext.MessageBox.ERROR
                 });

@@ -407,7 +407,7 @@ class PaymentController extends Controller
         $error = array();
 
         $request = $this->getRequest();
-
+        var_dump($request);
         if( $request->isPost() ) {
             $postData = $request->getPost();
 
