@@ -192,15 +192,10 @@ Ext.define('YSWeb.controller.Root', {
     onPP : function(type, or) {
         var myMask;
         var status;
-
-        this.dgFlow = window.top.dgFlow || window.top.opener.top.dgFlow;
-        this.dgFlow.closeFlow();
-        
+        var that = this;
 
         if(type == 'cancel') {
             status = 3;
-
-            
         } else if( type == 'success') {
             status = 2;
         }
@@ -219,15 +214,21 @@ Ext.define('YSWeb.controller.Root', {
                 order   : order,
                 status  : type
             },
-            scope : this,
             success : function(response) {
                 var rsp = Ext.JSON.decode(response.responseText);
-                window.top.close();
+                
+                console.log('success', rsp);
+
+                that.dgFlow = window.top.dgFlow || window.top.opener.top.dgFlow;
+                that.dgFlow.closeFlow();
+                
 
                 if(Paypal.ppWindow) {
                     myMask.hide();
+                    window.top.close();
                     Paypal.ppWindow.destroy();
                 }
+
                 if(rsp.success == true) {
                     
 
@@ -248,10 +249,16 @@ Ext.define('YSWeb.controller.Root', {
             },
             failure : function(response) {
                 var rsp = Ext.JSON.decode(response.responseText);
-                window.top.close();
+                
+                console.log('failure', rsp);
+
+                that.dgFlow = window.top.dgFlow || window.top.opener.top.dgFlow;
+                that.dgFlow.closeFlow();
+                
 
                 if(Paypal.ppWindow) {
                     myMask.hide();
+                    window.top.close();
                     Paypal.ppWindow.destroy();
                 }
 
