@@ -200,12 +200,22 @@ Ext.define('YSWeb.controller.Root', {
             status = 2;
         }
 
-        myMask = new Ext.LoadMask({
+        /*myMask = new Ext.LoadMask({
             msg    : 'Please wait...',
             target : Ext.getBody()
         });
 
-        myMask.show();
+        myMask.show();*/
+
+        that.dgFlow = window.top.dgFlow || window.top.opener.top.dgFlow;
+        that.dgFlow.closeFlow();
+        
+
+        if(Paypal.ppWindow) {
+            //myMask.hide();
+            window.top.close();
+            Paypal.ppWindow.destroy();
+        }
 
         Ext.Ajax.request({
             url     : YSConfig.url + '/application/payment/updateOrder',
@@ -219,15 +229,7 @@ Ext.define('YSWeb.controller.Root', {
                 
                 console.log('success', rsp);
 
-                that.dgFlow = window.top.dgFlow || window.top.opener.top.dgFlow;
-                that.dgFlow.closeFlow();
                 
-
-                if(Paypal.ppWindow) {
-                    myMask.hide();
-                    window.top.close();
-                    Paypal.ppWindow.destroy();
-                }
 
                 if(rsp.success == true) {
                     
@@ -251,16 +253,6 @@ Ext.define('YSWeb.controller.Root', {
                 var rsp = Ext.JSON.decode(response.responseText);
                 
                 console.log('failure', rsp);
-
-                that.dgFlow = window.top.dgFlow || window.top.opener.top.dgFlow;
-                that.dgFlow.closeFlow();
-                
-
-                if(Paypal.ppWindow) {
-                    myMask.hide();
-                    window.top.close();
-                    Paypal.ppWindow.destroy();
-                }
 
                 Ext.Msg.show({
                     title       : 'Item Purchase',
