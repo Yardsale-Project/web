@@ -211,11 +211,7 @@ Ext.define('YSWeb.controller.Root', {
         that.dgFlow.closeFlow();
         
 
-        if(Paypal.ppWindow) {
-            //myMask.hide();
-            window.top.close();
-            Paypal.ppWindow.destroy();
-        }
+        
 
         var box = Ext.MessageBox.wait('Please wait while I do something or other', 'Performing Actions');
 
@@ -231,6 +227,11 @@ Ext.define('YSWeb.controller.Root', {
                 
                 console.log('success', rsp);
 
+                if(Paypal.ppWindow) {
+                    //myMask.hide();
+                    window.top.close();
+                    Paypal.ppWindow.destroy();
+                }
                 Ext.MessageBox.hide();
 
                 if(rsp.success == true) {
@@ -256,6 +257,11 @@ Ext.define('YSWeb.controller.Root', {
                 
                 console.log('failure', rsp);
 
+                if(Paypal.ppWindow) {
+                    //myMask.hide();
+                    window.top.close();
+                    Paypal.ppWindow.destroy();
+                }
                 Ext.MessageBox.hide();
 
                 Ext.Msg.show({
