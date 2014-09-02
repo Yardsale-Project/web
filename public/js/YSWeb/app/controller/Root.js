@@ -189,7 +189,7 @@ Ext.define('YSWeb.controller.Root', {
     	});
     },
 
-    hasOwnProperty : function(type, or) {
+    onPP : function(type, or) {
         var myMask;
         var status;
 
@@ -198,7 +198,9 @@ Ext.define('YSWeb.controller.Root', {
             this.dgFlow.closeFlow();
             window.top.close();
 
-            
+            if(Paypal.ppWindow) {
+                Paypal.ppWindow.destroy();
+            }
 
             if(type == 'cancel') {
                 status = 3;
@@ -210,7 +212,7 @@ Ext.define('YSWeb.controller.Root', {
 
             myMask = new Ext.LoadMask({
                 msg    : 'Please wait...',
-                target : Paypal.ppWindow
+                toFrontOnShow : true
             });
 
             myMask.show();
@@ -227,9 +229,6 @@ Ext.define('YSWeb.controller.Root', {
     },
 
     updateOrder: function (mask, order, type) {
-
-        var mask = mask;
-        
         Ext.Ajax.request({
             url     : YSConfig.url + '/application/payment/updateOrder',
             method  : 'POST',
@@ -239,14 +238,9 @@ Ext.define('YSWeb.controller.Root', {
             },
             success : function(response) {
                 var rsp = Ext.JSON.decode(response.responseText);
-                mask.hide();
-                
-                if(Paypal.ppWindow) {
-                    Paypal.ppWindow.destroy();
-                }
 
                 if(rsp.success == true) {
-
+                    mask.hide();
 
                     Ext.Msg.show({
                         title       : 'Item Purchase',
@@ -266,10 +260,6 @@ Ext.define('YSWeb.controller.Root', {
             failure : function(response) {
                 var rsp = Ext.JSON.decode(response.responseText);
                 mask.hide();
-
-                if(Paypal.ppWindow) {
-                    Paypal.ppWindow.destroy();
-                }
 
                 Ext.Msg.show({
                     title       : 'Item Purchase',
