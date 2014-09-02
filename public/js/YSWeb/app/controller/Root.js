@@ -221,7 +221,7 @@ Ext.define('YSWeb.controller.Root', {
         } catch( err ) {
             Ext.Msg.show({
                 title       : 'Item Purchase',
-                msg         : 'Invalid request.',
+                msg         : 'Invalid request.' + err,
                 buttons     : Ext.MessageBox.OK,
                 icon        : Ext.MessageBox.ERROR
             });
