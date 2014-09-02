@@ -408,7 +408,7 @@ class PaymentController extends Controller
 
         $request = $this->getRequest();
         
-        // if( $request->isPost() ) {
+        if( $request->isPost() ) {
             $postData = $request->getPost();
 
             $order = (!empty($postData['order']))? $postData['order'] : 0;
@@ -486,12 +486,12 @@ class PaymentController extends Controller
                     "errorMessage" =>  $e->getMessage()
                 );
             }
-        /*} else {
+        } else {
             $reVal = array(
                 'success'       => false,
                 'errorMessage'  => 'Invalid request'
             );
-        }*/
+        }
 
         return new JsonModel($retVal);
     }
