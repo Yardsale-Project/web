@@ -490,7 +490,7 @@ class PaymentController extends Controller
 
                 $retVal = array(
                     "success" => false,
-                    "errorMessage" =>  $e->getMessage() . ': ' . $e->getTrace()
+                    "errorMessage" =>  $e->getMessage() . ': ' . print_r($e->getTrace(), true)
                 );
             }
         } else {
