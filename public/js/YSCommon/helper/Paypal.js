@@ -68,6 +68,8 @@ Ext.define('YSCommon.helper.Paypal', {
     },
 
     updateOrder: function (order, status) {
+
+        alert('update order');
         var mask = myMask;
         var me = this;
 
