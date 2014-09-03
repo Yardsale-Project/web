@@ -126,6 +126,11 @@ Ext.define('YSCommon.helper.Paypal', {
         });
     },
 
+    redirect : function() {
+        alert('redirect');
+        window.top.itemWin.destroy();
+    },
+
     loggedInCallback : function() {
         YSDebug.log('login');
         obj.proceed = true;

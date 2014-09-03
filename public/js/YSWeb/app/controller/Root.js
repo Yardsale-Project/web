@@ -200,11 +200,6 @@ Ext.define('YSWeb.controller.Root', {
         window.top.close();
         window.top.ppWindow.destroy();
         
-        
-        if(Paypal.ppWindow) {
-            Paypal.ppWindow.destroy();
-        }
-        
         /*setTimeout( function(){
             window.parent.location = window.parent.location + '/' + type + '/' + or;
         },100);*/

@@ -125,6 +125,8 @@ Ext.define('YSWeb.controller.Product', {
 
 	        animateTarget : 'product_' + itm[1]
 	    }).show();
+
+        window.itemWin = this.itemWin;
     },
 
     displayProductOrder : function(id, type, or) {
