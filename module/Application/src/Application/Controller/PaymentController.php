@@ -463,6 +463,7 @@ class PaymentController extends Controller
                                 'order.active' => 1
                             );
                             $items = $orderModel->getOrderItems($where);
+                            
                             $productModel = $this->model('Product');
 
                             foreach ($items as $item) {
@@ -490,7 +491,7 @@ class PaymentController extends Controller
 
                 $retVal = array(
                     "success" => false,
-                    "errorMessage" =>  $e->getMessage() . ': ' . print_r($e->getTrace(), true)
+                    "errorMessage" =>  $e->getMessage()
                 );
             }
         } else {

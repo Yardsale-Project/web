@@ -67,6 +67,8 @@ class Order extends Table
                         ->join('order_status', 'order_status.id = order.status', $order_status_fields)
                         ->where($where);
 
+        var_dump($select->getSqlString($this->_dbAdapter->getPlatform()));
+
         return $this->fetchAllToArray($select);
     }
 }
