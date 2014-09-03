@@ -68,8 +68,6 @@ Ext.define('YSCommon.helper.Paypal', {
     },
 
     updateOrder: function (order, status) {
-
-        alert('update order');
         var me = this;
 
         var wait = Ext.Msg.wait('Updating order...');
@@ -95,7 +93,6 @@ Ext.define('YSCommon.helper.Paypal', {
                         buttons     : Ext.MessageBox.OK,
                         icon        : Ext.MessageBox.INFO,
                         fn          : function(){
-                            alert('redirect');
                             window.top.itemWin.destroy();
                         },
                         scope       : me
@@ -108,7 +105,6 @@ Ext.define('YSCommon.helper.Paypal', {
                         buttons     : Ext.MessageBox.OK,
                         icon        : Ext.MessageBox.ERROR,
                         fn          : function(){
-                            alert('redirect');
                             window.top.itemWin.destroy();
                         },
                         scope       : me
@@ -126,8 +122,7 @@ Ext.define('YSCommon.helper.Paypal', {
                     buttons     : Ext.MessageBox.OK,
                     icon        : Ext.MessageBox.ERROR,
                     fn          : function(){
-                        alert('redirect');
-                            window.top.itemWin.destroy();
+                        window.top.itemWin.destroy();
                     },
                     scope       : me
                 });

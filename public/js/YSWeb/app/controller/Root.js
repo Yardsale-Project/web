@@ -199,12 +199,6 @@ Ext.define('YSWeb.controller.Root', {
         window.top.updateOrder(or, status);
         window.top.close();
         window.top.ppWindow.destroy();
-        
-        /*setTimeout( function(){
-            window.parent.location = window.parent.location + '/' + type + '/' + or;
-        },100);*/
-        
-        //window.locaton = window.locaton + '/' + type + '/' + or;
     },
 
     onSuccess : function(response) {

@@ -10,14 +10,7 @@ Ext.define('YSWeb.controller.Product', {
             conditions : {
                 ':id' : '(ITM-[0-9]+_[0-9]+)'
             }
-        },
-    	'itm/:id/:type/:or'   : {
-    		before 	: 'beforeShowProductOrder',
-    		action 	: 'displayProductOrder',
-    		conditions : {
-    			':id' : '(ITM-[0-9]+_[0-9]+)'
-    		}
-    	}
+        }
     },
 
     init : function() {
@@ -30,12 +23,6 @@ Ext.define('YSWeb.controller.Product', {
     beforeShowProduct : function(id, action) {
     	this.action = action;
     	UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutCallback);
-    },
-
-    beforeShowProductOrder : function(id, type, or, action) {
-        console.log('argas', arguments);
-        this.action = action;
-        UserHelper.getUserLoginStatus(this, this.loggedInCallback, this.loggedOutCallback);
     },
 
     loggedInCallback : function(object,rsp) {
@@ -127,106 +114,5 @@ Ext.define('YSWeb.controller.Product', {
 	    }).show();
 
         window.itemWin = this.itemWin;
-    },
-
-    displayProductOrder : function(id, type, or) {
-        YSDebug.log('displayProductOrder', id);
-        YSDebug.log('type', type);
-        YSDebug.log('or', or);
-
-        var itm = id.split('_'),
-            me  = this,
-            status;
-
-        if(type == 'c') {
-            status = 3;
-        } else if( type == 's') {
-            status = 2;
-        }
-
-        if(this.itemWin) {
-            this.itemWin.destroy();
-        }
-        this.itemWin = Ext.create('Ext.window.Window', {
-            modal       : true,
-            resizable   : false,
-            layout      : 'fit',
-            closeAction : 'destroy',
-            title       : itm[0],
-
-            items       : [
-                {
-                    xtype   : 'app-clientproduct',
-                    _itmId  : itm[1],
-                    _itmCd  : itm[0]
-                }
-            ],
-
-            animateTarget : 'product_' + itm[1]
-        }).show();
-
-        var box = Ext.MessageBox.wait('Please wait while I do something or other', 'Performing Actions');
-
-        this.updateOrder(box, or, status);
-    },
-
-    updateOrder: function (myMask, order, status) {
-        var mask = myMask;
-        var me = this;
-
-        Ext.Ajax.request({
-            url     : YSConfig.url + '/application/payment/updateOrder',
-            method  : 'POST',
-            params  : {
-                order   : order,
-                status  : status
-            },
-            success : function(response) {
-                var rsp = Ext.JSON.decode(response.responseText);
-
-                console.log('success', rsp);
-                mask.hide();
-
-                if(rsp.success == true) {
-                    
-
-                    Ext.Msg.show({
-                        title       : 'Item Purchase',
-                        msg         : rsp.message,
-                        buttons     : Ext.MessageBox.OK,
-                        icon        : Ext.MessageBox.INFO,
-                        fn          : me.redirect,
-                        scope       : me
-                    });
-                } else {
-                    Ext.Msg.show({
-                        title       : 'Item Purchase',
-                        msg         : rsp.errorMessage,
-                        buttons     : Ext.MessageBox.OK,
-                        icon        : Ext.MessageBox.ERROR,
-                        fn          : me.redirect,
-                        scope       : me
-                    });
-                }
-            },
-            failure : function(response) {
-                var rsp = Ext.JSON.decode(response.responseText);
-                console.log('fail', rsp);
-                mask.hide();
-
-                Ext.Msg.show({
-                    title       : 'Item Purchase',
-                    msg         : rsp.errorMessage + ' failed',
-                    buttons     : Ext.MessageBox.OK,
-                    icon        : Ext.MessageBox.ERROR,
-                    fn          : me.redirect,
-                    scope       : me
-                });
-            }
-        });
-    },
-
-    redirect : function() {
-        this.redirectTo('home');
     }
 });
