@@ -52,7 +52,7 @@ class Order extends Table
         );
 
         $order_payment_fields = array(
-            'order_payment'
+            'payment_type'
         );
 
         $order_status_fields = array(
@@ -66,8 +66,6 @@ class Order extends Table
                         ->join('order_payment', 'order_payment.order_id = order.id', $order_payment_fields)
                         ->join('order_status', 'order_status.id = order.status', $order_status_fields)
                         ->where($where);
-
-        var_dump($select->getSqlString($this->_dbAdapter->getPlatform()));
 
         return $this->fetchAllToArray($select);
     }
