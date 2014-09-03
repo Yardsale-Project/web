@@ -94,7 +94,10 @@ Ext.define('YSCommon.helper.Paypal', {
                         msg         : rsp.message,
                         buttons     : Ext.MessageBox.OK,
                         icon        : Ext.MessageBox.INFO,
-                        fn          : me.redirect,
+                        fn          : function(){
+                            alert('redirect');
+                            window.top.itemWin.destroy();
+                        },
                         scope       : me
                     });
                 } else {
@@ -104,7 +107,10 @@ Ext.define('YSCommon.helper.Paypal', {
                         msg         : rsp.errorMessage,
                         buttons     : Ext.MessageBox.OK,
                         icon        : Ext.MessageBox.ERROR,
-                        fn          : me.redirect,
+                        fn          : function(){
+                            alert('redirect');
+                            window.top.itemWin.destroy();
+                        },
                         scope       : me
                     });
                 }
@@ -119,7 +125,10 @@ Ext.define('YSCommon.helper.Paypal', {
                     msg         : rsp.errorMessage + ' failed',
                     buttons     : Ext.MessageBox.OK,
                     icon        : Ext.MessageBox.ERROR,
-                    fn          : me.redirect,
+                    fn          : function(){
+                        alert('redirect');
+                            window.top.itemWin.destroy();
+                    },
                     scope       : me
                 });
             }
