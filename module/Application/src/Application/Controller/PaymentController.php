@@ -463,7 +463,7 @@ class PaymentController extends Controller
                                 'order.active' => 1
                             );
                             $items = $orderModel->getOrderItems($where);
-
+                            var_dump($items);
                             $productModel = $this->model('Product');
 
                             foreach ($items as $item) {
