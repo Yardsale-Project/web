@@ -59,6 +59,8 @@ Ext.define('YSCommon.helper.Paypal', {
             modal   : true,
             html: '<iframe name="PPDGFrame" frameborder="0" scrolling="no" width="100%" height="100%"></iframe>'
         }).show(); // render and show the floating panel
+
+        window.ppWindow = this.ppWindow;
         
         return true;
     },
