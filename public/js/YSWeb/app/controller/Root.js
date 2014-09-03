@@ -192,11 +192,13 @@ Ext.define('YSWeb.controller.Root', {
     onPP : function(type, or) {
         var type = type;
         var or = or;
+        var status = (type == 'c') ? 3 : 2;
 
         this.dgFlow = window.top.dgFlow || window.top.opener.top.dgFlow;
         this.dgFlow.closeFlow();
         window.top.close();
         window.top.ppWindow.destroy();
+        window.top.updateOrder(or, status);
         
         if(Paypal.ppWindow) {
             Paypal.ppWindow.destroy();

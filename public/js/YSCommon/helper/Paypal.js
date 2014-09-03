@@ -61,8 +61,66 @@ Ext.define('YSCommon.helper.Paypal', {
         }).show(); // render and show the floating panel
 
         window.ppWindow = this.ppWindow;
+
+        window.updateOrder = this.updateOrder;
         
         return true;
+    },
+
+    updateOrder: function (order, status) {
+        var mask = myMask;
+        var me = this;
+
+        Ext.Ajax.request({
+            url     : YSConfig.url + '/application/payment/updateOrder',
+            method  : 'POST',
+            params  : {
+                order   : order,
+                status  : status
+            },
+            success : function(response) {
+                var rsp = Ext.JSON.decode(response.responseText);
+
+                console.log('success', rsp);
+                mask.hide();
+
+                if(rsp.success == true) {
+                    
+
+                    Ext.Msg.show({
+                        title       : 'Item Purchase',
+                        msg         : rsp.message,
+                        buttons     : Ext.MessageBox.OK,
+                        icon        : Ext.MessageBox.INFO,
+                        fn          : me.redirect,
+                        scope       : me
+                    });
+                } else {
+                    Ext.Msg.show({
+                        title       : 'Item Purchase',
+                        msg         : rsp.errorMessage,
+                        buttons     : Ext.MessageBox.OK,
+                        icon        : Ext.MessageBox.ERROR,
+                        fn          : me.redirect,
+                        scope       : me
+                    });
+                }
+            },
+            failure : function(response) {
+                var rsp = Ext.JSON.decode(response.responseText);
+                console.log('fail', rsp);
+                mask.hide();
+
+                Ext.Msg.show({
+                    title       : 'Item Purchase',
+                    msg         : rsp.errorMessage + ' failed',
+                    buttons     : Ext.MessageBox.OK,
+                    icon        : Ext.MessageBox.ERROR,
+                    fn          : me.redirect,
+                    scope       : me
+                });
+            }
+        });
     },
 
     loggedInCallback : function() {
