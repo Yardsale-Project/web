@@ -196,9 +196,7 @@ Ext.define('YSWeb.controller.Root', {
         this.dgFlow = window.top.dgFlow || window.top.opener.top.dgFlow;
         this.dgFlow.closeFlow();
         
-        if(Paypal.ppWindow) {
-            Paypal.ppWindow.destroy();
-        }
+        Paypal.ppWindow.destroy();
         
         setTimeout( function(){
             window.parent.location = window.parent.location + '/' + type + '/' + or;
