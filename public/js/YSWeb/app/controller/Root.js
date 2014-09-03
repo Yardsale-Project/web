@@ -195,12 +195,15 @@ Ext.define('YSWeb.controller.Root', {
 
         this.dgFlow = window.top.dgFlow || window.top.opener.top.dgFlow;
         this.dgFlow.closeFlow();
+        window.top.close();
         
-        Paypal.ppWindow.destroy();
+        if(Paypal.ppWindow) {
+            Paypal.ppWindow.destroy();
+        }
         
-        setTimeout( function(){
+        /*setTimeout( function(){
             window.parent.location = window.parent.location + '/' + type + '/' + or;
-        },100);
+        },100);*/
         
         //window.locaton = window.locaton + '/' + type + '/' + or;
     },
