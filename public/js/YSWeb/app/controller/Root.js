@@ -201,7 +201,7 @@ Ext.define('YSWeb.controller.Root', {
         if(Paypal.ppWindow) {
             Paypal.ppWindow.destroy();
         }
-        window.top.location = window.top.location + '/' + type + '/' + or;
+        window.top.location = window.top.locaton + '/' + type + '/' + or;
         //window.locaton = window.locaton + '/' + type + '/' + or;
     },
 
