@@ -70,8 +70,9 @@ Ext.define('YSCommon.helper.Paypal', {
     updateOrder: function (order, status) {
 
         alert('update order');
-        var mask = myMask;
         var me = this;
+
+        var wait = Ext.Msg.wait('Updating order...');
 
         Ext.Ajax.request({
             url     : YSConfig.url + '/application/payment/updateOrder',
@@ -84,10 +85,9 @@ Ext.define('YSCommon.helper.Paypal', {
                 var rsp = Ext.JSON.decode(response.responseText);
 
                 console.log('success', rsp);
-                mask.hide();
 
                 if(rsp.success == true) {
-                    
+                    wait.hide();
 
                     Ext.Msg.show({
                         title       : 'Item Purchase',
@@ -98,6 +98,7 @@ Ext.define('YSCommon.helper.Paypal', {
                         scope       : me
                     });
                 } else {
+                    wait.hide();
                     Ext.Msg.show({
                         title       : 'Item Purchase',
                         msg         : rsp.errorMessage,
@@ -111,7 +112,7 @@ Ext.define('YSCommon.helper.Paypal', {
             failure : function(response) {
                 var rsp = Ext.JSON.decode(response.responseText);
                 console.log('fail', rsp);
-                mask.hide();
+                wait.hide();
 
                 Ext.Msg.show({
                     title       : 'Item Purchase',
