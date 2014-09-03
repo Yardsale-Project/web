@@ -190,16 +190,23 @@ Ext.define('YSWeb.controller.Root', {
     },
 
     onPP : function(type, or) {
-
+        var type = type;
+        var or = or;
+        
         this.dgFlow = window.top.dgFlow || window.top.opener.top.dgFlow;
         this.dgFlow.closeFlow();
-
-        var url = (window.location != window.parent.location) ? document.referrer: document.location;
+        
+        window.close();
         window.top.close();
+        
         if(Paypal.ppWindow) {
             Paypal.ppWindow.destroy();
         }
-        window.top.location = window.top.location + '/' + type + '/' + or;
+        
+        setTimeout( function(){
+            window.parent.location = window.parent.location + '/' + type + '/' + or;
+        },3000);
+        
         //window.locaton = window.locaton + '/' + type + '/' + or;
     },
 
