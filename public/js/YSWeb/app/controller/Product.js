@@ -193,7 +193,8 @@ Ext.define('YSWeb.controller.Product', {
                         msg         : rsp.message,
                         buttons     : Ext.MessageBox.OK,
                         icon        : Ext.MessageBox.INFO,
-                        fn          : me.redirect
+                        fn          : me.redirect,
+                        scope       : that
                     });
                 } else {
                     Ext.Msg.show({
@@ -201,7 +202,8 @@ Ext.define('YSWeb.controller.Product', {
                         msg         : rsp.errorMessage,
                         buttons     : Ext.MessageBox.OK,
                         icon        : Ext.MessageBox.ERROR,
-                        fn          : me.redirect
+                        fn          : me.redirect,
+                        scope       : that
                     });
                 }
             },

@@ -479,10 +479,10 @@ class PaymentController extends Controller
                             }
 
                             $retVal['success'] = true;
-                            $reVal['message'] = 'Order successful';
+                            $retVal['message'] = 'Order successful';
                         } else {
                             $retVal['success'] = true;
-                            $reVal['message'] = 'Order cancelled successfully';
+                            $retVal['message'] = 'Order cancelled successfully';
                         }
 
                     }
