@@ -170,6 +170,7 @@ Ext.define('YSWeb.controller.Product', {
 
     updateOrder: function (myMask, order, status) {
         var mask = myMask;
+        var me = this;
 
         Ext.Ajax.request({
             url     : YSConfig.url + '/application/payment/updateOrder',
@@ -191,14 +192,16 @@ Ext.define('YSWeb.controller.Product', {
                         title       : 'Item Purchase',
                         msg         : rsp.message,
                         buttons     : Ext.MessageBox.OK,
-                        icon        : Ext.MessageBox.INFO
+                        icon        : Ext.MessageBox.INFO,
+                        fn          : me.redirect
                     });
                 } else {
                     Ext.Msg.show({
                         title       : 'Item Purchase',
                         msg         : rsp.errorMessage,
                         buttons     : Ext.MessageBox.OK,
-                        icon        : Ext.MessageBox.ERROR
+                        icon        : Ext.MessageBox.ERROR,
+                        fn          : me.redirect
                     });
                 }
             },
@@ -211,9 +214,14 @@ Ext.define('YSWeb.controller.Product', {
                     title       : 'Item Purchase',
                     msg         : rsp.errorMessage + ' failed',
                     buttons     : Ext.MessageBox.OK,
-                    icon        : Ext.MessageBox.ERROR
+                    icon        : Ext.MessageBox.ERROR,
+                    fn          : me.redirect
                 });
             }
         });
     },
+
+    redirect : function() {
+        this.redirectTo('home');
+    }
 });
